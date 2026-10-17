@@ -1,0 +1,14 @@
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/dsa
+        username: ${POSTGRES_USERNAME}
+        password: ${POSTGRES_PASSWORD}
+
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: false
+
+versioncontroller:
+    api: 
+        user-key: ${API_USER_TOKEN}

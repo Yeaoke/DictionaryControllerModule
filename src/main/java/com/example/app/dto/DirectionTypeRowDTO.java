@@ -1,4 +1,4 @@
-package com.example.app.batch.dto;
+package com.example.app.dto;
 
 public record DirectionTypeRowDTO(
     Long id,

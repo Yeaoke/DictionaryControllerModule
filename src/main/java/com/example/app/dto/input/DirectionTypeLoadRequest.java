@@ -1,5 +1,5 @@
 
-package com.example.app.batch.dto.input;
+package com.example.app.dto.input;
 
 public record DirectionTypeLoadRequest(
     Long userId,

@@ -1,13 +1,13 @@
-package com.example.app.conrollerversion;
+package com.example.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ConrollerversionApplication {
+public class DictionaryControllerVersionApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ConrollerversionApplication.class, args);
+		SpringApplication.run(DictionaryControllerVersionApplication.class, args);
 	}
 
 }

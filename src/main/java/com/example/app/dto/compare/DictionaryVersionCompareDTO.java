@@ -1,4 +1,4 @@
-package com.example.app.batch.dto.compare;
+package com.example.app.dto.compare;
 
 public record DictionaryVersionCompareDTO(
     String entityName,

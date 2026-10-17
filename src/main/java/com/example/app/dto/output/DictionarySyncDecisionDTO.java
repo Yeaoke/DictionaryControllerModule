@@ -1,5 +1,5 @@
 
-package com.example.app.batch.dto.output;
+package com.example.app.dto.output;
 
 public record DictionarySyncDecisionDTO(
     String entityName,
