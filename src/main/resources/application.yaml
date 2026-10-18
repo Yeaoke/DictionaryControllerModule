@@ -1,0 +1,15 @@
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/dsa
+        username: ${POSTGRES_USERNAME}
+        password: ${POSTGRES_PASSWORD}
+
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: false
+
+nsi:
+    minzdrav:
+        base-url: https://nsi.rosminzdrav.ru
+        user-key: ${NSI_USER_KEY}

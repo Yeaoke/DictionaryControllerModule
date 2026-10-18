@@ -28,5 +28,20 @@
     "name": "spring.jpa.hibernate.ddl-auto",
     "type": "java.lang.String",
     "description": "A description for 'spring.jpa.hibernate.ddl-auto'"
+  },
+  {
+    "name": "versioncontroller.user-key",
+    "type": "java.lang.String",
+    "description": "A description for 'versioncontroller.user-key'"
+  },
+  {
+    "name": "nsi.minzdrav.base-url",
+    "type": "java.lang.String",
+    "description": "A description for 'nsi.minzdrav.base-url'"
+  },
+  {
+    "name": "nsi.minzdrav.user-key",
+    "type": "java.lang.String",
+    "description": "A description for 'nsi.minzdrav.user-key'"
   }
 ]}
