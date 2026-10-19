@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.app.dictionary.dto.DictionarySyncDecisionDTO;
 import com.example.app.dictionary.dto.DictionaryVersionDTO;
-import com.example.app.dictionary.source.DictionarySource;
 import com.example.app.integration.nsi.services.NsiMzDictionaryService;
 import com.example.app.loading.models.DsaLoadedVersion;
 import com.example.app.loading.repos.DsaLoadedVersionRepository;
@@ -32,7 +31,7 @@ public class DictionaryVersionService {
     public DictionarySyncDecisionDTO checkDictionaryVersionForUpdate(String oid, String entityName) {
         DictionaryVersionDTO mzDto = nsiMzDictionaryService.getCurrentVersion(oid);
 
-        Optional<DsaLoadedVersion> loadedVersion = dsaLoadedVersionRepository.findByEntityName(entityName, DictionarySource.FOMS.getCode());
+        Optional<DsaLoadedVersion> loadedVersion = dsaLoadedVersionRepository.findByEntityName(entityName);
 
         String mzVersion = mzDto.version();
         String currentVersion = loadedVersion.map(DsaLoadedVersion::getVersion).orElse(null);

@@ -53,14 +53,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Selenium: only if browser automation is needed -->
-        <!--
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-        </dependency>
-        -->
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

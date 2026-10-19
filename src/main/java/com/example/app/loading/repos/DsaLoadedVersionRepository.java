@@ -8,6 +8,6 @@ import com.example.app.loading.models.DsaLoadedVersion;
 
 public interface DsaLoadedVersionRepository extends JpaRepository<DsaLoadedVersion, Long> {
 
-    Optional<DsaLoadedVersion> findByEntityName(String entityName, String dataSource);
+    Optional<DsaLoadedVersion> findByEntityName(String entityName);
 
 }
