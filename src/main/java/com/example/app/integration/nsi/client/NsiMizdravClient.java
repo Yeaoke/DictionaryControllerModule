@@ -1,4 +1,3 @@
-
 package com.example.app.integration.nsi.client;
 
 import java.time.Duration;

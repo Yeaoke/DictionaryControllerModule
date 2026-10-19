@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum DictionarySource {
-    MZ("mz"),
+    MZ("minzdrav"),
     FOMS("foms");
 
     private final String code;
