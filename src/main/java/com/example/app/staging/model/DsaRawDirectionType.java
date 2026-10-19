@@ -20,7 +20,6 @@ import jakarta.persistence.*;
 public class DsaRawDirectionType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(

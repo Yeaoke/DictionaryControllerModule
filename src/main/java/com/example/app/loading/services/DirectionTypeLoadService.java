@@ -16,16 +16,22 @@ public class DirectionTypeLoadService {
     }
 
     public void loadDirectionType(
-        String userKey,
+        Long userId,
         String version,
         String sourceUrl
     ) {
-        log.info("Loading data to direction_type");
+        if (userId == null) {
+            throw new IllegalArgumentException(
+                "ФОМС userId не должен быть null"
+            );
+        }
+        
         jdbcTemplate.update(
             "CALL dsa_data_load.load_direction_type(?, ?, ?)",
-            userKey,
+            userId,
             version,
             sourceUrl
         );
+        log.info("Процедура загрузка справочника завершена успешно для версии {}", version);
     }
 }

@@ -8,20 +8,26 @@ import com.example.app.integration.nsi.dto.NsiPassportResponse;
 import com.example.app.integration.nsi.mapper.DictionaryPassportMapper;
 
 @Service
-public class NsiDictionaryMzService {
+public class NsiMzDictionaryService {
     
     private final NsiMizdravClient client;
     private final DictionaryPassportMapper versionMapper;
 
-    public NsiDictionaryMzService(NsiMizdravClient client, DictionaryPassportMapper versionMapper) {
+    public NsiMzDictionaryService(NsiMizdravClient client, DictionaryPassportMapper versionMapper) {
         this.client = client;
         this.versionMapper = versionMapper;
     }
 
     public DictionaryVersionDTO getCurrentVersion(String oid) {
         NsiPassportResponse passport = client.getPassport(oid);
+        DictionaryVersionDTO result = versionMapper.toDtoMzData(passport);
 
-        return versionMapper.toDtoMzData(passport);
+        if (!oid.equals(result.oid())) {
+            throw new IllegalStateException(
+                "Минздрав вернул паспорт другого справочника"
+            );
+        }
+
+        return result;
     }
-
 }
