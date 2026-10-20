@@ -29,6 +29,18 @@ public class DictionaryVersionService {
         String oid,
         String entityName
     ) {
+        if (oid == null || oid.isBlank()) {
+            throw new IllegalArgumentException(
+                "OID справочника обязателен"
+            );
+        }
+        
+        if (entityName == null || entityName.isBlank()) {
+            throw new IllegalArgumentException(
+                "Имя справочника обязательное"
+            );
+        }
+
         DictionaryVersionDTO mzDto = nsiMzDictionaryService.getCurrentVersion(oid);
 
         String sourceVersion = mzDto.version();

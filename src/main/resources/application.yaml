@@ -5,6 +5,7 @@ spring:
         password: ${POSTGRES_PASSWORD}
 
     flyway:
+        locations: classpath::db/migrations
         default-schema: data
         schemas: data
         baseline-on-migrate: false

@@ -1,6 +1,7 @@
 package com.example.app.integration.nsi.client;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -64,8 +65,21 @@ public class NsiMizdravClient {
         Integer page,
         Integer size,
         String sorting,
-        String sortingDirection
+        String sortingDirection,
+        String[] filters,
+        String[] columns 
     ) {
+        
+        validateFilters(filters);
+
+        validateColumns(columns);
+
+        if (columns == null || columns.length <= 0) {
+            throw new IllegalArgumentException(
+                ""
+            );
+        }
+
         if (page != null && page < 0) {
             throw new IllegalArgumentException(
                 "Номер страницы не должен быть отрицательным"
@@ -114,6 +128,14 @@ public class NsiMizdravClient {
 
                             if (sortingDirection != null && !sortingDirection.isBlank()) {
                                 builder.queryParam("sortingDirection", validatedDirection);
+                            }
+
+                            if (filters != null && filters.length > 0) {
+                                builder.queryParam("filters", Arrays.asList(filters));
+                            }
+
+                            if (columns != null && columns.length > 0) {
+                                builder.queryParam("columns", Arrays.asList(columns));
                             }
 
                             return builder.build();
@@ -220,5 +242,57 @@ public class NsiMizdravClient {
         }
 
         return false;
+    }
+    
+    private void validateFilters(String[] filters) {
+        if (filters == null) {
+            return;
+        }
+
+        for (String filter : filters) {
+            if (filter == null || filter.isBlank()) {
+                throw new IllegalArgumentException(
+                    "Фильтр не должен быть null или пустым"
+                );
+            }
+
+            String[] parts = filter.split("\\|", -1);
+
+            if (parts.length != 2 && parts.length != 3) {
+                throw new IllegalArgumentException(
+                    "Формат фильтра: FIELD|VALUE или FIELD|VALUE|TYPE"
+                );
+            }
+
+            if (parts[0].isBlank()) {
+                throw new IllegalArgumentException(
+                    "В фильтре необходимо указать FIELD"
+                );
+            }
+
+            if (parts.length == 3
+                && !"EXACT".equals(parts[2])
+                && !"LIKE".equals(parts[2])) {
+
+                throw new IllegalArgumentException(
+                    "TYPE должен быть EXACT или LIKE. "
+                        + "Для поиска по умолчанию передай FIELD|VALUE"
+                );
+            }
+        }
+    }
+
+    private void validateColumns(String[] columns) {
+        if (columns == null) {
+            return;
+        }
+
+        for (String column : columns) {
+            if (column == null || column.isBlank()) {
+                throw new IllegalArgumentException(
+                    "Название столбца не должно быть null или пустым"
+                );
+            }
+        }
     }
 }

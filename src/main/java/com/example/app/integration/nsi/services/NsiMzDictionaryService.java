@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.example.app.dictionary.dto.DictionaryVersionDTO;
 import com.example.app.integration.nsi.client.NsiMizdravClient;
 import com.example.app.integration.nsi.dto.NsiPassportResponse;
-import com.example.app.integration.nsi.exceptions.APIError;
+import com.example.app.integration.nsi.exceptions.ApiError;
 import com.example.app.integration.nsi.mapper.DictionaryPassportMapper;
 
 @Service
@@ -22,11 +22,17 @@ public class NsiMzDictionaryService {
     public DictionaryVersionDTO getCurrentVersion(String oid) {
         NsiPassportResponse passport = client.getPassport(oid);
 
-        if (!passport.result().equals("OK")) {
-            throw new APIError(
-                "API request failed with code - " + passport.result()
-            );
-        }
+            if (passport == null) {
+                throw new ApiError("НСИ вернул пустой паспорт для OID: " + oid);
+            }
+
+            if (!"OK".equals(passport.result())) {
+                throw new ApiError(
+                    "Ошибка получения паспорта: result=" + passport.result()
+                        + ", resultCode=" + passport.resultCode()
+                        + ", resultText=" + passport.resultText()
+                );
+            }
 
         DictionaryVersionDTO result = versionMapper.toDtoMzData(passport);
 

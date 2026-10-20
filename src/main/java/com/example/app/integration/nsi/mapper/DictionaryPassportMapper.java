@@ -9,21 +9,22 @@ import com.example.app.integration.nsi.dto.NsiPassportResponse;
 @Component
 public class DictionaryPassportMapper {
     
-    public DictionaryVersionDTO toDtoMzData(
-        NsiPassportResponse passport
-    ) {
-        if (passport == null || passport.oid() == null || passport.fullName() == null || passport.version() == null) {
-            throw new IllegalArgumentException(
-                "Справочник должен содержать определенные данные: oid, version, fullname"
-            );
-        }
-        
-        return new DictionaryVersionDTO(
-            passport.oid(),
-            passport.fullName(),
-            passport.version(),
-            DictionarySource.MZ.getCode()
+    public DictionaryVersionDTO toDtoMzData(NsiPassportResponse passport) {
+    if (passport == null || passport.oid() == null || passport.oid().isBlank()
+        || passport.fullName() == null || passport.fullName().isBlank()
+        || passport.version() == null || passport.version().isBlank()) {
+
+        throw new IllegalArgumentException(
+            "Паспорт должен содержать непустые oid, fullName и version"
         );
     }
+
+    return new DictionaryVersionDTO(
+        passport.oid(),
+        passport.fullName(),
+        passport.version(),
+        DictionarySource.MZ.getCode()
+    );
+}
 
 }
