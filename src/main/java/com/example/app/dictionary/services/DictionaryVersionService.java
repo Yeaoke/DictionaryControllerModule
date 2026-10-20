@@ -1,67 +1,66 @@
 package com.example.app.dictionary.services;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import com.example.app.dictionary.dto.DictionarySyncDecisionDTO;
 import com.example.app.dictionary.dto.DictionaryVersionDTO;
 import com.example.app.integration.nsi.services.NsiMzDictionaryService;
-import com.example.app.loading.models.DsaLoadedVersion;
-import com.example.app.loading.repos.DsaLoadedVersionRepository;
+import com.example.app.loading.repos.LoadedVersionJdbcRepository;
 
 @Service
 public class DictionaryVersionService {
-    
+
     private static final String SAME_VERSIONS = "Версии одинаковые";
-    private static final String NOT_FOUND_SOURCE_VERSION = "Нет данных об этом справочнике";
+    private static final String NOT_LOADED = "Справочник ещё не загружен";
     private static final String DIFFERENT_VERSIONS = "Версии различаются";
 
-    private final DsaLoadedVersionRepository dsaLoadedVersionRepository;
+    private final LoadedVersionJdbcRepository loadedVersionRepository;
     private final NsiMzDictionaryService nsiMzDictionaryService;
 
     public DictionaryVersionService(
-        DsaLoadedVersionRepository dsaLoadedVersionRepository,
+        LoadedVersionJdbcRepository loadedVersionRepository,
         NsiMzDictionaryService nsiMzDictionaryService
     ) {
-        this.dsaLoadedVersionRepository = dsaLoadedVersionRepository;
+        this.loadedVersionRepository = loadedVersionRepository;
         this.nsiMzDictionaryService = nsiMzDictionaryService;
     }
-    
-    public DictionarySyncDecisionDTO checkDictionaryVersionForUpdate(String oid, String entityName) {
+
+    public DictionarySyncDecisionDTO checkDictionaryVersionForUpdate(
+        String oid,
+        String entityName
+    ) {
         DictionaryVersionDTO mzDto = nsiMzDictionaryService.getCurrentVersion(oid);
 
-        Optional<DsaLoadedVersion> loadedVersion = dsaLoadedVersionRepository.findByEntityName(entityName);
+        String sourceVersion = mzDto.version();
 
-        String mzVersion = mzDto.version();
-        String currentVersion = loadedVersion.map(DsaLoadedVersion::getVersion).orElse(null);
+        if (sourceVersion == null || sourceVersion.isBlank()) {
+            throw new IllegalStateException(
+                "Минздрав не вернул версию справочника: " + oid
+            );
+        }
+
+        String currentVersion = loadedVersionRepository
+            .findVersionByEntityName(entityName)
+            .orElse(null);
 
         if (currentVersion == null) {
             return new DictionarySyncDecisionDTO(
                 entityName,
                 null,
-                mzVersion,
+                sourceVersion,
                 true,
-                NOT_FOUND_SOURCE_VERSION
+                NOT_LOADED
             );
         }
 
-        if (mzVersion.equals(currentVersion)) {
-            return new DictionarySyncDecisionDTO(
-                entityName,
-                currentVersion,
-                mzVersion,
-                false,
-                SAME_VERSIONS
-            );
-        }
+        boolean updateRequired = !sourceVersion.equals(currentVersion);
 
         return new DictionarySyncDecisionDTO(
-                entityName,
-                currentVersion,
-                mzVersion,
-                true,
-                DIFFERENT_VERSIONS
-            );
+            entityName,
+            currentVersion,
+            sourceVersion,
+            updateRequired,
+            updateRequired ? DIFFERENT_VERSIONS : SAME_VERSIONS
+        );
     }
 }

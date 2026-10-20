@@ -1,13 +1,19 @@
 spring:
     datasource:
-        url: jdbc:postgresql://localhost:5432/dsa
+        url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/dsa}
         username: ${POSTGRES_USERNAME}
         password: ${POSTGRES_PASSWORD}
 
-    jpa:
-        hibernate:
-            ddl-auto: update
-        show-sql: false
+    flyway:
+        default-schema: data
+        schemas: data
+        baseline-on-migrate: false
+
+    batch:
+        job:
+            enabled: false
+        jdbc:
+            initialize-schema: never
 
 nsi:
     minzdrav:
