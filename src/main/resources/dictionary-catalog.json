@@ -1,0 +1,2689 @@
+[
+  {
+    "name": "ambulance_call_order",
+    "oid": "1.2.643.5.1.13.13.11.1525",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "Id"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "Name"
+      }
+    ]
+  },
+  {
+    "name": "ambulance_team_type",
+    "oid": "1.2.643.5.1.13.13.99.2.1076",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "PARENT_ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "form_30_code",
+        "type": "text",
+        "source": "FORM_30"
+      }
+    ]
+  },
+  {
+    "name": "anatomical_location",
+    "oid": "1.2.643.5.1.13.13.11.1477",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "ID_PARENT"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "english_name",
+        "type": "text",
+        "source": "NAME_ENG"
+      },
+      {
+        "target": "snomed_code",
+        "type": "text",
+        "source": "SNOMED_CT"
+      },
+      {
+        "target": "anatomical_region",
+        "type": "text",
+        "source": "ANATOMIC_FIELD"
+      },
+      {
+        "target": "laterality",
+        "type": "text",
+        "source": "LATERALITY"
+      },
+      {
+        "target": "synonyms",
+        "type": "text",
+        "source": "SYNONYMS"
+      }
+    ]
+  },
+  {
+    "name": "anesthesia_type",
+    "oid": "1.2.643.5.1.13.13.11.1033",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "Parent"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "Name"
+      },
+      {
+        "target": "anesthesia_group",
+        "type": "text",
+        "source": "Group"
+      },
+      {
+        "target": "synonyms",
+        "type": "text",
+        "source": "Synonym"
+      },
+      {
+        "target": "source_order",
+        "type": "text",
+        "source": "SORT"
+      }
+    ]
+  },
+  {
+    "name": "bacterium",
+    "oid": "1.2.643.5.1.13.13.11.1087",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "ID_PARENT"
+      },
+      {
+        "target": "hierarchy_level",
+        "type": "integer",
+        "source": "LEVEL"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "FULLNAME"
+      },
+      {
+        "target": "formatted_name",
+        "type": "text",
+        "source": "FORMATNAME"
+      },
+      {
+        "target": "child_count",
+        "type": "integer",
+        "source": "CHILDCOUNT"
+      },
+      {
+        "target": "synonyms",
+        "type": "text",
+        "source": "SYNONIMS"
+      },
+      {
+        "target": "snomed_code",
+        "type": "text",
+        "source": "SNOMED"
+      },
+      {
+        "target": "ncbi_id",
+        "type": "bigint",
+        "source": "ID_NCBI"
+      },
+      {
+        "target": "gram",
+        "type": "text",
+        "source": "GRAM"
+      },
+      {
+        "target": "human",
+        "type": "boolean",
+        "source": "HUMAN"
+      },
+      {
+        "target": "display_order",
+        "type": "numeric(10)",
+        "source": "SORT"
+      }
+    ]
+  },
+  {
+    "name": "bed_profile",
+    "oid": "1.2.643.5.1.13.13.11.1069",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "PID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "age_group",
+        "type": "integer",
+        "source": "AgeGROUP"
+      },
+      {
+        "target": "relevance",
+        "type": "integer",
+        "source": "REL"
+      },
+      {
+        "target": "abolished_at",
+        "type": "timestamp without time zone",
+        "source": "DATEOUT"
+      },
+      {
+        "target": "form_30_code",
+        "type": "text",
+        "source": "F30"
+      },
+      {
+        "target": "section_code",
+        "type": "varchar(1)",
+        "source": "RAZDEL"
+      },
+      {
+        "target": "display_order",
+        "type": "numeric(10)",
+        "source": "SORT"
+      }
+    ]
+  },
+  {
+    "name": "biopsy_collection_method",
+    "oid": "1.2.643.5.1.13.13.99.2.33",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      }
+    ]
+  },
+  {
+    "name": "biopsy_complexity_category",
+    "oid": "1.2.643.5.1.13.13.11.1549",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "Id"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "Name"
+      },
+      {
+        "target": "description",
+        "type": "text",
+        "source": "Description"
+      }
+    ]
+  },
+  {
+    "name": "clinical_scale_parameter",
+    "oid": "1.2.643.5.1.13.13.11.1515",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "PARENT_ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "vital_parameter_id",
+        "type": "bigint",
+        "source": "VITAL_PARAMETER"
+      },
+      {
+        "target": "point",
+        "type": "text",
+        "source": "POINT"
+      },
+      {
+        "target": "interpretation_group_code",
+        "type": "bigint",
+        "source": "ID_INTERPRETATION"
+      },
+      {
+        "target": "grouping_scale",
+        "type": "integer",
+        "source": "GROUPING_SCALE"
+      }
+    ]
+  },
+  {
+    "name": "contraindication_or_refusal",
+    "oid": "1.2.643.5.1.13.13.99.2.786",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "PARENT_ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "CONTRAINDICATION_OR_REFUSAL"
+      }
+    ]
+  },
+  {
+    "name": "disease_nature",
+    "oid": "1.2.643.5.1.13.13.11.1049",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "form_025_1u_code",
+        "type": "integer",
+        "source": "F_025-1u"
+      }
+    ]
+  },
+  {
+    "name": "disability_group",
+    "oid": "1.2.643.5.1.13.13.11.1053",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "snomed_code",
+        "type": "text",
+        "source": "SCTID"
+      }
+    ]
+  },
+  {
+    "name": "disease_outcome",
+    "oid": "1.2.643.5.1.13.13.11.1491",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "CODE"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "oms_outcome_code",
+        "type": "text",
+        "source": "IDIZ"
+      }
+    ]
+  },
+  {
+    "name": "dispensary_observation_end_reason",
+    "oid": "1.2.643.5.1.13.13.11.1045",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "PARENT_ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "normative_id",
+        "type": "bigint",
+        "source": "NPA"
+      },
+      {
+        "target": "display_order",
+        "type": "numeric(10)",
+        "source": "SORT"
+      }
+    ]
+  },
+  {
+    "name": "dispensary_observation_status",
+    "oid": "1.2.643.5.1.13.13.11.1047",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      }
+    ]
+  },
+  {
+    "name": "drug_administration_route",
+    "oid": "1.2.643.5.1.13.13.11.1468",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "PARENT"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME_RUS"
+      },
+      {
+        "target": "english_name",
+        "type": "text",
+        "source": "NAME_ENG"
+      },
+      {
+        "target": "eec_dictionary_code",
+        "type": "text",
+        "source": "NSI_CODE_EEC"
+      },
+      {
+        "target": "eec_element_code",
+        "type": "text",
+        "source": "NSI_ELEMENT_CODE_EEC"
+      }
+    ]
+  },
+  {
+    "name": "foms_bill_type",
+    "oid": "1.2.643.5.1.13.13.99.3.42",
+    "keys": [
+      "code",
+      "region_okato_code"
+    ],
+    "columns": [
+      {
+        "target": "code",
+        "type": "text",
+        "source": "billcod"
+      },
+      {
+        "target": "region_okato_code",
+        "type": "text",
+        "source": "tf_okato"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "bill_namp"
+      },
+      {
+        "target": "short_name",
+        "type": "text",
+        "source": "bill_namk"
+      },
+      {
+        "target": "payer_org_type",
+        "type": "text",
+        "source": "orgType"
+      },
+      {
+        "target": "funding_source",
+        "type": "text",
+        "source": "IS_PAY"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "datebeg"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "dateend"
+      }
+    ]
+  },
+  {
+    "name": "foms_classification_criterion",
+    "oid": "1.2.643.5.1.13.13.99.3.6",
+    "keys": [
+      "code",
+      "valid_from"
+    ],
+    "columns": [
+      {
+        "target": "code",
+        "type": "text",
+        "source": "IDDKK"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "DKKNAME"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_clinical_statistical_group",
+    "oid": "1.2.643.5.1.13.13.99.3.5",
+    "keys": [
+      "code",
+      "care_condition_code",
+      "valid_from"
+    ],
+    "columns": [
+      {
+        "target": "code",
+        "type": "text",
+        "source": "K_KSG"
+      },
+      {
+        "target": "care_condition_code",
+        "type": "text",
+        "source": "IDUMP"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "N_KSG"
+      },
+      {
+        "target": "cost_coefficient",
+        "type": "text",
+        "source": "KOEF_Z"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_consilium_purpose",
+    "oid": "1.2.643.5.1.13.13.99.3.55",
+    "keys": [
+      "id",
+      "valid_from"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "text",
+        "source": "ID_CONS"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "CONS_NAME"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_control_type",
+    "oid": "1.2.643.5.1.13.13.99.3.32",
+    "keys": [
+      "id",
+      "valid_from"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "IDVID"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "VIDNAME"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_diagnostic_method",
+    "oid": "1.2.643.5.1.13.13.99.3.47",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "IDMET"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "N_MET"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_dispanserization_type",
+    "oid": "1.2.643.5.1.13.13.99.3.3",
+    "keys": [
+      "id",
+      "valid_from"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "text",
+        "source": "IDDT"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "DTNAME"
+      },
+      {
+        "target": "allowed_results",
+        "type": "text",
+        "source": "DTRULE"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_drug_therapy_medication",
+    "oid": "1.2.643.5.1.13.13.99.3.56",
+    "keys": [
+      "id",
+      "valid_from"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "text",
+        "source": "ID_LEKP"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "MNN"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_histological_result",
+    "oid": "1.2.643.5.1.13.13.99.3.52",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID_R_M"
+      },
+      {
+        "target": "histological_sign_code",
+        "type": "text",
+        "source": "ID_Mrf"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "R_M_NAME"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_histological_sign",
+    "oid": "1.2.643.5.1.13.13.99.3.51",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID_Mrf"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "Mrf_NAME"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_marker_value",
+    "oid": "1.2.643.5.1.13.13.99.3.60",
+    "keys": [
+      "id",
+      "valid_from"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID_R_I"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "code",
+        "type": "text",
+        "source": "KOD_R_I"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "R_I_NAME"
+      },
+      {
+        "target": "marker_id",
+        "type": "bigint",
+        "source": "ID_Igh"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_marker",
+    "oid": "1.2.643.5.1.13.13.99.3.59",
+    "keys": [
+      "id",
+      "valid_from"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID_Igh"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "code",
+        "type": "text",
+        "source": "KOD_Igh"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "Igh_NAME"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_medical_organization",
+    "oid": "1.2.643.5.1.13.13.99.3.2",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "text",
+        "source": "UIDMO"
+      },
+      {
+        "target": "parent_uidmo",
+        "type": "text",
+        "source": "PARENT_UIDMO"
+      },
+      {
+        "target": "registry_number",
+        "type": "text",
+        "source": "IDMO"
+      },
+      {
+        "target": "parent_registry_number",
+        "type": "text",
+        "source": "PARENT_IDMO"
+      },
+      {
+        "target": "medical_org_code",
+        "type": "text",
+        "source": "MCOD"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAM_MOP"
+      },
+      {
+        "target": "short_name",
+        "type": "text",
+        "source": "NAM_MOK"
+      },
+      {
+        "target": "separate_unit_flag",
+        "type": "text",
+        "source": "OSP"
+      },
+      {
+        "target": "medical_org_type",
+        "type": "text",
+        "source": "VID_MO"
+      },
+      {
+        "target": "departmental_affiliation",
+        "type": "text",
+        "source": "VEDPRI"
+      },
+      {
+        "target": "ownership_code",
+        "type": "text",
+        "source": "OKFS"
+      },
+      {
+        "target": "inn",
+        "type": "text",
+        "source": "INN"
+      },
+      {
+        "target": "kpp",
+        "type": "text",
+        "source": "KPP"
+      },
+      {
+        "target": "ogrn",
+        "type": "text",
+        "source": "OGRN"
+      },
+      {
+        "target": "organization_oid",
+        "type": "text",
+        "source": "OID_MO"
+      },
+      {
+        "target": "subdivision_oid",
+        "type": "text",
+        "source": "OID_SPMO"
+      },
+      {
+        "target": "region_name",
+        "type": "text",
+        "source": "SUBJ"
+      },
+      {
+        "target": "region_oktmo_code",
+        "type": "text",
+        "source": "OKTMO_P"
+      },
+      {
+        "target": "gar_address_id",
+        "type": "text",
+        "source": "GAR_ADDRESS"
+      },
+      {
+        "target": "legal_address",
+        "type": "text",
+        "source": "JURADDRESS_ADDRESS"
+      },
+      {
+        "target": "legal_postal_code",
+        "type": "text",
+        "source": "JURADDRESS_INDEX"
+      },
+      {
+        "target": "email",
+        "type": "text",
+        "source": "EMAIL"
+      },
+      {
+        "target": "phone",
+        "type": "text",
+        "source": "PHONE"
+      },
+      {
+        "target": "fax",
+        "type": "text",
+        "source": "FAX"
+      },
+      {
+        "target": "oms_started_at",
+        "type": "timestamp without time zone",
+        "source": "D_BEGIN_OMS"
+      },
+      {
+        "target": "registry_included_at",
+        "type": "timestamp without time zone",
+        "source": "D_BEGIN"
+      },
+      {
+        "target": "registry_excluded_at",
+        "type": "timestamp without time zone",
+        "source": "D_END"
+      },
+      {
+        "target": "exclusion_reason",
+        "type": "text",
+        "source": "NAME_E"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_medical_quality_expert",
+    "oid": "1.2.643.5.1.13.13.99.3.41",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "text",
+        "source": "UIDEKMP"
+      },
+      {
+        "target": "registry_number",
+        "type": "text",
+        "source": "IDEKMP"
+      },
+      {
+        "target": "legacy_expert_code",
+        "type": "text",
+        "source": "N_EXPERT"
+      },
+      {
+        "target": "region_oktmo_code",
+        "type": "text",
+        "source": "OKTMO_P"
+      },
+      {
+        "target": "region_name",
+        "type": "text",
+        "source": "SUBJ"
+      },
+      {
+        "target": "work_phone",
+        "type": "text",
+        "source": "WORKPHONE"
+      },
+      {
+        "target": "mobile_phone",
+        "type": "text",
+        "source": "MOBILEPHONE"
+      },
+      {
+        "target": "email",
+        "type": "text",
+        "source": "EMAIL"
+      },
+      {
+        "target": "registry_created_at",
+        "type": "timestamp without time zone",
+        "source": "D_BEGIN"
+      },
+      {
+        "target": "registry_excluded_at",
+        "type": "timestamp without time zone",
+        "source": "D_END"
+      },
+      {
+        "target": "exclusion_reason",
+        "type": "text",
+        "source": "NAME_E"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_payment_method",
+    "oid": "1.2.643.5.1.13.13.99.3.17",
+    "keys": [
+      "id",
+      "valid_from"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "IDSP"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "name",
+        "type": "varchar(254)",
+        "source": "SPNAME"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_payment_organization_details",
+    "oid": "1.2.643.5.1.13.13.99.3.43",
+    "keys": [
+      "bill_type_code",
+      "organization_code",
+      "region_okato_code"
+    ],
+    "columns": [
+      {
+        "target": "bill_type_code",
+        "type": "text",
+        "source": "billcod"
+      },
+      {
+        "target": "organization_code",
+        "type": "bigint",
+        "source": "orgcod"
+      },
+      {
+        "target": "region_okato_code",
+        "type": "text",
+        "source": "tf_okato"
+      },
+      {
+        "target": "source_record_id",
+        "type": "bigint",
+        "source": "idzap"
+      },
+      {
+        "target": "inn",
+        "type": "text",
+        "source": "inn"
+      },
+      {
+        "target": "kpp",
+        "type": "text",
+        "source": "kpp"
+      },
+      {
+        "target": "account_type",
+        "type": "text",
+        "source": "accounttype"
+      },
+      {
+        "target": "account_number",
+        "type": "text",
+        "source": "accountnum"
+      },
+      {
+        "target": "correspondent_account",
+        "type": "text",
+        "source": "corraccount"
+      },
+      {
+        "target": "bank_name",
+        "type": "text",
+        "source": "bankname"
+      },
+      {
+        "target": "bank_bik",
+        "type": "text",
+        "source": "bankbik"
+      },
+      {
+        "target": "tofk_code",
+        "type": "text",
+        "source": "tofk_code"
+      },
+      {
+        "target": "tofk_name",
+        "type": "text",
+        "source": "tofk_name"
+      },
+      {
+        "target": "tofk_bik",
+        "type": "text",
+        "source": "tofk_bik"
+      },
+      {
+        "target": "treasury_single_account",
+        "type": "text",
+        "source": "sta_character"
+      },
+      {
+        "target": "financial_agency_name",
+        "type": "text",
+        "source": "name_agency"
+      },
+      {
+        "target": "personal_account",
+        "type": "text",
+        "source": "personal_account"
+      },
+      {
+        "target": "personal_account_purpose",
+        "type": "text",
+        "source": "function_personal_account"
+      },
+      {
+        "target": "personal_account_tofk_code",
+        "type": "text",
+        "source": "code_tofk"
+      },
+      {
+        "target": "income_admin_name",
+        "type": "text",
+        "source": "name_income_admin"
+      },
+      {
+        "target": "income_admin_inn",
+        "type": "text",
+        "source": "inn_income_admin"
+      },
+      {
+        "target": "income_admin_kpp",
+        "type": "text",
+        "source": "kpp_income_admin"
+      },
+      {
+        "target": "personal_account_income_admin",
+        "type": "boolean",
+        "source": "personal_account_income_admin"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "datebeg"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "dateend"
+      }
+    ]
+  },
+  {
+    "name": "foms_payment_organization",
+    "oid": "1.2.643.5.1.13.13.99.3.1",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "text",
+        "source": "orgcod"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "nam_orgp"
+      },
+      {
+        "target": "short_name",
+        "type": "text",
+        "source": "nam_orgk"
+      },
+      {
+        "target": "organization_type",
+        "type": "text",
+        "source": "orgtype"
+      },
+      {
+        "target": "territorial_fund_code",
+        "type": "text",
+        "source": "tf_kod"
+      },
+      {
+        "target": "smo_code",
+        "type": "text",
+        "source": "smocod"
+      },
+      {
+        "target": "region_okato_code",
+        "type": "text",
+        "source": "tf_okato"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "datebeg"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "dateend"
+      }
+    ]
+  },
+  {
+    "name": "foms_payment_refusal_reason",
+    "oid": "1.2.643.5.1.13.13.99.3.11",
+    "keys": [
+      "code",
+      "name",
+      "valid_from"
+    ],
+    "columns": [
+      {
+        "target": "code",
+        "type": "bigint",
+        "source": "Kod"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "Naim"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "refusal_basis",
+        "type": "text",
+        "source": "Osn"
+      },
+      {
+        "target": "service_comment",
+        "type": "text",
+        "source": "Komment"
+      },
+      {
+        "target": "control_type_code",
+        "type": "integer",
+        "source": "IDVID"
+      },
+      {
+        "target": "penalty_coefficient",
+        "type": "text",
+        "source": "K_SH"
+      },
+      {
+        "target": "nonpayment_coefficient",
+        "type": "text",
+        "source": "K_NO"
+      },
+      {
+        "target": "form_pg_code",
+        "type": "text",
+        "source": "KodPG"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_surgical_treatment_type",
+    "oid": "1.2.643.5.1.13.13.99.3.48",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID_THir"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "THir_NAME"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "foms_treatment_type",
+    "oid": "1.2.643.5.1.13.13.99.3.54",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID_TLech"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "TLech_NAME"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATEBEG"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATEEND"
+      }
+    ]
+  },
+  {
+    "name": "high_tech_medical_care_type",
+    "oid": "1.2.643.5.1.13.13.11.1493",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "name_id",
+        "type": "bigint",
+        "source": "ID_NAME"
+      },
+      {
+        "target": "profile_id",
+        "type": "bigint",
+        "source": "ID_PROFILE"
+      },
+      {
+        "target": "profile_name",
+        "type": "text",
+        "source": "PROFILE"
+      },
+      {
+        "target": "icd10_code",
+        "type": "text",
+        "source": "ICD_10"
+      },
+      {
+        "target": "patient_model_id",
+        "type": "bigint",
+        "source": "ID_MODEL"
+      },
+      {
+        "target": "patient_model",
+        "type": "text",
+        "source": "MODEL"
+      },
+      {
+        "target": "treatment_type_id",
+        "type": "bigint",
+        "source": "ID_TREATMENT"
+      },
+      {
+        "target": "treatment_type",
+        "type": "text",
+        "source": "TREATMENT"
+      },
+      {
+        "target": "treatment_method_id",
+        "type": "bigint",
+        "source": "ID_METHOD"
+      },
+      {
+        "target": "treatment_method",
+        "type": "text",
+        "source": "METHOD"
+      },
+      {
+        "target": "vmp_group",
+        "type": "integer",
+        "source": "GROUP"
+      },
+      {
+        "target": "part",
+        "type": "integer",
+        "source": "PART"
+      },
+      {
+        "target": "finance",
+        "type": "text",
+        "source": "FINANCE"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATE_BEGIN"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATE_END"
+      },
+      {
+        "target": "display_order",
+        "type": "numeric(10)",
+        "source": "SORT"
+      }
+    ]
+  },
+  {
+    "name": "high_tech_patient_model",
+    "oid": "1.2.643.5.1.13.13.99.2.360",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "MODEL"
+      },
+      {
+        "target": "sections",
+        "type": "text",
+        "source": "RAZDEL"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATE_BEGIN"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATE_END"
+      }
+    ]
+  },
+  {
+    "name": "high_tech_treatment_method",
+    "oid": "1.2.643.5.1.13.13.99.2.621",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "METHOD"
+      },
+      {
+        "target": "sections",
+        "type": "text",
+        "source": "RAZDEL"
+      },
+      {
+        "target": "implantation_obligation",
+        "type": "integer",
+        "source": "OBLIGATION"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATE_BEGIN"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATE_END"
+      }
+    ]
+  },
+  {
+    "name": "high_tech_treatment_type",
+    "oid": "1.2.643.5.1.13.13.99.2.620",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "TREATMENT"
+      },
+      {
+        "target": "valid_from",
+        "type": "timestamp without time zone",
+        "source": "DATE_BEGIN"
+      },
+      {
+        "target": "valid_to",
+        "type": "timestamp without time zone",
+        "source": "DATE_END"
+      }
+    ]
+  },
+  {
+    "name": "icd10",
+    "oid": "1.2.643.5.1.13.13.11.1005",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "ID_PARENT"
+      },
+      {
+        "target": "code",
+        "type": "text",
+        "source": "MKB_CODE"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "MKB_NAME"
+      },
+      {
+        "target": "rec_code",
+        "type": "text",
+        "source": "REC_CODE"
+      },
+      {
+        "target": "additional_code",
+        "type": "integer",
+        "source": "ADDL_CODE"
+      },
+      {
+        "target": "actual",
+        "type": "integer",
+        "source": "ACTUAL"
+      },
+      {
+        "target": "actuality_changed_at",
+        "type": "timestamp without time zone",
+        "source": "DATE"
+      }
+    ]
+  },
+  {
+    "name": "immunobiological_disease_group",
+    "oid": "1.2.643.5.1.13.13.99.2.1111",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "id"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "synonyms",
+        "type": "text",
+        "source": "SYNONYMS"
+      },
+      {
+        "target": "used_in_elmk",
+        "type": "boolean",
+        "source": "EPMB"
+      },
+      {
+        "target": "elmk_name",
+        "type": "text",
+        "source": "NAME_EPMB"
+      }
+    ]
+  },
+  {
+    "name": "implantable_assistive_device_type",
+    "oid": "1.2.643.5.1.13.13.11.1079",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "PARENT"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "rzn_code",
+        "type": "text",
+        "source": "RZN"
+      },
+      {
+        "target": "disease_code",
+        "type": "text",
+        "source": "DISEASE"
+      },
+      {
+        "target": "actual",
+        "type": "boolean",
+        "source": "ACTUAL"
+      },
+      {
+        "target": "existence_npa",
+        "type": "boolean",
+        "source": "EXISTENCE_NPA"
+      },
+      {
+        "target": "source_order",
+        "type": "text",
+        "source": "ORDER"
+      }
+    ]
+  },
+  {
+    "name": "injury_type",
+    "oid": "1.2.643.5.1.13.13.11.1036",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "form_066u_02_code",
+        "type": "integer",
+        "source": "F_066u-02"
+      },
+      {
+        "target": "form_066u_02_name",
+        "type": "text",
+        "source": "NAME_F_066u-02"
+      },
+      {
+        "target": "form_025u_1_code",
+        "type": "text",
+        "source": "F_025u-1"
+      },
+      {
+        "target": "form_025u_1_name",
+        "type": "text",
+        "source": "NAME_F_025u-1"
+      }
+    ]
+  },
+  {
+    "name": "laboratory_specimen",
+    "oid": "1.2.643.5.1.13.13.11.1081",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "specimen_group",
+        "type": "text",
+        "source": "GROUP"
+      },
+      {
+        "target": "material_id",
+        "type": "bigint",
+        "source": "ID_MATTER"
+      },
+      {
+        "target": "material_name",
+        "type": "text",
+        "source": "MATTER"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "SPECIMEN"
+      },
+      {
+        "target": "display_order",
+        "type": "numeric(10)",
+        "source": "Sort"
+      }
+    ]
+  },
+  {
+    "name": "laboratory_test",
+    "oid": "1.2.643.5.1.13.13.11.1080",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "text",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "FULLNAME"
+      },
+      {
+        "target": "short_name",
+        "type": "text",
+        "source": "SHORTNAME"
+      },
+      {
+        "target": "english_name",
+        "type": "text",
+        "source": "ENGLISHNAME"
+      },
+      {
+        "target": "synonyms",
+        "type": "text",
+        "source": "SYNONYMS"
+      },
+      {
+        "target": "loinc_code",
+        "type": "text",
+        "source": "LOINC"
+      },
+      {
+        "target": "analyte",
+        "type": "text",
+        "source": "ANALYTE"
+      },
+      {
+        "target": "analyte_characteristic",
+        "type": "text",
+        "source": "SPECANALYTE"
+      },
+      {
+        "target": "measurement",
+        "type": "text",
+        "source": "MEASUREMENT"
+      },
+      {
+        "target": "unit",
+        "type": "text",
+        "source": "UNIT"
+      },
+      {
+        "target": "specimen",
+        "type": "text",
+        "source": "SPECIMEN"
+      },
+      {
+        "target": "time_characteristic",
+        "type": "text",
+        "source": "TIMECHAR"
+      },
+      {
+        "target": "method_type",
+        "type": "text",
+        "source": "METHODTYPE"
+      },
+      {
+        "target": "scale_type",
+        "type": "text",
+        "source": "SCALETYPE"
+      },
+      {
+        "target": "test_status",
+        "type": "text",
+        "source": "TESTSTATUS"
+      },
+      {
+        "target": "test_group",
+        "type": "text",
+        "source": "GROUP"
+      },
+      {
+        "target": "nmu_codes",
+        "type": "text",
+        "source": "NMU"
+      },
+      {
+        "target": "source_order",
+        "type": "text",
+        "source": "SORT"
+      }
+    ]
+  },
+  {
+    "name": "laterality",
+    "oid": "1.2.643.5.1.13.13.99.2.778",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "laterality"
+      }
+    ]
+  },
+  {
+    "name": "measurement_unit",
+    "oid": "1.2.643.5.1.13.13.11.1358",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "FULLNAME"
+      },
+      {
+        "target": "short_name",
+        "type": "text",
+        "source": "SHORTNAME"
+      },
+      {
+        "target": "print_name",
+        "type": "text",
+        "source": "PRINTNAME"
+      },
+      {
+        "target": "measurement",
+        "type": "text",
+        "source": "MEASUREMENT"
+      },
+      {
+        "target": "ucum_code",
+        "type": "text",
+        "source": "UCUM"
+      },
+      {
+        "target": "coefficient",
+        "type": "text",
+        "source": "COEFFICIENT"
+      },
+      {
+        "target": "formula",
+        "type": "text",
+        "source": "FORMULA"
+      },
+      {
+        "target": "conversion_unit_id",
+        "type": "bigint",
+        "source": "CONVERSION_ID"
+      },
+      {
+        "target": "conversion_unit_name",
+        "type": "text",
+        "source": "CONVERSION_NAME"
+      },
+      {
+        "target": "okei_code",
+        "type": "text",
+        "source": "OKEI_CODE"
+      },
+      {
+        "target": "eec_dictionary_code",
+        "type": "text",
+        "source": "NSI_CODE_EEC"
+      },
+      {
+        "target": "eec_element_code",
+        "type": "text",
+        "source": "NSI_ELEMENT_CODE_EEC"
+      }
+    ]
+  },
+  {
+    "name": "medical_care_condition",
+    "oid": "1.2.643.5.1.13.13.99.2.322",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "CODE"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "oms_condition_code",
+        "type": "integer",
+        "source": "IDUMP"
+      },
+      {
+        "target": "comments",
+        "type": "text",
+        "source": "COMMENTS"
+      }
+    ]
+  },
+  {
+    "name": "medical_care_form",
+    "oid": "1.2.643.5.1.13.13.11.1551",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "S_NAME"
+      },
+      {
+        "target": "oms_care_form_code",
+        "type": "integer",
+        "source": "IDFRMMP"
+      }
+    ]
+  },
+  {
+    "name": "medical_care_location",
+    "oid": "1.2.643.5.1.13.13.11.1008",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "form_025_1y_flag",
+        "type": "integer",
+        "source": "F025-1y"
+      },
+      {
+        "target": "oms_visit_place_code",
+        "type": "integer",
+        "source": "ID_MOP"
+      },
+      {
+        "target": "display_order",
+        "type": "numeric(10)",
+        "source": "SORT"
+      }
+    ]
+  },
+  {
+    "name": "medical_care_profile",
+    "oid": "1.2.643.5.1.13.13.11.1119",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "PROFILE"
+      }
+    ]
+  },
+  {
+    "name": "medical_care_type",
+    "oid": "1.2.643.5.1.13.13.11.1034",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "PARENT"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "oms_care_type_code",
+        "type": "integer",
+        "source": "IDVMP"
+      },
+      {
+        "target": "display_order",
+        "type": "numeric(10)",
+        "source": "SORT"
+      }
+    ]
+  },
+  {
+    "name": "medical_equipment_type",
+    "oid": "1.2.643.5.1.13.13.99.2.253",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "id"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "parent_id"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "equipment_type"
+      },
+      {
+        "target": "available",
+        "type": "integer",
+        "source": "available"
+      },
+      {
+        "target": "abolished_at",
+        "type": "timestamp without time zone",
+        "source": "date_end"
+      }
+    ]
+  },
+  {
+    "name": "medical_position",
+    "oid": "1.2.643.5.1.13.13.11.1002",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "PID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "equivalent",
+        "type": "text",
+        "source": "EQUIVALENT"
+      },
+      {
+        "target": "display_order",
+        "type": "numeric(10)",
+        "source": "SORT"
+      },
+      {
+        "target": "normative_id",
+        "type": "bigint",
+        "source": "NORMATIVE"
+      },
+      {
+        "target": "group_flag",
+        "type": "integer",
+        "source": "GROUP"
+      },
+      {
+        "target": "form_30",
+        "type": "integer",
+        "source": "FORM_30"
+      },
+      {
+        "target": "actual",
+        "type": "integer",
+        "source": "ACTUAL"
+      },
+      {
+        "target": "end_date",
+        "type": "timestamp without time zone",
+        "source": "DATA_END"
+      },
+      {
+        "target": "comment",
+        "type": "text",
+        "source": "COMMENT"
+      },
+      {
+        "target": "need_qual",
+        "type": "integer",
+        "source": "NEED_QUAL"
+      },
+      {
+        "target": "zs",
+        "type": "integer",
+        "source": "ZS"
+      },
+      {
+        "target": "need_cert",
+        "type": "integer",
+        "source": "NEED_CERT"
+      }
+    ]
+  },
+  {
+    "name": "medical_service",
+    "oid": "1.2.643.5.1.13.13.11.1070",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "code",
+        "type": "text",
+        "source": "S_CODE"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "relevance",
+        "type": "integer",
+        "source": "REL"
+      },
+      {
+        "target": "abolished_at",
+        "type": "timestamp without time zone",
+        "source": "DATEOUT"
+      }
+    ]
+  },
+  {
+    "name": "medical_specialty",
+    "oid": "1.2.643.5.1.13.13.11.1066",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "parent_id",
+        "type": "bigint",
+        "source": "PARENT"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "relevance",
+        "type": "integer",
+        "source": "REL"
+      },
+      {
+        "target": "abolished_at",
+        "type": "timestamp without time zone",
+        "source": "DATEOUT"
+      },
+      {
+        "target": "ffoms_code",
+        "type": "integer",
+        "source": "IDSPEC"
+      }
+    ]
+  },
+  {
+    "name": "medical_visit_reason",
+    "oid": "1.2.643.5.1.13.13.99.2.443",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "CODE"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      }
+    ]
+  },
+  {
+    "name": "medical_visit_result",
+    "oid": "1.2.643.5.1.13.13.11.1046",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "form_025_code",
+        "type": "text",
+        "source": "FORM_025"
+      },
+      {
+        "target": "form_066_02_code",
+        "type": "integer",
+        "source": "FORM_066"
+      },
+      {
+        "target": "form_066_02_name",
+        "type": "text",
+        "source": "NAME_SYNONYM"
+      },
+      {
+        "target": "form_066_u_code",
+        "type": "integer",
+        "source": "FORM_066_u"
+      },
+      {
+        "target": "form_066_u_name",
+        "type": "text",
+        "source": "NAME_066_u"
+      }
+    ]
+  },
+  {
+    "name": "outpatient_visit_purpose",
+    "oid": "1.2.643.5.1.13.2.1.1.581",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "S_NAME"
+      },
+      {
+        "target": "invisible",
+        "type": "integer",
+        "source": "INVISIBLE"
+      }
+    ]
+  },
+  {
+    "name": "patient_sex",
+    "oid": "1.2.643.5.1.13.13.11.1040",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      }
+    ]
+  },
+  {
+    "name": "tnm_staging",
+    "oid": "1.2.643.5.1.13.13.99.2.546",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "topography_name",
+        "type": "text",
+        "source": "ShortNameOfTopography"
+      },
+      {
+        "target": "icdo_topography",
+        "type": "text",
+        "source": "ICDOTopography"
+      },
+      {
+        "target": "morphology",
+        "type": "text",
+        "source": "Morphology"
+      },
+      {
+        "target": "stage",
+        "type": "text",
+        "source": "Stage"
+      },
+      {
+        "target": "tumor",
+        "type": "text",
+        "source": "Tumor"
+      },
+      {
+        "target": "tumor_category_id",
+        "type": "bigint",
+        "source": "ID_Tumor"
+      },
+      {
+        "target": "nodus",
+        "type": "text",
+        "source": "Nodus"
+      },
+      {
+        "target": "nodus_category_id",
+        "type": "bigint",
+        "source": "ID_Nodus"
+      },
+      {
+        "target": "metastasis",
+        "type": "text",
+        "source": "Metastasis"
+      },
+      {
+        "target": "metastasis_category_id",
+        "type": "bigint",
+        "source": "ID_Metastasis"
+      },
+      {
+        "target": "addition",
+        "type": "text",
+        "source": "Addition"
+      },
+      {
+        "target": "addition_category_id",
+        "type": "bigint",
+        "source": "ID_Addition"
+      },
+      {
+        "target": "classification",
+        "type": "integer",
+        "source": "Classification"
+      },
+      {
+        "target": "tnm_version",
+        "type": "integer",
+        "source": "Version"
+      }
+    ]
+  },
+  {
+    "name": "unlawful_harm_sign",
+    "oid": "1.2.643.5.1.13.13.99.2.933",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      }
+    ]
+  },
+  {
+    "name": "direction_type",
+    "oid": "1.2.643.5.1.13.13.11.1009",
+    "keys": [
+      "id"
+    ],
+    "columns": [
+      {
+        "target": "id",
+        "type": "bigint",
+        "source": "ID"
+      },
+      {
+        "target": "name",
+        "type": "text",
+        "source": "NAME"
+      },
+      {
+        "target": "doc",
+        "type": "text",
+        "source": "DOC"
+      },
+      {
+        "target": "display_order",
+        "type": "numeric(10)",
+        "source": "SORT",
+        "staging": "sort"
+      }
+    ]
+  }
+]

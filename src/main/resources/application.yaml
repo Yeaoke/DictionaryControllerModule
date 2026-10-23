@@ -5,18 +5,18 @@ spring:
         password: ${POSTGRES_PASSWORD}
 
     flyway:
-        locations: classpath::db/migrations
+        locations: classpath:db/migrations
         default-schema: data
         schemas: data
         baseline-on-migrate: false
 
-    batch:
-        job:
-            enabled: false
-        jdbc:
-            initialize-schema: never
-
 nsi:
     minzdrav:
         base-url: https://nsi.rosminzdrav.ru
-        user-key: ${NSI_USER_KEY}
+        user-key: ${NSI_USER_KEY:}
+        page-size: ${NSI_PAGE_SIZE:500}
+        max-pages: ${NSI_MAX_PAGES:100000}
+
+server:
+    address: ${SERVER_ADDRESS:127.0.0.1}
+    port: ${SERVER_PORT:8080}
