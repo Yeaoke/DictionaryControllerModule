@@ -9,7 +9,7 @@ public record NsiVersionsResponse(
     String resultCode,
     String resultText,
     Integer total
-) {
+) implements NsiResponse {
     public record VersionItem(
         Boolean archive,
         Instant createDate,

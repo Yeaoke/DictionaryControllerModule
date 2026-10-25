@@ -9,7 +9,7 @@ public record NsiDataPageResponse(
     String resultCode,
     String resultText,
     Integer total
-) {
+) implements NsiResponse {
     public record DataItem(
         String column,
         JsonNode value

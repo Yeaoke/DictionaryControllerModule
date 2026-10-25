@@ -14,6 +14,8 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import com.example.app.integration.nsi.dto.NsiDataPageResponse;
 import com.example.app.integration.nsi.dto.NsiPassportResponse;
 import com.example.app.integration.nsi.dto.NsiVersionsResponse;
+import com.example.app.integration.nsi.dto.NsiResponse;
+import com.example.app.integration.nsi.exceptions.APIError;
 
 import lombok.extern.log4j.Log4j2;
 import reactor.core.publisher.Mono;
@@ -66,6 +68,11 @@ public class NsiMizdravClient {
         String sorting,
         String sortingDirection
     ) {
+        return getData(oid, null, page, size, sorting, sortingDirection);
+    }
+
+    public NsiDataPageResponse getData(String oid, String version, Integer page,
+            Integer size, String sorting, String sortingDirection) {
         if (page != null && page < 0) {
             throw new IllegalArgumentException(
                 "Номер страницы не должен быть отрицательным"
@@ -102,6 +109,10 @@ public class NsiMizdravClient {
 
                             if (page != null) {
                                 builder.queryParam("page", page);
+                            }
+
+                            if (version != null && !version.isBlank()) {
+                                builder.queryParam("version", version);
                             }
 
                             if (size != null) {
@@ -171,13 +182,27 @@ public class NsiMizdravClient {
                 );
     }
 
-    private <T> T executeRequest(Mono<T> request, String oid, String operation) {
+    private <T extends NsiResponse> T executeRequest(Mono<T> request, String oid, String operation) {
+        if (userKey == null || userKey.isBlank()) {
+            throw new IllegalStateException("NSI_USER_KEY is required for API import");
+        }
         return request
                     .switchIfEmpty(Mono.error(
-                        new IllegalStateException(
+                        new APIError(
                             "Пустой ответ API для OID: " + oid
                         )
                     ))
+                    .map(response -> {
+                        if (!"OK".equals(response.result())) {
+                            throw new APIError(
+                                "NSI " + operation + " failed for OID " + oid
+                                    + ": result=" + response.result()
+                                    + ", code=" + response.resultCode(),
+                                response.resultCode(), response.resultText()
+                            );
+                        }
+                        return response;
+                    })
                     .retryWhen(
                         Retry.backoff(
                             2,
@@ -203,7 +228,7 @@ public class NsiMizdravClient {
                     )
                     .doOnError(
                         error -> log.error(
-                            "Ошибка запроса {} для OID: {}", operation, oid, error
+                            "Ошибка запроса {} для OID: {}, тип: {}", operation, oid, error.getClass().getSimpleName()
                         )
                     )
                     .block();

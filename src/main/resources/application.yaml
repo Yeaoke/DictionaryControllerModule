@@ -5,15 +5,12 @@ spring:
         password: ${POSTGRES_PASSWORD}
 
     flyway:
+        locations: classpath:db/migrations
         default-schema: data
-        schemas: data
+        schemas:
+            - data
+            - dsa_data_load
         baseline-on-migrate: false
-
-    batch:
-        job:
-            enabled: false
-        jdbc:
-            initialize-schema: never
 
 nsi:
     minzdrav:

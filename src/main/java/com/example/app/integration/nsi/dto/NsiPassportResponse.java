@@ -33,7 +33,7 @@ public record NsiPassportResponse(
     Long typeId,
     String version
 
-) {
+) implements NsiResponse {
 
     public record CodeItem(
         String type,
