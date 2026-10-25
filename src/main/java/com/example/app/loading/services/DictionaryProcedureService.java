@@ -9,16 +9,29 @@ import com.example.app.loading.dto.DictionaryLoadResultDTO;
 
 @Service
 public class DictionaryProcedureService {
+
     private final JdbcTemplate jdbc;
-    public DictionaryProcedureService(JdbcTemplate jdbc) { this.jdbc = jdbc; }
+    
+    public DictionaryProcedureService(
+        JdbcTemplate jdbc
+    ) {
+        this.jdbc = jdbc;
+    }
+    
     @Transactional(propagation = Propagation.MANDATORY)
-    public DictionaryLoadResultDTO load(com.example.app.loading.config.DictionaryCatalog.Definition definition, Long userId, String version, String sourceUrl) {
-        if (userId == null || version == null || version.isBlank() || version.length() > 100
-                || sourceUrl == null || sourceUrl.isBlank() || sourceUrl.length() > 500)
+    public DictionaryLoadResultDTO load(
+        com.example.app.loading.config.DictionaryCatalog.Definition definition,
+        Long userId,
+        String version,
+        String sourceUrl
+    ) {
+        if (userId == null || version == null || version.isBlank() || version.length() > 100 || sourceUrl == null || sourceUrl.isBlank() || sourceUrl.length() > 500) {
             throw new IllegalArgumentException("userId, version (max 100), sourceUrl (max 500) required");
-        Long batchId = jdbc.queryForObject("CALL " + definition.procedure() + "(?, ?, ?, NULL::bigint)",
-            (rs, index) -> rs.getObject("p_batch_id", Long.class), userId, version, sourceUrl);
-        if (batchId == null) throw new IllegalStateException("Procedure returned no batch ID");
+        }
+        Long batchId = jdbc.queryForObject("CALL " + definition.procedure() + "(?, ?, ?, NULL::bigint)", (rs, index) -> rs.getObject("p_batch_id", Long.class), userId, version, sourceUrl);
+        if (batchId == null) {
+            throw new IllegalStateException("Procedure returned no batch ID");
+        }
         return jdbc.queryForObject("SELECT * FROM data.dsa_load_batch WHERE id=? AND entity_name=?",
             (rs, index) -> new DictionaryLoadResultDTO(
                 rs.getLong("id"), rs.getString("entity_name"), rs.getString("data_source"),
