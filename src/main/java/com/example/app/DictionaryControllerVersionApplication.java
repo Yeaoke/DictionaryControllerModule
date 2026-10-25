@@ -8,5 +8,4 @@ public class DictionaryControllerVersionApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DictionaryControllerVersionApplication.class, args);
 	}
-
 }

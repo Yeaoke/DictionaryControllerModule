@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java", "name": "Миграции и проверка каталога", "request": "launch",
+      "mainClass": "com.example.app.DictionaryControllerVersionApplication",
+      "cwd": "${workspaceFolder}", "envFile": "${workspaceFolder}/.env", "console": "integratedTerminal"
+    },
+    {
+      "type": "java", "name": "Справочник — НСИ", "request": "launch",
+      "mainClass": "com.example.app.DictionaryControllerVersionApplication",
+      "cwd": "${workspaceFolder}", "envFile": "${workspaceFolder}/.env", "console": "integratedTerminal",
+      "args": ["--dictionary.import.enabled=true", "--dictionary.import.oid=${input:oid}", "--dictionary.import.user-id=${input:userId}"]
+    },
+    {
+      "type": "java", "name": "Справочник — JSON", "request": "launch",
+      "mainClass": "com.example.app.DictionaryControllerVersionApplication",
+      "cwd": "${workspaceFolder}", "envFile": "${workspaceFolder}/.env", "console": "integratedTerminal",
+      "args": ["--dictionary.import.enabled=true", "--dictionary.import.oid=${input:oid}", "--dictionary.import.user-id=${input:userId}", "--dictionary.import.file=${input:file}"]
+    }
+  ],
+  "inputs": [
+    {"id":"oid", "type":"pickString", "description":"OID справочника", "options":["1.2.643.5.1.13.13.11.1009","1.2.643.5.1.13.13.11.1040"]},
+    {"id":"userId", "type":"promptString", "description":"ID существующего пользователя access_work.users_v"},
+    {"id":"file", "type":"promptString", "description":"Полный путь к JSON-файлу"}
+  ]
+}

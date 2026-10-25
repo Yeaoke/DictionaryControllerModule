@@ -29,6 +29,8 @@ public class DictionaryVersionService {
         String oid,
         String entityName
     ) {
+        if (oid == null || oid.isBlank() || entityName == null || entityName.isBlank())
+            throw new IllegalArgumentException("OID and entityName are required");
         DictionaryVersionDTO mzDto = nsiMzDictionaryService.getCurrentVersion(oid);
 
         String sourceVersion = mzDto.version();

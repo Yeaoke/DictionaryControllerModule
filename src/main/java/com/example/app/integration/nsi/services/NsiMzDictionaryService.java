@@ -20,9 +20,10 @@ public class NsiMzDictionaryService {
     }
 
     public DictionaryVersionDTO getCurrentVersion(String oid) {
+        if (oid == null || oid.isBlank()) throw new IllegalArgumentException("OID is required");
         NsiPassportResponse passport = client.getPassport(oid);
 
-        if (!passport.result().equals("OK")) {
+        if (passport == null || !"OK".equals(passport.result())) {
             throw new APIError(
                 "API request failed with code - " + passport.result()
             );

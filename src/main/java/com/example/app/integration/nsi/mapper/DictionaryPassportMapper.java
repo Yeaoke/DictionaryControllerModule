@@ -12,7 +12,9 @@ public class DictionaryPassportMapper {
     public DictionaryVersionDTO toDtoMzData(
         NsiPassportResponse passport
     ) {
-        if (passport == null || passport.oid() == null || passport.fullName() == null || passport.version() == null) {
+        if (passport == null || passport.oid() == null || passport.oid().isBlank()
+                || passport.fullName() == null || passport.fullName().isBlank()
+                || passport.version() == null || passport.version().isBlank()) {
             throw new IllegalArgumentException(
                 "Справочник должен содержать определенные данные: oid, version, fullname"
             );
