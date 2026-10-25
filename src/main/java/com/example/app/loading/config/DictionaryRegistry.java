@@ -75,7 +75,12 @@ public class DictionaryRegistry {
             throw new IllegalArgumentException("Unsupported dictionary OID: " + oid);
         
         }
-        return definitions.get(oid);
+        var definition = definitions.get(oid);
+        if (definition.columns().stream().anyMatch(c -> c.source().startsWith("VERIFY_SOURCE_"))) {
+            throw new IllegalStateException("Unverified NSI column mapping for " + definition.entityName()
+                + "; replace VERIFY_SOURCE_* using the dictionary passport before loading");
+        }
+        return definition;
     }
 
     public Collection<Definition> all() {

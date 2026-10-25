@@ -9,6 +9,7 @@ import org.flywaydb.core.Flyway;
 import com.example.app.loading.repos.LoadedVersionJdbcRepository;
 import static org.assertj.core.api.Assertions.*;
 
+@org.springframework.test.context.ActiveProfiles("integration")
 @SpringBootTest
 @TestPropertySource(properties = {
     "spring.datasource.url=${TEST_POSTGRES_URL}",

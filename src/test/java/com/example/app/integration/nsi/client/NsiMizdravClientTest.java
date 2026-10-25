@@ -88,10 +88,14 @@ class NsiMizdravClientTest {
     void readsPassportAndBuildsRequest() {
         var response = client(200, """
             {"result":"OK","oid":"1.2.3","fullName":"Dictionary","version":"2.0",
-             "publishDate":"2026-10-19T12:00:00Z"}
+             "publishDate":"19.10.2026 12:00","createDate":"18.12.2016 00:00",
+             "approveDate":"31.03.2029","lastUpdate":"19.10.2026 12:00"}
             """).getPassport("1.2.3");
         assertThat(response.version()).isEqualTo("2.0");
-        assertThat(response.publishDate()).isEqualTo(java.time.Instant.parse("2026-10-19T12:00:00Z"));
+        assertThat(response.publishDate()).isEqualTo(java.time.LocalDateTime.of(2026, 10, 19, 12, 0));
+        assertThat(response.createDate()).isEqualTo(java.time.LocalDateTime.of(2016, 12, 18, 0, 0));
+        assertThat(response.approveDate()).isEqualTo(java.time.LocalDate.of(2029, 3, 31));
+        assertThat(response.lastUpdate()).isEqualTo(response.publishDate());
         assertThat(captured.get().url().getPath()).isEqualTo("/rest/passport");
         assertThat(captured.get().url().getQuery()).contains("identifier=1.2.3", "userKey=test-key");
     }

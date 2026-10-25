@@ -17,7 +17,7 @@ import reactor.netty.http.client.HttpClient;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class NsiTlsTest {
+class NsiTlsIT {
 
     @Test
     void checkNativeTls() throws Exception {
@@ -33,7 +33,7 @@ class NsiTlsTest {
         KeyStore store = KeyStore.getInstance("PKCS12");
 
         try (var input = Files.newInputStream(
-                Path.of("certs", "nsi-truststore.p12"))) {
+                Path.of(System.getProperty("nsi.test.trust-store", "certs/nsi-truststore.p12")))) {
             store.load(input, "changeit".toCharArray());
         }
 

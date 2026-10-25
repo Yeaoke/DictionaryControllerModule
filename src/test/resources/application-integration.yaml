@@ -1,0 +1,18 @@
+spring:
+  config:
+    import: classpath:nsi-dictionaries.yaml
+  flyway:
+    locations: filesystem:deployment/migrations
+    default-schema: data
+    schemas: data,dsa_data_load
+    baseline-on-migrate: false
+  datasource:
+    url: ${TEST_POSTGRES_URL}
+    username: ${TEST_POSTGRES_USERNAME}
+    password: ${TEST_POSTGRES_PASSWORD}
+nsi:
+  minzdrav:
+    base-url: https://example.test
+    user-key: test-key
+    trust-store: certs/nsi-truststore.p12
+    trust-store-password: changeit

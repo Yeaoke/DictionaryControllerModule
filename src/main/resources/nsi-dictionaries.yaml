@@ -1,6 +1,6 @@
 # Reference catalog derived from repository SQL comments; verify against actual NSI passports.
-# Only direction_type and patient_sex procedures are currently implemented.
-# Do not activate the complete catalog until the other procedures are provided.
+# Procedures are supplied by local migrations; production deployment is owned by the host.
+# Definitions with VERIFY_SOURCE_* are blocked on selection until verified.
 dictionaries:
   definitions:
     - oid: "1.2.643.5.1.13.13.11.1009"

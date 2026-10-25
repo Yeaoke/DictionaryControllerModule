@@ -12,12 +12,51 @@ import com.example.app.loading.services.*;
 import com.example.app.loading.dto.DictionarySnapshot;
 import static org.assertj.core.api.Assertions.*;
 
+@org.springframework.test.context.ActiveProfiles("integration")
 @SpringBootTest
 @TestPropertySource(properties = {
     "spring.datasource.url=${TEST_POSTGRES_URL}", "spring.datasource.username=${TEST_POSTGRES_USERNAME}",
     "spring.datasource.password=${TEST_POSTGRES_PASSWORD}", "nsi.minzdrav.user-key=test-key"
 })
 class DictionaryModuleIT {
+    static com.sun.net.httpserver.HttpServer nsiServer;
+    static final java.util.concurrent.atomic.AtomicInteger dataRequests = new java.util.concurrent.atomic.AtomicInteger();
+
+    @org.springframework.test.context.DynamicPropertySource
+    static void localNsi(org.springframework.test.context.DynamicPropertyRegistry properties) throws Exception {
+        nsiServer = com.sun.net.httpserver.HttpServer.create(new java.net.InetSocketAddress("127.0.0.1", 0), 0);
+        nsiServer.createContext("/rest/passport", exchange -> respond(exchange,
+            "{\"result\":\"OK\",\"oid\":\"1.2.643.5.1.13.13.11.1040\",\"version\":\"test-http\",\"rowsCount\":2}"));
+        nsiServer.createContext("/rest/data", exchange -> {
+            dataRequests.incrementAndGet();
+            if (!exchange.getRequestURI().getRawQuery().contains("version=test-http")) {
+                exchange.sendResponseHeaders(400, -1); exchange.close(); return;
+            }
+            respond(exchange, "{\"result\":\"OK\",\"total\":2,\"list\":[[{\"column\":\"ID\",\"value\":1},{\"column\":\"NAME\",\"value\":\"One\"}],[{\"column\":\"ID\",\"value\":2},{\"column\":\"NAME\",\"value\":\"Two\"}]]}");
+        });
+        nsiServer.start();
+        properties.add("nsi.minzdrav.base-url", () -> "http://127.0.0.1:" + nsiServer.getAddress().getPort());
+    }
+
+    static void respond(com.sun.net.httpserver.HttpExchange exchange, String json) throws java.io.IOException {
+        byte[] bytes = json.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        exchange.getResponseHeaders().set("Content-Type", "application/json");
+        exchange.sendResponseHeaders(200, bytes.length);
+        try (var out = exchange.getResponseBody()) { out.write(bytes); }
+    }
+
+    @AfterAll static void stopLocalNsi() { if (nsiServer != null) nsiServer.stop(0); }
+
+    @Test void importsThroughHttpAndSkipsSecondDownloadOfSameVersion() {
+        int before = dataRequests.get();
+        var result = imports.load(SEX, 7L).orElseThrow();
+        assertThat(result.status()).isEqualTo("success");
+        assertThat(result.rowsInserted()).isEqualTo(2);
+        assertThat(imports.load(SEX, 7L)).isEmpty();
+        assertThat(dataRequests.get() - before).isEqualTo(1);
+        assertThat(jdbc.queryForObject("select count(*) from data.dsa_load_batch", Integer.class)).isEqualTo(1);
+        assertThat(jdbc.queryForObject("select version from data.dsa_loaded_version where entity_name='patient_sex'", String.class)).isEqualTo("test-http");
+    }
     @Autowired JdbcTemplate jdbc;
     @Autowired DictionaryImportService imports;
     @Autowired DictionaryApplyService apply;
@@ -44,13 +83,16 @@ class DictionaryModuleIT {
         jdbc.execute("drop table data.log_level");
         jdbc.execute("drop table data.system_log");
     }
+    Path fixture(String name) throws Exception {
+        return new org.springframework.core.io.ClassPathResource("fixtures/" + name + ".json").getFile().toPath();
+    }
     DictionarySnapshot snapshot(String name) throws Exception {
-        return JsonMapper.builder().build().readValue(Path.of("examples/" + name + ".json").toFile(),DictionarySnapshot.class);
+        return JsonMapper.builder().build().readValue(fixture(name).toFile(),DictionarySnapshot.class);
     }
     @Test void routesTwoFilesThroughOneServiceAndKeepsDictionariesIsolated() throws Exception {
         jdbc.execute("insert into data.patient_sex(id,name,display_order,search_synonym) values (1,'Old',99,'Local'),(3,'Absent',null,null)");
-        var direction = imports.loadFile(DIRECTION,Path.of("examples/direction-type.json"),7L).orElseThrow();
-        var sex = imports.loadFile(SEX,Path.of("examples/patient-sex.json"),7L).orElseThrow();
+        var direction = imports.loadFile(DIRECTION,fixture("direction-type"),7L).orElseThrow();
+        var sex = imports.loadFile(SEX,fixture("patient-sex"),7L).orElseThrow();
         assertThat(direction.status()).isEqualTo("success");
         assertThat(sex.status()).isEqualTo("success");
         assertThat(direction.batchId()).isNotEqualTo(sex.batchId());
@@ -59,11 +101,11 @@ class DictionaryModuleIT {
         assertThat(jdbc.queryForObject("select display_order from data.patient_sex where id=1",Integer.class)).isEqualTo(99);
         assertThat(jdbc.queryForObject("select search_synonym from data.patient_sex where id=1",String.class)).isEqualTo("Local");
         assertThat(jdbc.queryForObject("select count(*) from data.dsa_raw_patient_sex where new_id=id",Integer.class)).isEqualTo(2);
-        assertThat(imports.loadFile(SEX,Path.of("examples/patient-sex.json"),7L)).isEmpty();
+        assertThat(imports.loadFile(SEX,fixture("patient-sex"),7L)).isEmpty();
         assertThat(jdbc.queryForObject("select count(*) from data.dsa_load_batch",Integer.class)).isEqualTo(2);
     }
     @Test void rejectsWrongFileOidAndStaleSnapshotWithoutChangingRaw() throws Exception {
-        assertThatThrownBy(() -> imports.loadFile(SEX,Path.of("examples/direction-type.json"),7L)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> imports.loadFile(SEX,fixture("direction-type"),7L)).isInstanceOf(IllegalArgumentException.class);
         jdbc.execute("insert into data.dsa_loaded_version(entity_name,version) values ('patient_sex','3')");
         var s = snapshot("patient-sex");
         assertThatThrownBy(() -> apply.apply(s,7L,"https://example.test","1")).isInstanceOf(IllegalStateException.class);
@@ -74,7 +116,7 @@ class DictionaryModuleIT {
         jdbc.execute("insert into data.dsa_loaded_version(entity_name,version) values ('patient_sex','old')");
         jdbc.execute("CREATE FUNCTION data.reject_test_row() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF new.id=1 THEN RAISE EXCEPTION 'Rejected test row'; END IF; RETURN new; END $$");
         jdbc.execute("CREATE TRIGGER reject_row BEFORE INSERT ON data.patient_sex FOR EACH ROW EXECUTE FUNCTION data.reject_test_row()");
-        var result = imports.loadFile(SEX,Path.of("examples/patient-sex.json"),7L).orElseThrow();
+        var result = imports.loadFile(SEX,fixture("patient-sex"),7L).orElseThrow();
         assertThat(result.status()).isEqualTo("partial");
         assertThat(result.rowsRejected()).isEqualTo(1);
         assertThat(jdbc.queryForObject("select version from data.dsa_loaded_version where entity_name='patient_sex'",String.class)).isEqualTo("old");
