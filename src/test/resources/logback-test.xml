@@ -1,0 +1,8 @@
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder><pattern>%level %logger{36} - %msg%n</pattern></encoder>
+    </appender>
+    <!-- Error-path tests deliberately exercise failures; keep their stack traces out of build output. -->
+    <logger name="com.example.app.integration.nsi.client.NsiMizdravClient" level="OFF"/>
+    <root level="WARN"><appender-ref ref="CONSOLE"/></root>
+</configuration>

@@ -1,0 +1,933 @@
+dictionaries:
+  definitions:
+    - oid: "1.2.643.5.1.13.13.11.1009"
+      entity-name: direction_type
+      staging-table: data.dsa_raw_direction_type
+      target-table: data.direction_type
+      procedure: dsa_data_load.load_direction_type
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: ID, target: id, type: LONG, required: true}
+        - {source: NAME, target: name, type: STRING, required: true, max-length: 100}
+        - {source: DOC, target: doc, type: STRING, max-length: 100}
+        - {source: SORT, target: sort, type: DECIMAL, precision: 10, scale: 0}
+    - oid: "1.2.643.5.1.13.13.11.1525"
+      entity-name: ambulance_call_order
+      staging-table: data.dsa_raw_ambulance_call_order
+      target-table: data.ambulance_call_order
+      procedure: dsa_data_load.load_ambulance_call_order
+      key-columns: [id]
+      sorting: Id
+      columns:
+        - {source: 'Id', target: id, type: LONG, required: true}
+        - {source: 'Name', target: name, type: STRING, required: true}
+    - oid: "1.2.643.5.1.13.13.99.2.1076"
+      entity-name: ambulance_team_type
+      staging-table: data.dsa_raw_ambulance_team_type
+      target-table: data.ambulance_team_type
+      procedure: dsa_data_load.load_ambulance_team_type
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'PARENT_ID', target: parent_id, type: LONG}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'FORM_30', target: form_30_code, type: STRING}
+    - oid: "1.2.643.5.1.13.13.11.1477"
+      entity-name: anatomical_location
+      staging-table: data.dsa_raw_anatomical_location
+      target-table: data.anatomical_location
+      procedure: dsa_data_load.load_anatomical_location
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'ID_PARENT', target: parent_id, type: LONG}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME_ENG', target: english_name, type: STRING}
+        - {source: 'SNOMED_CT', target: snomed_code, type: STRING}
+        - {source: 'ANATOMIC_FIELD', target: anatomical_region, type: STRING}
+        - {source: 'LATERALITY', target: laterality, type: STRING}
+        - {source: 'SYNONYMS', target: synonyms, type: STRING}
+    - oid: "1.2.643.5.1.13.13.11.1033"
+      entity-name: anesthesia_type
+      staging-table: data.dsa_raw_anesthesia_type
+      target-table: data.anesthesia_type
+      procedure: dsa_data_load.load_anesthesia_type
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'Parent', target: parent_id, type: LONG}
+        - {source: 'Name', target: name, type: STRING, required: true}
+        - {source: 'Group', target: anesthesia_group, type: STRING}
+        - {source: 'Synonym', target: synonyms, type: STRING}
+        - {source: 'SORT', target: source_order, type: STRING}
+    - oid: "1.2.643.5.1.13.13.11.1087"
+      entity-name: bacterium
+      staging-table: data.dsa_raw_bacterium
+      target-table: data.bacterium
+      procedure: dsa_data_load.load_bacterium
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'ID_PARENT', target: parent_id, type: LONG}
+        - {source: 'LEVEL', target: hierarchy_level, type: INTEGER}
+        - {source: 'FULLNAME', target: name, type: STRING, required: true}
+        - {source: 'FORMATNAME', target: formatted_name, type: STRING}
+        - {source: 'CHILDCOUNT', target: child_count, type: INTEGER}
+        - {source: 'SYNONIMS', target: synonyms, type: STRING}
+        - {source: 'SNOMED', target: snomed_code, type: STRING}
+        - {source: 'ID_NCBI', target: ncbi_id, type: LONG}
+        - {source: 'GRAM', target: gram, type: STRING}
+        - {source: 'HUMAN', target: human, type: BOOLEAN}
+        - {source: 'SORT', target: display_order, type: DECIMAL, precision: 10, scale: 0}
+    - oid: "1.2.643.5.1.13.13.11.1069"
+      entity-name: bed_profile
+      staging-table: data.dsa_raw_bed_profile
+      target-table: data.bed_profile
+      procedure: dsa_data_load.load_bed_profile
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'PID', target: parent_id, type: LONG}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'AgeGROUP', target: age_group, type: INTEGER}
+        - {source: 'REL', target: relevance, type: INTEGER}
+        - {source: 'DATEOUT', target: abolished_at, type: TIMESTAMP}
+        - {source: 'F30', target: form_30_code, type: STRING}
+        - {source: 'RAZDEL', target: section_code, type: STRING, max-length: 1}
+        - {source: 'SORT', target: display_order, type: DECIMAL, precision: 10, scale: 0}
+    - oid: "1.2.643.5.1.13.13.99.2.33"
+      entity-name: biopsy_collection_method
+      staging-table: data.dsa_raw_biopsy_collection_method
+      target-table: data.biopsy_collection_method
+      procedure: dsa_data_load.load_biopsy_collection_method
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+    - oid: "1.2.643.5.1.13.13.11.1549"
+      entity-name: biopsy_complexity_category
+      staging-table: data.dsa_raw_biopsy_complexity_category
+      target-table: data.biopsy_complexity_category
+      procedure: dsa_data_load.load_biopsy_complexity_category
+      key-columns: [id]
+      sorting: Id
+      columns:
+        - {source: 'Id', target: id, type: LONG, required: true}
+        - {source: 'Name', target: name, type: STRING, required: true}
+        - {source: 'Description', target: description, type: STRING}
+    - oid: "1.2.643.5.1.13.13.11.1515"
+      entity-name: clinical_scale_parameter
+      staging-table: data.dsa_raw_clinical_scale_parameter
+      target-table: data.clinical_scale_parameter
+      procedure: dsa_data_load.load_clinical_scale_parameter
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'PARENT_ID', target: parent_id, type: LONG}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'VITAL_PARAMETER', target: vital_parameter_id, type: LONG}
+        - {source: 'POINT', target: point, type: STRING}
+        - {source: 'ID_INTERPRETATION', target: interpretation_group_code, type: LONG}
+        - {source: 'GROUPING_SCALE', target: grouping_scale, type: INTEGER}
+    - oid: "1.2.643.5.1.13.13.99.2.786"
+      entity-name: contraindication_or_refusal
+      staging-table: data.dsa_raw_contraindication_or_refusal
+      target-table: data.contraindication_or_refusal
+      procedure: dsa_data_load.load_contraindication_or_refusal
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'PARENT_ID', target: parent_id, type: LONG}
+        - {source: 'CONTRAINDICATION_OR_REFUSAL', target: name, type: STRING, required: true}
+    - oid: "1.2.643.5.1.13.13.11.1049"
+      entity-name: disease_nature
+      staging-table: data.dsa_raw_disease_nature
+      target-table: data.disease_nature
+      procedure: dsa_data_load.load_disease_nature
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'F_025-1u', target: form_025_1u_code, type: INTEGER}
+    - oid: "1.2.643.5.1.13.13.11.1053"
+      entity-name: disability_group
+      staging-table: data.dsa_raw_disability_group
+      target-table: data.disability_group
+      procedure: dsa_data_load.load_disability_group
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'SCTID', target: snomed_code, type: STRING}
+    - oid: "1.2.643.5.1.13.13.11.1491"
+      entity-name: disease_outcome
+      staging-table: data.dsa_raw_disease_outcome
+      target-table: data.disease_outcome
+      procedure: dsa_data_load.load_disease_outcome
+      key-columns: [id]
+      sorting: CODE
+      columns:
+        - {source: 'CODE', target: id, type: LONG, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'IDIZ', target: oms_outcome_code, type: STRING}
+    - oid: "1.2.643.5.1.13.13.11.1045"
+      entity-name: dispensary_observation_end_reason
+      staging-table: data.dsa_raw_dispensary_observation_end_reason
+      target-table: data.dispensary_observation_end_reason
+      procedure: dsa_data_load.load_dispensary_observation_end_reason
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'PARENT_ID', target: parent_id, type: LONG}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NPA', target: normative_id, type: LONG, required: true}
+        - {source: 'SORT', target: display_order, type: DECIMAL, precision: 10, scale: 0}
+    - oid: "1.2.643.5.1.13.13.11.1047"
+      entity-name: dispensary_observation_status
+      staging-table: data.dsa_raw_dispensary_observation_status
+      target-table: data.dispensary_observation_status
+      procedure: dsa_data_load.load_dispensary_observation_status
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+    - oid: "1.2.643.5.1.13.13.11.1468"
+      entity-name: drug_administration_route
+      staging-table: data.dsa_raw_drug_administration_route
+      target-table: data.drug_administration_route
+      procedure: dsa_data_load.load_drug_administration_route
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'PARENT', target: parent_id, type: LONG}
+        - {source: 'NAME_RUS', target: name, type: STRING, required: true}
+        - {source: 'NAME_ENG', target: english_name, type: STRING, required: true}
+        - {source: 'NSI_CODE_EEC', target: eec_dictionary_code, type: STRING}
+        - {source: 'NSI_ELEMENT_CODE_EEC', target: eec_element_code, type: STRING}
+    - oid: "1.2.643.5.1.13.13.99.3.42"
+      entity-name: foms_bill_type
+      staging-table: data.dsa_raw_foms_bill_type
+      target-table: data.foms_bill_type
+      procedure: dsa_data_load.load_foms_bill_type
+      key-columns: [code, region_okato_code]
+      sorting: billcod
+      columns:
+        - {source: 'billcod', target: code, type: STRING, required: true}
+        - {source: 'tf_okato', target: region_okato_code, type: STRING, required: true}
+        - {source: 'bill_namp', target: name, type: STRING, required: true}
+        - {source: 'bill_namk', target: short_name, type: STRING}
+        - {source: 'orgType', target: payer_org_type, type: STRING}
+        - {source: 'IS_PAY', target: funding_source, type: STRING}
+        - {source: 'datebeg', target: valid_from, type: TIMESTAMP}
+        - {source: 'dateend', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.6"
+      entity-name: foms_classification_criterion
+      staging-table: data.dsa_raw_foms_classification_criterion
+      target-table: data.foms_classification_criterion
+      procedure: dsa_data_load.load_foms_classification_criterion
+      key-columns: [code, valid_from]
+      sorting: IDDKK
+      columns:
+        - {source: 'IDDKK', target: code, type: STRING, required: true}
+        - {source: 'VERIFY_SOURCE_valid_from', target: valid_from, type: TIMESTAMP, required: true}
+        - {source: 'DKKNAME', target: name, type: STRING, required: true}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.5"
+      entity-name: foms_clinical_statistical_group
+      staging-table: data.dsa_raw_foms_clinical_statistical_group
+      target-table: data.foms_clinical_statistical_group
+      procedure: dsa_data_load.load_foms_clinical_statistical_group
+      key-columns: [code, care_condition_code, valid_from]
+      sorting: K_KSG
+      columns:
+        - {source: 'K_KSG', target: code, type: STRING, required: true}
+        - {source: 'IDUMP', target: care_condition_code, type: STRING, required: true}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
+        - {source: 'N_KSG', target: name, type: STRING, required: true}
+        - {source: 'KOEF_Z', target: cost_coefficient, type: STRING}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.55"
+      entity-name: foms_consilium_purpose
+      staging-table: data.dsa_raw_foms_consilium_purpose
+      target-table: data.foms_consilium_purpose
+      procedure: dsa_data_load.load_foms_consilium_purpose
+      key-columns: [id, valid_from]
+      sorting: ID_CONS
+      columns:
+        - {source: 'ID_CONS', target: id, type: STRING, required: true}
+        - {source: 'VERIFY_SOURCE_valid_from', target: valid_from, type: TIMESTAMP, required: true}
+        - {source: 'CONS_NAME', target: name, type: STRING, required: true}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.32"
+      entity-name: foms_control_type
+      staging-table: data.dsa_raw_foms_control_type
+      target-table: data.foms_control_type
+      procedure: dsa_data_load.load_foms_control_type
+      key-columns: [id, valid_from]
+      sorting: IDVID
+      columns:
+        - {source: 'IDVID', target: id, type: LONG, required: true}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
+        - {source: 'VIDNAME', target: name, type: STRING, required: true}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.47"
+      entity-name: foms_diagnostic_method
+      staging-table: data.dsa_raw_foms_diagnostic_method
+      target-table: data.foms_diagnostic_method
+      procedure: dsa_data_load.load_foms_diagnostic_method
+      key-columns: [id]
+      sorting: IDMET
+      columns:
+        - {source: 'IDMET', target: id, type: LONG, required: true}
+        - {source: 'N_MET', target: name, type: STRING, required: true}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.3"
+      entity-name: foms_dispanserization_type
+      staging-table: data.dsa_raw_foms_dispanserization_type
+      target-table: data.foms_dispanserization_type
+      procedure: dsa_data_load.load_foms_dispanserization_type
+      key-columns: [id, valid_from]
+      sorting: IDDT
+      columns:
+        - {source: 'IDDT', target: id, type: STRING, required: true}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
+        - {source: 'DTNAME', target: name, type: STRING, required: true}
+        - {source: 'DTRULE', target: allowed_results, type: STRING}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.56"
+      entity-name: foms_drug_therapy_medication
+      staging-table: data.dsa_raw_foms_drug_therapy_medication
+      target-table: data.foms_drug_therapy_medication
+      procedure: dsa_data_load.load_foms_drug_therapy_medication
+      key-columns: [id, valid_from]
+      sorting: ID_LEKP
+      columns:
+        - {source: 'ID_LEKP', target: id, type: STRING, required: true}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
+        - {source: 'MNN', target: name, type: STRING, required: true}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.52"
+      entity-name: foms_histological_result
+      staging-table: data.dsa_raw_foms_histological_result
+      target-table: data.foms_histological_result
+      procedure: dsa_data_load.load_foms_histological_result
+      key-columns: [id]
+      sorting: ID_R_M
+      columns:
+        - {source: 'ID_R_M', target: id, type: LONG, required: true}
+        - {source: 'ID_Mrf', target: histological_sign_code, type: STRING}
+        - {source: 'R_M_NAME', target: name, type: STRING, required: true}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.51"
+      entity-name: foms_histological_sign
+      staging-table: data.dsa_raw_foms_histological_sign
+      target-table: data.foms_histological_sign
+      procedure: dsa_data_load.load_foms_histological_sign
+      key-columns: [id]
+      sorting: ID_Mrf
+      columns:
+        - {source: 'ID_Mrf', target: id, type: LONG, required: true}
+        - {source: 'Mrf_NAME', target: name, type: STRING, required: true}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.60"
+      entity-name: foms_marker_value
+      staging-table: data.dsa_raw_foms_marker_value
+      target-table: data.foms_marker_value
+      procedure: dsa_data_load.load_foms_marker_value
+      key-columns: [id, valid_from]
+      sorting: ID_R_I
+      columns:
+        - {source: 'ID_R_I', target: id, type: LONG, required: true}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
+        - {source: 'KOD_R_I', target: code, type: STRING}
+        - {source: 'R_I_NAME', target: name, type: STRING, required: true}
+        - {source: 'ID_Igh', target: marker_id, type: LONG}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.59"
+      entity-name: foms_marker
+      staging-table: data.dsa_raw_foms_marker
+      target-table: data.foms_marker
+      procedure: dsa_data_load.load_foms_marker
+      key-columns: [id, valid_from]
+      sorting: ID_Igh
+      columns:
+        - {source: 'ID_Igh', target: id, type: LONG, required: true}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
+        - {source: 'KOD_Igh', target: code, type: STRING}
+        - {source: 'Igh_NAME', target: name, type: STRING, required: true}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.2"
+      entity-name: foms_medical_organization
+      staging-table: data.dsa_raw_foms_medical_organization
+      target-table: data.foms_medical_organization
+      procedure: dsa_data_load.load_foms_medical_organization
+      key-columns: [id]
+      sorting: UIDMO
+      columns:
+        - {source: 'UIDMO', target: id, type: STRING, required: true}
+        - {source: 'PARENT_UIDMO', target: parent_uidmo, type: STRING}
+        - {source: 'IDMO', target: registry_number, type: STRING}
+        - {source: 'PARENT_IDMO', target: parent_registry_number, type: STRING}
+        - {source: 'MCOD', target: medical_org_code, type: STRING}
+        - {source: 'NAM_MOP', target: name, type: STRING, required: true}
+        - {source: 'NAM_MOK', target: short_name, type: STRING}
+        - {source: 'OSP', target: separate_unit_flag, type: STRING}
+        - {source: 'VID_MO', target: medical_org_type, type: STRING}
+        - {source: 'VEDPRI', target: departmental_affiliation, type: STRING}
+        - {source: 'OKFS', target: ownership_code, type: STRING}
+        - {source: 'INN', target: inn, type: STRING}
+        - {source: 'KPP', target: kpp, type: STRING}
+        - {source: 'OGRN', target: ogrn, type: STRING}
+        - {source: 'OID_MO', target: organization_oid, type: STRING}
+        - {source: 'OID_SPMO', target: subdivision_oid, type: STRING}
+        - {source: 'SUBJ', target: region_name, type: STRING}
+        - {source: 'OKTMO_P', target: region_oktmo_code, type: STRING}
+        - {source: 'GAR_ADDRESS', target: gar_address_id, type: STRING}
+        - {source: 'JURADDRESS_ADDRESS', target: legal_address, type: STRING}
+        - {source: 'JURADDRESS_INDEX', target: legal_postal_code, type: STRING}
+        - {source: 'EMAIL', target: email, type: STRING}
+        - {source: 'PHONE', target: phone, type: STRING}
+        - {source: 'FAX', target: fax, type: STRING}
+        - {source: 'D_BEGIN_OMS', target: oms_started_at, type: TIMESTAMP}
+        - {source: 'D_BEGIN', target: registry_included_at, type: TIMESTAMP}
+        - {source: 'D_END', target: registry_excluded_at, type: TIMESTAMP}
+        - {source: 'NAME_E', target: exclusion_reason, type: STRING}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.41"
+      entity-name: foms_medical_quality_expert
+      staging-table: data.dsa_raw_foms_medical_quality_expert
+      target-table: data.foms_medical_quality_expert
+      procedure: dsa_data_load.load_foms_medical_quality_expert
+      key-columns: [id]
+      sorting: UIDEKMP
+      columns:
+        - {source: 'UIDEKMP', target: id, type: STRING, required: true}
+        - {source: 'IDEKMP', target: registry_number, type: STRING}
+        - {source: 'N_EXPERT', target: legacy_expert_code, type: STRING}
+        - {source: 'OKTMO_P', target: region_oktmo_code, type: STRING}
+        - {source: 'SUBJ', target: region_name, type: STRING}
+        - {source: 'WORKPHONE', target: work_phone, type: STRING}
+        - {source: 'MOBILEPHONE', target: mobile_phone, type: STRING}
+        - {source: 'EMAIL', target: email, type: STRING}
+        - {source: 'D_BEGIN', target: registry_created_at, type: TIMESTAMP}
+        - {source: 'D_END', target: registry_excluded_at, type: TIMESTAMP}
+        - {source: 'NAME_E', target: exclusion_reason, type: STRING}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.17"
+      entity-name: foms_payment_method
+      staging-table: data.dsa_raw_foms_payment_method
+      target-table: data.foms_payment_method
+      procedure: dsa_data_load.load_foms_payment_method
+      key-columns: [id, valid_from]
+      sorting: IDSP
+      columns:
+        - {source: 'IDSP', target: id, type: LONG, required: true}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
+        - {source: 'SPNAME', target: name, type: STRING, required: true, max-length: 254}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.43"
+      entity-name: foms_payment_organization_details
+      staging-table: data.dsa_raw_foms_payment_organization_details
+      target-table: data.foms_payment_organization_details
+      procedure: dsa_data_load.load_foms_payment_organization_details
+      key-columns: [bill_type_code, organization_code, region_okato_code]
+      sorting: billcod
+      columns:
+        - {source: 'billcod', target: bill_type_code, type: STRING, required: true}
+        - {source: 'orgcod', target: organization_code, type: LONG, required: true}
+        - {source: 'tf_okato', target: region_okato_code, type: STRING, required: true}
+        - {source: 'idzap', target: source_record_id, type: LONG}
+        - {source: 'inn', target: inn, type: STRING}
+        - {source: 'kpp', target: kpp, type: STRING}
+        - {source: 'accounttype', target: account_type, type: STRING}
+        - {source: 'accountnum', target: account_number, type: STRING}
+        - {source: 'corraccount', target: correspondent_account, type: STRING}
+        - {source: 'bankname', target: bank_name, type: STRING}
+        - {source: 'bankbik', target: bank_bik, type: STRING}
+        - {source: 'tofk_code', target: tofk_code, type: STRING}
+        - {source: 'tofk_name', target: tofk_name, type: STRING}
+        - {source: 'tofk_bik', target: tofk_bik, type: STRING}
+        - {source: 'sta_character', target: treasury_single_account, type: STRING}
+        - {source: 'name_agency', target: financial_agency_name, type: STRING}
+        - {source: 'personal_account', target: personal_account, type: STRING}
+        - {source: 'function_personal_account', target: personal_account_purpose, type: STRING}
+        - {source: 'code_tofk', target: personal_account_tofk_code, type: STRING}
+        - {source: 'name_income_admin', target: income_admin_name, type: STRING}
+        - {source: 'inn_income_admin', target: income_admin_inn, type: STRING}
+        - {source: 'kpp_income_admin', target: income_admin_kpp, type: STRING}
+        - {source: 'VERIFY_SOURCE_personal_account_income_admin', target: personal_account_income_admin, type: BOOLEAN}
+        - {source: 'datebeg', target: valid_from, type: TIMESTAMP}
+        - {source: 'dateend', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.1"
+      entity-name: foms_payment_organization
+      staging-table: data.dsa_raw_foms_payment_organization
+      target-table: data.foms_payment_organization
+      procedure: dsa_data_load.load_foms_payment_organization
+      key-columns: [id]
+      sorting: orgcod
+      columns:
+        - {source: 'orgcod', target: id, type: STRING, required: true}
+        - {source: 'nam_orgp', target: name, type: STRING, required: true}
+        - {source: 'nam_orgk', target: short_name, type: STRING}
+        - {source: 'orgtype', target: organization_type, type: STRING}
+        - {source: 'tf_kod', target: territorial_fund_code, type: STRING}
+        - {source: 'smocod', target: smo_code, type: STRING}
+        - {source: 'tf_okato', target: region_okato_code, type: STRING}
+        - {source: 'datebeg', target: valid_from, type: TIMESTAMP}
+        - {source: 'dateend', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.11"
+      entity-name: foms_payment_refusal_reason
+      staging-table: data.dsa_raw_foms_payment_refusal_reason
+      target-table: data.foms_payment_refusal_reason
+      procedure: dsa_data_load.load_foms_payment_refusal_reason
+      key-columns: [code, name, valid_from]
+      sorting: Kod
+      columns:
+        - {source: 'Kod', target: code, type: LONG, required: true}
+        - {source: 'Naim', target: name, type: STRING, required: true}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
+        - {source: 'Osn', target: refusal_basis, type: STRING}
+        - {source: 'Komment', target: service_comment, type: STRING}
+        - {source: 'IDVID', target: control_type_code, type: INTEGER}
+        - {source: 'K_SH', target: penalty_coefficient, type: STRING}
+        - {source: 'K_NO', target: nonpayment_coefficient, type: STRING}
+        - {source: 'KodPG', target: form_pg_code, type: STRING}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.48"
+      entity-name: foms_surgical_treatment_type
+      staging-table: data.dsa_raw_foms_surgical_treatment_type
+      target-table: data.foms_surgical_treatment_type
+      procedure: dsa_data_load.load_foms_surgical_treatment_type
+      key-columns: [id]
+      sorting: ID_THir
+      columns:
+        - {source: 'ID_THir', target: id, type: LONG, required: true}
+        - {source: 'THir_NAME', target: name, type: STRING, required: true}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.3.54"
+      entity-name: foms_treatment_type
+      staging-table: data.dsa_raw_foms_treatment_type
+      target-table: data.foms_treatment_type
+      procedure: dsa_data_load.load_foms_treatment_type
+      key-columns: [id]
+      sorting: ID_TLech
+      columns:
+        - {source: 'ID_TLech', target: id, type: LONG, required: true}
+        - {source: 'TLech_NAME', target: name, type: STRING, required: true}
+        - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP}
+        - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.11.1493"
+      entity-name: high_tech_medical_care_type
+      staging-table: data.dsa_raw_high_tech_medical_care_type
+      target-table: data.high_tech_medical_care_type
+      procedure: dsa_data_load.load_high_tech_medical_care_type
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'ID_NAME', target: name_id, type: LONG}
+        - {source: 'ID_PROFILE', target: profile_id, type: LONG}
+        - {source: 'PROFILE', target: profile_name, type: STRING}
+        - {source: 'ICD_10', target: icd10_code, type: STRING}
+        - {source: 'ID_MODEL', target: patient_model_id, type: LONG}
+        - {source: 'MODEL', target: patient_model, type: STRING}
+        - {source: 'ID_TREATMENT', target: treatment_type_id, type: LONG}
+        - {source: 'TREATMENT', target: treatment_type, type: STRING}
+        - {source: 'ID_METHOD', target: treatment_method_id, type: LONG}
+        - {source: 'METHOD', target: treatment_method, type: STRING}
+        - {source: 'GROUP', target: vmp_group, type: INTEGER}
+        - {source: 'PART', target: part, type: INTEGER}
+        - {source: 'FINANCE', target: finance, type: STRING}
+        - {source: 'DATE_BEGIN', target: valid_from, type: TIMESTAMP}
+        - {source: 'DATE_END', target: valid_to, type: TIMESTAMP}
+        - {source: 'SORT', target: display_order, type: DECIMAL, precision: 10, scale: 0}
+    - oid: "1.2.643.5.1.13.13.99.2.360"
+      entity-name: high_tech_patient_model
+      staging-table: data.dsa_raw_high_tech_patient_model
+      target-table: data.high_tech_patient_model
+      procedure: dsa_data_load.load_high_tech_patient_model
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'MODEL', target: name, type: STRING, required: true}
+        - {source: 'RAZDEL', target: sections, type: STRING}
+        - {source: 'DATE_BEGIN', target: valid_from, type: TIMESTAMP}
+        - {source: 'DATE_END', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.2.621"
+      entity-name: high_tech_treatment_method
+      staging-table: data.dsa_raw_high_tech_treatment_method
+      target-table: data.high_tech_treatment_method
+      procedure: dsa_data_load.load_high_tech_treatment_method
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'METHOD', target: name, type: STRING, required: true}
+        - {source: 'RAZDEL', target: sections, type: STRING}
+        - {source: 'OBLIGATION', target: implantation_obligation, type: INTEGER}
+        - {source: 'DATE_BEGIN', target: valid_from, type: TIMESTAMP}
+        - {source: 'DATE_END', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.2.620"
+      entity-name: high_tech_treatment_type
+      staging-table: data.dsa_raw_high_tech_treatment_type
+      target-table: data.high_tech_treatment_type
+      procedure: dsa_data_load.load_high_tech_treatment_type
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'TREATMENT', target: name, type: STRING, required: true}
+        - {source: 'DATE_BEGIN', target: valid_from, type: TIMESTAMP}
+        - {source: 'DATE_END', target: valid_to, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.11.1005"
+      entity-name: icd10
+      staging-table: data.dsa_raw_icd10
+      target-table: data.icd10
+      procedure: dsa_data_load.load_icd10
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'ID_PARENT', target: parent_id, type: LONG}
+        - {source: 'MKB_CODE', target: code, type: STRING}
+        - {source: 'MKB_NAME', target: name, type: STRING, required: true}
+        - {source: 'REC_CODE', target: rec_code, type: STRING}
+        - {source: 'ADDL_CODE', target: additional_code, type: INTEGER}
+        - {source: 'ACTUAL', target: actual, type: INTEGER}
+        - {source: 'DATE', target: actuality_changed_at, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.99.2.1111"
+      entity-name: immunobiological_disease_group
+      staging-table: data.dsa_raw_immunobiological_disease_group
+      target-table: data.immunobiological_disease_group
+      procedure: dsa_data_load.load_immunobiological_disease_group
+      key-columns: [id]
+      sorting: id
+      columns:
+        - {source: 'id', target: id, type: LONG, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'SYNONYMS', target: synonyms, type: STRING}
+        - {source: 'EPMB', target: used_in_elmk, type: BOOLEAN}
+        - {source: 'NAME_EPMB', target: elmk_name, type: STRING}
+    - oid: "1.2.643.5.1.13.13.11.1079"
+      entity-name: implantable_assistive_device_type
+      staging-table: data.dsa_raw_implantable_assistive_device_type
+      target-table: data.implantable_assistive_device_type
+      procedure: dsa_data_load.load_implantable_assistive_device_type
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'PARENT', target: parent_id, type: LONG}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'RZN', target: rzn_code, type: STRING}
+        - {source: 'DISEASE', target: disease_code, type: STRING}
+        - {source: 'ACTUAL', target: actual, type: BOOLEAN}
+        - {source: 'EXISTENCE_NPA', target: existence_npa, type: BOOLEAN}
+        - {source: 'ORDER', target: source_order, type: STRING}
+    - oid: "1.2.643.5.1.13.13.11.1036"
+      entity-name: injury_type
+      staging-table: data.dsa_raw_injury_type
+      target-table: data.injury_type
+      procedure: dsa_data_load.load_injury_type
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'F_066u-02', target: form_066u_02_code, type: INTEGER}
+        - {source: 'NAME_F_066u-02', target: form_066u_02_name, type: STRING}
+        - {source: 'F_025u-1', target: form_025u_1_code, type: STRING}
+        - {source: 'NAME_F_025u-1', target: form_025u_1_name, type: STRING}
+    - oid: "1.2.643.5.1.13.13.11.1081"
+      entity-name: laboratory_specimen
+      staging-table: data.dsa_raw_laboratory_specimen
+      target-table: data.laboratory_specimen
+      procedure: dsa_data_load.load_laboratory_specimen
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'GROUP', target: specimen_group, type: STRING}
+        - {source: 'ID_MATTER', target: material_id, type: LONG}
+        - {source: 'MATTER', target: material_name, type: STRING}
+        - {source: 'SPECIMEN', target: name, type: STRING}
+        - {source: 'Sort', target: display_order, type: DECIMAL, precision: 10, scale: 0}
+    - oid: "1.2.643.5.1.13.13.11.1080"
+      entity-name: laboratory_test
+      staging-table: data.dsa_raw_laboratory_test
+      target-table: data.laboratory_test
+      procedure: dsa_data_load.load_laboratory_test
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: STRING, required: true}
+        - {source: 'FULLNAME', target: name, type: STRING, required: true}
+        - {source: 'SHORTNAME', target: short_name, type: STRING}
+        - {source: 'ENGLISHNAME', target: english_name, type: STRING}
+        - {source: 'SYNONYMS', target: synonyms, type: STRING}
+        - {source: 'LOINC', target: loinc_code, type: STRING}
+        - {source: 'ANALYTE', target: analyte, type: STRING}
+        - {source: 'SPECANALYTE', target: analyte_characteristic, type: STRING}
+        - {source: 'MEASUREMENT', target: measurement, type: STRING}
+        - {source: 'UNIT', target: unit, type: STRING}
+        - {source: 'SPECIMEN', target: specimen, type: STRING}
+        - {source: 'TIMECHAR', target: time_characteristic, type: STRING}
+        - {source: 'METHODTYPE', target: method_type, type: STRING}
+        - {source: 'SCALETYPE', target: scale_type, type: STRING}
+        - {source: 'TESTSTATUS', target: test_status, type: STRING}
+        - {source: 'GROUP', target: test_group, type: STRING}
+        - {source: 'NMU', target: nmu_codes, type: STRING}
+        - {source: 'SORT', target: source_order, type: STRING}
+    - oid: "1.2.643.5.1.13.13.99.2.778"
+      entity-name: laterality
+      staging-table: data.dsa_raw_laterality
+      target-table: data.laterality
+      procedure: dsa_data_load.load_laterality
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'laterality', target: name, type: STRING, required: true}
+    - oid: "1.2.643.5.1.13.13.11.1358"
+      entity-name: measurement_unit
+      staging-table: data.dsa_raw_measurement_unit
+      target-table: data.measurement_unit
+      procedure: dsa_data_load.load_measurement_unit
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'FULLNAME', target: name, type: STRING, required: true}
+        - {source: 'SHORTNAME', target: short_name, type: STRING}
+        - {source: 'PRINTNAME', target: print_name, type: STRING}
+        - {source: 'MEASUREMENT', target: measurement, type: STRING}
+        - {source: 'UCUM', target: ucum_code, type: STRING}
+        - {source: 'COEFFICIENT', target: coefficient, type: STRING}
+        - {source: 'FORMULA', target: formula, type: STRING}
+        - {source: 'CONVERSION_ID', target: conversion_unit_id, type: LONG}
+        - {source: 'CONVERSION_NAME', target: conversion_unit_name, type: STRING}
+        - {source: 'OKEI_CODE', target: okei_code, type: STRING}
+        - {source: 'NSI_CODE_EEC', target: eec_dictionary_code, type: STRING}
+        - {source: 'NSI_ELEMENT_CODE_EEC', target: eec_element_code, type: STRING}
+    - oid: "1.2.643.5.1.13.13.99.2.322"
+      entity-name: medical_care_condition
+      staging-table: data.dsa_raw_medical_care_condition
+      target-table: data.medical_care_condition
+      procedure: dsa_data_load.load_medical_care_condition
+      key-columns: [id]
+      sorting: CODE
+      columns:
+        - {source: 'CODE', target: id, type: LONG, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'IDUMP', target: oms_condition_code, type: INTEGER}
+        - {source: 'COMMENTS', target: comments, type: STRING}
+    - oid: "1.2.643.5.1.13.13.11.1551"
+      entity-name: medical_care_form
+      staging-table: data.dsa_raw_medical_care_form
+      target-table: data.medical_care_form
+      procedure: dsa_data_load.load_medical_care_form
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'S_NAME', target: name, type: STRING, required: true}
+        - {source: 'IDFRMMP', target: oms_care_form_code, type: INTEGER}
+    - oid: "1.2.643.5.1.13.13.11.1008"
+      entity-name: medical_care_location
+      staging-table: data.dsa_raw_medical_care_location
+      target-table: data.medical_care_location
+      procedure: dsa_data_load.load_medical_care_location
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'F025-1y', target: form_025_1y_flag, type: INTEGER}
+        - {source: 'ID_MOP', target: oms_visit_place_code, type: INTEGER}
+        - {source: 'SORT', target: display_order, type: DECIMAL, required: true, precision: 10, scale: 0}
+    - oid: "1.2.643.5.1.13.13.11.1119"
+      entity-name: medical_care_profile
+      staging-table: data.dsa_raw_medical_care_profile
+      target-table: data.medical_care_profile
+      procedure: dsa_data_load.load_medical_care_profile
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'PROFILE', target: name, type: STRING, required: true}
+    - oid: "1.2.643.5.1.13.13.11.1034"
+      entity-name: medical_care_type
+      staging-table: data.dsa_raw_medical_care_type
+      target-table: data.medical_care_type
+      procedure: dsa_data_load.load_medical_care_type
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'PARENT', target: parent_id, type: LONG}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'IDVMP', target: oms_care_type_code, type: INTEGER}
+        - {source: 'SORT', target: display_order, type: DECIMAL, required: true, precision: 10, scale: 0}
+    - oid: "1.2.643.5.1.13.13.99.2.253"
+      entity-name: medical_equipment_type
+      staging-table: data.dsa_raw_medical_equipment_type
+      target-table: data.medical_equipment_type
+      procedure: dsa_data_load.load_medical_equipment_type
+      key-columns: [id]
+      sorting: id
+      columns:
+        - {source: 'id', target: id, type: LONG, required: true}
+        - {source: 'parent_id', target: parent_id, type: LONG}
+        - {source: 'equipment_type', target: name, type: STRING, required: true}
+        - {source: 'available', target: available, type: INTEGER}
+        - {source: 'date_end', target: abolished_at, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.11.1002"
+      entity-name: medical_position
+      staging-table: data.dsa_raw_medical_position
+      target-table: data.medical_position
+      procedure: dsa_data_load.load_medical_position
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'PID', target: parent_id, type: LONG}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'EQUIVALENT', target: equivalent, type: STRING}
+        - {source: 'SORT', target: display_order, type: DECIMAL, required: true, precision: 10, scale: 0}
+        - {source: 'NORMATIVE', target: normative_id, type: LONG}
+        - {source: 'GROUP', target: group_flag, type: INTEGER}
+        - {source: 'FORM_30', target: form_30, type: INTEGER}
+        - {source: 'ACTUAL', target: actual, type: INTEGER, required: true}
+        - {source: 'DATA_END', target: end_date, type: TIMESTAMP}
+        - {source: 'COMMENT', target: comment, type: STRING}
+        - {source: 'NEED_QUAL', target: need_qual, type: INTEGER}
+        - {source: 'ZS', target: zs, type: INTEGER}
+        - {source: 'NEED_CERT', target: need_cert, type: INTEGER}
+    - oid: "1.2.643.5.1.13.13.11.1070"
+      entity-name: medical_service
+      staging-table: data.dsa_raw_medical_service
+      target-table: data.medical_service
+      procedure: dsa_data_load.load_medical_service
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'S_CODE', target: code, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'REL', target: relevance, type: INTEGER}
+        - {source: 'DATEOUT', target: abolished_at, type: TIMESTAMP}
+    - oid: "1.2.643.5.1.13.13.11.1066"
+      entity-name: medical_specialty
+      staging-table: data.dsa_raw_medical_specialty
+      target-table: data.medical_specialty
+      procedure: dsa_data_load.load_medical_specialty
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'PARENT', target: parent_id, type: LONG}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'REL', target: relevance, type: INTEGER}
+        - {source: 'DATEOUT', target: abolished_at, type: TIMESTAMP}
+        - {source: 'IDSPEC', target: ffoms_code, type: INTEGER}
+    - oid: "1.2.643.5.1.13.13.99.2.443"
+      entity-name: medical_visit_reason
+      staging-table: data.dsa_raw_medical_visit_reason
+      target-table: data.medical_visit_reason
+      procedure: dsa_data_load.load_medical_visit_reason
+      key-columns: [id]
+      sorting: CODE
+      columns:
+        - {source: 'CODE', target: id, type: LONG, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+    - oid: "1.2.643.5.1.13.13.11.1046"
+      entity-name: medical_visit_result
+      staging-table: data.dsa_raw_medical_visit_result
+      target-table: data.medical_visit_result
+      procedure: dsa_data_load.load_medical_visit_result
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'FORM_025', target: form_025_code, type: STRING}
+        - {source: 'FORM_066', target: form_066_02_code, type: INTEGER}
+        - {source: 'NAME_SYNONYM', target: form_066_02_name, type: STRING}
+        - {source: 'FORM_066_u', target: form_066_u_code, type: INTEGER}
+        - {source: 'NAME_066_u', target: form_066_u_name, type: STRING}
+    - oid: "1.2.643.5.1.13.2.1.1.581"
+      entity-name: outpatient_visit_purpose
+      staging-table: data.dsa_raw_outpatient_visit_purpose
+      target-table: data.outpatient_visit_purpose
+      procedure: dsa_data_load.load_outpatient_visit_purpose
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'S_NAME', target: name, type: STRING, required: true}
+        - {source: 'INVISIBLE', target: invisible, type: INTEGER}
+    - oid: "1.2.643.5.1.13.13.11.1040"
+      entity-name: patient_sex
+      staging-table: data.dsa_raw_patient_sex
+      target-table: data.patient_sex
+      procedure: dsa_data_load.load_patient_sex
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}
+    - oid: "1.2.643.5.1.13.13.99.2.546"
+      entity-name: tnm_staging
+      staging-table: data.dsa_raw_tnm_staging
+      target-table: data.tnm_staging
+      procedure: dsa_data_load.load_tnm_staging
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'ShortNameOfTopography', target: topography_name, type: STRING, required: true}
+        - {source: 'ICDOTopography', target: icdo_topography, type: STRING}
+        - {source: 'Morphology', target: morphology, type: STRING, required: true}
+        - {source: 'Stage', target: stage, type: STRING, required: true}
+        - {source: 'Tumor', target: tumor, type: STRING, required: true}
+        - {source: 'ID_Tumor', target: tumor_category_id, type: LONG}
+        - {source: 'Nodus', target: nodus, type: STRING}
+        - {source: 'ID_Nodus', target: nodus_category_id, type: LONG}
+        - {source: 'Metastasis', target: metastasis, type: STRING, required: true}
+        - {source: 'ID_Metastasis', target: metastasis_category_id, type: LONG}
+        - {source: 'Addition', target: addition, type: STRING}
+        - {source: 'ID_Addition', target: addition_category_id, type: LONG}
+        - {source: 'Classification', target: classification, type: INTEGER, required: true}
+        - {source: 'Version', target: tnm_version, type: INTEGER, required: true}
+    - oid: "1.2.643.5.1.13.13.99.2.933"
+      entity-name: unlawful_harm_sign
+      staging-table: data.dsa_raw_unlawful_harm_sign
+      target-table: data.unlawful_harm_sign
+      procedure: dsa_data_load.load_unlawful_harm_sign
+      key-columns: [id]
+      sorting: ID
+      columns:
+        - {source: 'ID', target: id, type: LONG, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true}

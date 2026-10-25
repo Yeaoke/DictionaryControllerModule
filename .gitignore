@@ -1,8 +1,12 @@
+.env
+
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+*.txt
 
 ### STS ###
 .apt_generated
@@ -30,4 +34,6 @@ build/
 !**/src/test/**/build/
 
 ### VS Code ###
-.vscode/
+.vscode/*
+!.vscode/launch.json
+*.log

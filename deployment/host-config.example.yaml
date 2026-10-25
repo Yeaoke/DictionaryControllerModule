@@ -1,0 +1,10 @@
+# Merge deliberately into the host configuration; not loaded by the library.
+spring:
+  config:
+    import: classpath:nsi-dictionaries.yaml
+nsi:
+  minzdrav:
+    base-url: ${NSI_BASE_URL:https://nsi.rosminzdrav.ru/port}
+    user-key: ${NSI_USER_KEY}
+    trust-store: ${NSI_TRUST_STORE}
+    trust-store-password: ${NSI_TRUST_STORE_PASSWORD}
