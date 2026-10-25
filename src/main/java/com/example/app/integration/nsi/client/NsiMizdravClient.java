@@ -220,7 +220,7 @@ public class NsiMizdravClient {
                             (spec, signal) -> signal.failure()
                         )
                     )
-                    .timeout(Duration.ofSeconds(75))
+                    .timeout(Duration.ofSeconds(120))
                     .doOnSuccess(
                         result -> log.info(
                             "Запрос {} выполнен успешно для справочника OID: {}", operation, oid

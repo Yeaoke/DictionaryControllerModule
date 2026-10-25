@@ -1,15 +1,20 @@
 package com.example.app.integration.nsi.dto;
 
-import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public record NsiPassportResponse(
 
-    Instant approveDate,
+    @JsonFormat(pattern = "dd.MM.yyyy")
+    LocalDate approveDate,
     Boolean archive,
     Long authOrganizationId,
     List<CodeItem> codes,
-    Instant createDate,
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
+    LocalDateTime createDate,
     String description,
     List<FieldItem> fields,
     String fullName,
@@ -17,11 +22,13 @@ public record NsiPassportResponse(
     Boolean hierarchical,
     String identifier,
     List<KeyItem> keys,
-    Instant lastUpdate,
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
+    LocalDateTime lastUpdate,
     List<LawItem> laws,
     Long nsiDictionaryId,
     String oid,
-    Instant publishDate,
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
+    LocalDateTime publishDate,
     String releaseNotes,
     Long respOrganizationId,
     String result,
