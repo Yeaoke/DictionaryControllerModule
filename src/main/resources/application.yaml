@@ -2,7 +2,7 @@ spring:
     config:
         import: classpath:dictionaries.yaml
     datasource:
-        url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/dsa}
+        url: ${POSTGRES_URL}
         username: ${POSTGRES_USERNAME}
         password: ${POSTGRES_PASSWORD}
 
@@ -22,7 +22,7 @@ spring:
 
 nsi:
     minzdrav:
-        base-url: ${NSI_BASE_URL:https://nsi.rosminzdrav.ru/port}
-        user-key: ${NSI_USER_KEY:}
-        trust-store: ${NSI_TRUST_STORE:certs/nsi-truststore.p12}
+        base-url: ${NSI_BASE_URL}
+        user-key: ${NSI_USER_KEY}
+        trust-store: ${NSI_TRUST_STORE}
         trust-store-password: ${NSI_TRUST_STORE_PASSWORD}
