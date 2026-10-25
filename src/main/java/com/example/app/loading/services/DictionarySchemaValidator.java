@@ -33,9 +33,7 @@ public class DictionarySchemaValidator {
             throw new IllegalStateException("Invalid procedure output contract: " + d.procedure());
         }
             for (var c : d.columns()) {
-            
-                var types = jdbc.queryForList("SELECT data_type FROM information_schema.columns WHERE table_schema='data' AND table_name=? AND column_name=?",
-                    String.class, "dsa_raw_" + d.entityName(), c.target());
+                var types = jdbc.queryForList("SELECT data_type FROM information_schema.columns WHERE table_schema='data' AND table_name=? AND column_name=?", String.class, "dsa_raw_" + d.entityName(), c.target());
                 String expected = switch (c.type()) {
                 case LONG -> "bigint"; case INTEGER -> "integer"; case DECIMAL -> "numeric";
                 case BOOLEAN -> "boolean"; case DATE -> "date"; case TIMESTAMP -> "timestamp without time zone";

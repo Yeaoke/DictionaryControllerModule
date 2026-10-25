@@ -8,11 +8,6 @@ import com.example.app.loading.config.DictionaryRegistry;
 import com.example.app.loading.repos.LoadedVersionJdbcRepository;
 import com.example.app.loading.services.*;
 
-/**
- * Explicit library entry point. The host supplies one JdbcTemplate and transaction
- * manager and imports nsi-dictionaries.yaml (or its own catalog).
- * No startup runners, controllers, migrations or component scanning are enabled.
- */
 @Configuration(proxyBeanMethods = false)
 @EnableTransactionManagement
 @Import({
