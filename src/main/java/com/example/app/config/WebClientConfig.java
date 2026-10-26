@@ -59,7 +59,7 @@ public class WebClientConfig {
 
         HttpClient httpClient = HttpClient.create()
             .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10_000)
-            .responseTimeout(Duration.ofSeconds(60))
+            .responseTimeout(Duration.ofSeconds(100))
             .secure(spec -> spec
                 .sslContext(sslContext)
                 .handshakeTimeout(Duration.ofSeconds(10))
@@ -68,7 +68,8 @@ public class WebClientConfig {
         return builder.clone()
             .baseUrl(baseUrl)
             .clientConnector(new ReactorClientHttpConnector(httpClient))
-            .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(32 * 1024 * 1024))
+            .codecs(configurer -> configurer.defaultCodecs()
+                .maxInMemorySize(32 * 1024 * 1024))
             .build();
     }
 }

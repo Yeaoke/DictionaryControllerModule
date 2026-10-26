@@ -1,4 +1,3 @@
-# Merge deliberately into the host configuration; not loaded by the library.
 spring:
   config:
     import: classpath:nsi-dictionaries.yaml
