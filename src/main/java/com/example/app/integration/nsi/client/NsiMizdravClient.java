@@ -1,15 +1,23 @@
 package com.example.app.integration.nsi.client;
 
+import java.net.ConnectException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.time.Duration;
 import java.util.Locale;
+import java.util.concurrent.TimeoutException;
+
+import javax.net.ssl.SSLException;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
+import io.netty.channel.ConnectTimeoutException;
+import io.netty.handler.timeout.ReadTimeoutException;
+import reactor.netty.http.client.PrematureCloseException;
 
 import com.example.app.integration.nsi.dto.NsiDataPageResponse;
 import com.example.app.integration.nsi.dto.NsiPassportResponse;
@@ -204,13 +212,10 @@ public class NsiMizdravClient {
                         return response;
                     })
                     .retryWhen(
-                        Retry.backoff(
-                            2,
-                            Duration.ofMillis(500)
-                        )
-                        .maxBackoff(Duration.ofSeconds(3))
-                        .jitter(0.2)
-                        .filter(this::isRetryable)
+                        Retry.backoff(2, Duration.ofSeconds(2))
+                        .maxBackoff(Duration.ofSeconds(10))
+                        .jitter(0.5)
+                        .filter(error -> error instanceof TimeoutException || isRetryable(error))
                         .doBeforeRetry(
                             signal -> log.warn(
                                 "Повтор запроса {} OID: {}, попытка: {}", operation, oid, signal.totalRetries() + 2
@@ -220,7 +225,6 @@ public class NsiMizdravClient {
                             (spec, signal) -> signal.failure()
                         )
                     )
-                    .timeout(Duration.ofSeconds(120))
                     .doOnSuccess(
                         result -> log.info(
                             "Запрос {} выполнен успешно для справочника OID: {}", operation, oid
@@ -231,19 +235,32 @@ public class NsiMizdravClient {
                             "Ошибка запроса {} для OID: {}, тип: {}", operation, oid, error.getClass().getSimpleName()
                         )
                     )
+                    .timeout(Duration.ofSeconds(390))
                     .block();
     }
 
     private boolean isRetryable(Throwable error) {
-
-        if (error instanceof WebClientRequestException) {
-            return true;
-        }
-
         if (error instanceof WebClientResponseException ex) {
-            return ex.getStatusCode().value() == 429 || ex.getStatusCode().is5xxServerError();
+            int status = ex.getStatusCode().value();
+            return status == 429 || status == 502 || status == 503 || status == 504;
         }
 
-        return false;
+        boolean transientNetworkFailure = false;
+
+        for (Throwable cause = error; cause != null; cause = cause.getCause()) {
+            if (cause instanceof SSLException) {
+                return false;
+            }
+
+            if (cause instanceof ReadTimeoutException || cause instanceof ConnectTimeoutException || cause instanceof SocketTimeoutException || cause instanceof ConnectException || cause instanceof SocketException || cause instanceof PrematureCloseException) {
+                transientNetworkFailure = true;
+            }
+
+            if (cause.getCause() == cause) {
+                break;
+            }
+        }
+
+        return transientNetworkFailure;
     }
 }

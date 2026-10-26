@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.app.loading.config.DictionaryRegistry;
+import com.example.app.loading.config.DictionaryLoadProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.example.app.loading.dto.DictionarySnapshot;
 import com.example.app.loading.dto.DictionaryLoadResultDTO;
 import com.example.app.loading.repos.LoadedVersionJdbcRepository;
@@ -20,6 +22,7 @@ public class DictionaryApplyService {
     private final DictionarySchemaValidator schema;
     private final LoadedVersionJdbcRepository versions;
     private final DictionaryProcedureService procedures;
+    private final DictionaryLoadProperties properties;
     
     public DictionaryApplyService(
         JdbcTemplate jdbc,
@@ -29,12 +32,20 @@ public class DictionaryApplyService {
         LoadedVersionJdbcRepository versions,
         DictionaryProcedureService procedures
     ) {
+        this(jdbc, registry, mapper, schema, versions, procedures, DictionaryLoadProperties.defaults());
+    }
+
+    @Autowired
+    public DictionaryApplyService(JdbcTemplate jdbc, DictionaryRegistry registry, DictionaryRowMapper mapper,
+            DictionarySchemaValidator schema, LoadedVersionJdbcRepository versions,
+            DictionaryProcedureService procedures, DictionaryLoadProperties properties) {
         this.jdbc = jdbc;
         this.registry = registry;
         this.mapper = mapper;
         this.schema = schema;
         this.versions = versions;
         this.procedures = procedures;
+        this.properties = properties;
     }
 
     @Transactional
@@ -50,7 +61,7 @@ public class DictionaryApplyService {
         
         var d = registry.require(snapshot.oid());
         
-        var rows = mapper.map(d, snapshot);
+        mapper.validateSnapshot(d, snapshot);
         
         schema.validate(d);
         
@@ -72,17 +83,20 @@ public class DictionaryApplyService {
         
         String placeholders = String.join(",", Collections.nCopies(d.columns().size(), "?"));
         
-        jdbc.batchUpdate("INSERT INTO " + d.stagingTable() + " (" + columns + ") VALUES (" + placeholders + ")", rows, 500,
+        String sql = "INSERT INTO " + d.stagingTable() + " (" + columns + ") VALUES (" + placeholders + ")";
+        int[] jdbcTypes = d.columns().stream().mapToInt(c -> switch (c.type()) {
+            case LONG -> Types.BIGINT; case INTEGER -> Types.INTEGER; case STRING -> Types.VARCHAR;
+            case DECIMAL -> Types.NUMERIC; case BOOLEAN -> Types.BOOLEAN; case DATE -> Types.DATE;
+            case TIMESTAMP -> Types.TIMESTAMP;
+        }).toArray();
+        // Conversion failures in later batches still roll back all staging writes.
+        mapper.forEachBatch(d, snapshot, properties.jdbcBatchSize(), rows ->
+            jdbc.batchUpdate(sql, rows, properties.jdbcBatchSize(),
             (ps, row) -> {
                 for (int i = 0; i < row.size(); i++) {
-                    int type = switch (d.columns().get(i).type()) {
-                        case LONG -> Types.BIGINT; case INTEGER -> Types.INTEGER; case STRING -> Types.VARCHAR;
-                        case DECIMAL -> Types.NUMERIC; case BOOLEAN -> Types.BOOLEAN; case DATE -> Types.DATE;
-                        case TIMESTAMP -> Types.TIMESTAMP;
-                    };
-                    ps.setObject(i + 1, row.get(i), type);
+                    ps.setObject(i + 1, row.get(i), jdbcTypes[i]);
                 }
-            });
+            }));
             
         return Optional.of(procedures.load(d, userId, snapshot.version(), sourceUrl));
     }
