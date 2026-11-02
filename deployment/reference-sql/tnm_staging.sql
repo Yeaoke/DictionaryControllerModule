@@ -1,18 +1,18 @@
 ------------ tnm_staging ------------ 1.2.643.5.1.13.13.99.2.546
 create table if not exists data.tnm_staging (
     id                  bigint primary key,    -- ID: идентификатор Минздрава
-    topography_name     text not null,         -- ShortNameOfTopography
-    icdo_topography     text,                  -- ICDOTopography: МКБ-О топография
-    morphology          text not null,         -- Morphology: гистологическая группа
-    stage               text not null,         -- Stage: стадирование по TNM
+    topography_name     varchar(200) not null,         -- ShortNameOfTopography
+    icdo_topography     varchar(100),                  -- ICDOTopography: МКБ-О топография
+    morphology          varchar(500) not null,         -- Morphology: гистологическая группа
+    stage               varchar(100) not null,         -- Stage: стадирование по TNM
 
-    tumor               text not null,         -- Tumor: категория T
+    tumor               varchar(100) not null,         -- Tumor: категория T
     tumor_category_id   bigint,                -- ID_Tumor: код категории
-    nodus               text,                  -- Nodus: категория N
+    nodus               varchar(100),                  -- Nodus: категория N
     nodus_category_id   bigint,                -- ID_Nodus: код категории
-    metastasis          text not null,         -- Metastasis: категория M
+    metastasis          varchar(100) not null,         -- Metastasis: категория M
     metastasis_category_id bigint,             -- ID_Metastasis: код категории
-    addition            text,                  -- Addition: дополнительная информация
+    addition            varchar(2000),                  -- Addition: дополнительная информация
     addition_category_id bigint,               -- ID_Addition: код дополнительной информации
 
     classification      integer not null
@@ -24,7 +24,7 @@ create table if not exists data.tnm_staging (
     is_deleted          char(1) default 'N' not null
                         check (is_deleted in ('Y', 'N')),
     display_order       numeric(10),           -- Локальный порядок отображения
-    search_synonym      text                   -- Локальные поисковые синонимы
+    search_synonym      varchar(100)                   -- Локальные поисковые синонимы
 );
 
 create index if not exists idx_tnm_staging_icdo_topography

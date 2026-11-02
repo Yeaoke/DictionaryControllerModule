@@ -9,8 +9,8 @@ dictionaries:
       sorting: ID
       columns:
         - {source: ID, target: id, type: LONG, required: true}
-        - {source: NAME, target: name, type: STRING, required: true, max-length: 100}
-        - {source: DOC, target: doc, type: STRING, max-length: 100}
+        - {source: NAME, target: name, type: STRING, required: true, max-length: 500}
+        - {source: DOC, target: doc, type: STRING, max-length: 5000}
         - {source: SORT, target: sort, type: DECIMAL, precision: 10, scale: 0}
     - oid: "1.2.643.5.1.13.13.11.1525"
       entity-name: ambulance_call_order
@@ -21,7 +21,7 @@ dictionaries:
       sorting: Id
       columns:
         - {source: 'Id', target: id, type: LONG, required: true}
-        - {source: 'Name', target: name, type: STRING, required: true}
+        - {source: 'Name', target: name, type: STRING, required: true, max-length: 500}
     - oid: "1.2.643.5.1.13.13.99.2.1076"
       entity-name: ambulance_team_type
       staging-table: data.dsa_raw_ambulance_team_type
@@ -32,8 +32,8 @@ dictionaries:
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
         - {source: 'PARENT_ID', target: parent_id, type: LONG}
-        - {source: 'NAME', target: name, type: STRING, required: true}
-        - {source: 'FORM_30', target: form_30_code, type: STRING}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'FORM_30', target: form_30_code, type: STRING, max-length: 5000}
     - oid: "1.2.643.5.1.13.13.11.1477"
       entity-name: anatomical_location
       staging-table: data.dsa_raw_anatomical_location
@@ -44,12 +44,12 @@ dictionaries:
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
         - {source: 'ID_PARENT', target: parent_id, type: LONG}
-        - {source: 'NAME', target: name, type: STRING, required: true}
-        - {source: 'NAME_ENG', target: english_name, type: STRING}
-        - {source: 'SNOMED_CT', target: snomed_code, type: STRING}
-        - {source: 'ANATOMIC_FIELD', target: anatomical_region, type: STRING}
-        - {source: 'LATERALITY', target: laterality, type: STRING}
-        - {source: 'SYNONYMS', target: synonyms, type: STRING}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'NAME_ENG', target: english_name, type: STRING, max-length: 5000}
+        - {source: 'SNOMED_CT', target: snomed_code, type: STRING, max-length: 5000}
+        - {source: 'ANATOMIC_FIELD', target: anatomical_region, type: STRING, max-length: 5000}
+        - {source: 'LATERALITY', target: laterality, type: STRING, max-length: 5000}
+        - {source: 'SYNONYMS', target: synonyms, type: STRING, max-length: 5000}
     - oid: "1.2.643.5.1.13.13.11.1033"
       entity-name: anesthesia_type
       staging-table: data.dsa_raw_anesthesia_type
@@ -60,10 +60,10 @@ dictionaries:
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
         - {source: 'Parent', target: parent_id, type: LONG}
-        - {source: 'Name', target: name, type: STRING, required: true}
-        - {source: 'Group', target: anesthesia_group, type: STRING}
-        - {source: 'Synonym', target: synonyms, type: STRING}
-        - {source: 'SORT', target: source_order, type: STRING}
+        - {source: 'Name', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'Group', target: anesthesia_group, type: STRING, max-length: 5000}
+        - {source: 'Synonym', target: synonyms, type: STRING, max-length: 5000}
+        - {source: 'SORT', target: source_order, type: STRING, max-length: 5000}
     - oid: "1.2.643.5.1.13.13.11.1087"
       entity-name: bacterium
       staging-table: data.dsa_raw_bacterium
@@ -75,13 +75,13 @@ dictionaries:
         - {source: 'ID', target: id, type: LONG, required: true}
         - {source: 'ID_PARENT', target: parent_id, type: LONG}
         - {source: 'LEVEL', target: hierarchy_level, type: INTEGER}
-        - {source: 'FULLNAME', target: name, type: STRING, required: true}
-        - {source: 'FORMATNAME', target: formatted_name, type: STRING}
+        - {source: 'FULLNAME', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'FORMATNAME', target: formatted_name, type: STRING, max-length: 5000}
         - {source: 'CHILDCOUNT', target: child_count, type: INTEGER}
-        - {source: 'SYNONIMS', target: synonyms, type: STRING}
-        - {source: 'SNOMED', target: snomed_code, type: STRING}
+        - {source: 'SYNONIMS', target: synonyms, type: STRING, max-length: 5000}
+        - {source: 'SNOMED', target: snomed_code, type: STRING, max-length: 5000}
         - {source: 'ID_NCBI', target: ncbi_id, type: LONG}
-        - {source: 'GRAM', target: gram, type: STRING}
+        - {source: 'GRAM', target: gram, type: STRING, max-length: 5000}
         - {source: 'HUMAN', target: human, type: BOOLEAN}
         - {source: 'SORT', target: display_order, type: DECIMAL, precision: 10, scale: 0}
     - oid: "1.2.643.5.1.13.13.11.1069"
@@ -94,12 +94,12 @@ dictionaries:
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
         - {source: 'PID', target: parent_id, type: LONG}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'AgeGROUP', target: age_group, type: INTEGER}
         - {source: 'REL', target: relevance, type: INTEGER}
         - {source: 'DATEOUT', target: abolished_at, type: TIMESTAMP}
-        - {source: 'F30', target: form_30_code, type: STRING}
-        - {source: 'RAZDEL', target: section_code, type: STRING, max-length: 1}
+        - {source: 'F30', target: form_30_code, type: STRING, max-length: 5000}
+        - {source: 'RAZDEL', target: section_code, type: STRING, max-length: 5000}
         - {source: 'SORT', target: display_order, type: DECIMAL, precision: 10, scale: 0}
     - oid: "1.2.643.5.1.13.13.99.2.33"
       entity-name: biopsy_collection_method
@@ -110,7 +110,7 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
     - oid: "1.2.643.5.1.13.13.11.1549"
       entity-name: biopsy_complexity_category
       staging-table: data.dsa_raw_biopsy_complexity_category
@@ -120,8 +120,8 @@ dictionaries:
       sorting: Id
       columns:
         - {source: 'Id', target: id, type: LONG, required: true}
-        - {source: 'Name', target: name, type: STRING, required: true}
-        - {source: 'Description', target: description, type: STRING}
+        - {source: 'Name', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'Description', target: description, type: STRING, max-length: 5000}
     - oid: "1.2.643.5.1.13.13.11.1515"
       entity-name: clinical_scale_parameter
       staging-table: data.dsa_raw_clinical_scale_parameter
@@ -132,9 +132,9 @@ dictionaries:
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
         - {source: 'PARENT_ID', target: parent_id, type: LONG}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 1000}
         - {source: 'VITAL_PARAMETER', target: vital_parameter_id, type: LONG}
-        - {source: 'POINT', target: point, type: STRING}
+        - {source: 'POINT', target: point, type: STRING, max-length: 5000}
         - {source: 'ID_INTERPRETATION', target: interpretation_group_code, type: LONG}
         - {source: 'GROUPING_SCALE', target: grouping_scale, type: INTEGER}
     - oid: "1.2.643.5.1.13.13.99.2.786"
@@ -147,7 +147,7 @@ dictionaries:
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
         - {source: 'PARENT_ID', target: parent_id, type: LONG}
-        - {source: 'CONTRAINDICATION_OR_REFUSAL', target: name, type: STRING, required: true}
+        - {source: 'CONTRAINDICATION_OR_REFUSAL', target: name, type: STRING, required: true, max-length: 500}
     - oid: "1.2.643.5.1.13.13.11.1049"
       entity-name: disease_nature
       staging-table: data.dsa_raw_disease_nature
@@ -157,7 +157,7 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'F_025-1u', target: form_025_1u_code, type: INTEGER}
     - oid: "1.2.643.5.1.13.13.11.1053"
       entity-name: disability_group
@@ -168,8 +168,8 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
-        - {source: 'SCTID', target: snomed_code, type: STRING}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'SCTID', target: snomed_code, type: STRING, max-length: 5000}
     - oid: "1.2.643.5.1.13.13.11.1491"
       entity-name: disease_outcome
       staging-table: data.dsa_raw_disease_outcome
@@ -179,8 +179,8 @@ dictionaries:
       sorting: CODE
       columns:
         - {source: 'CODE', target: id, type: LONG, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
-        - {source: 'IDIZ', target: oms_outcome_code, type: STRING}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'IDIZ', target: oms_outcome_code, type: STRING, max-length: 5000}
     - oid: "1.2.643.5.1.13.13.11.1045"
       entity-name: dispensary_observation_end_reason
       staging-table: data.dsa_raw_dispensary_observation_end_reason
@@ -191,7 +191,7 @@ dictionaries:
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
         - {source: 'PARENT_ID', target: parent_id, type: LONG}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'NPA', target: normative_id, type: LONG, required: true}
         - {source: 'SORT', target: display_order, type: DECIMAL, precision: 10, scale: 0}
     - oid: "1.2.643.5.1.13.13.11.1047"
@@ -203,7 +203,7 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
     - oid: "1.2.643.5.1.13.13.11.1468"
       entity-name: drug_administration_route
       staging-table: data.dsa_raw_drug_administration_route
@@ -214,10 +214,10 @@ dictionaries:
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
         - {source: 'PARENT', target: parent_id, type: LONG}
-        - {source: 'NAME_RUS', target: name, type: STRING, required: true}
-        - {source: 'NAME_ENG', target: english_name, type: STRING, required: true}
-        - {source: 'NSI_CODE_EEC', target: eec_dictionary_code, type: STRING}
-        - {source: 'NSI_ELEMENT_CODE_EEC', target: eec_element_code, type: STRING}
+        - {source: 'NAME_RUS', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'NAME_ENG', target: english_name, type: STRING, required: true, max-length: 5000}
+        - {source: 'NSI_CODE_EEC', target: eec_dictionary_code, type: STRING, max-length: 5000}
+        - {source: 'NSI_ELEMENT_CODE_EEC', target: eec_element_code, type: STRING, max-length: 5000}
     - oid: "1.2.643.5.1.13.13.99.3.42"
       entity-name: foms_bill_type
       staging-table: data.dsa_raw_foms_bill_type
@@ -226,12 +226,12 @@ dictionaries:
       key-columns: [code, region_okato_code]
       sorting: billcod
       columns:
-        - {source: 'billcod', target: code, type: STRING, required: true}
-        - {source: 'tf_okato', target: region_okato_code, type: STRING, required: true}
-        - {source: 'bill_namp', target: name, type: STRING, required: true}
-        - {source: 'bill_namk', target: short_name, type: STRING}
-        - {source: 'orgType', target: payer_org_type, type: STRING}
-        - {source: 'IS_PAY', target: funding_source, type: STRING}
+        - {source: 'billcod', target: code, type: STRING, required: true, max-length: 5000}
+        - {source: 'tf_okato', target: region_okato_code, type: STRING, required: true, max-length: 5000}
+        - {source: 'bill_namp', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'bill_namk', target: short_name, type: STRING, max-length: 5000}
+        - {source: 'orgType', target: payer_org_type, type: STRING, max-length: 5000}
+        - {source: 'IS_PAY', target: funding_source, type: STRING, max-length: 5000}
         - {source: 'datebeg', target: valid_from, type: TIMESTAMP}
         - {source: 'dateend', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.6"
@@ -242,9 +242,9 @@ dictionaries:
       key-columns: [code, valid_from]
       sorting: IDDKK
       columns:
-        - {source: 'IDDKK', target: code, type: STRING, required: true}
+        - {source: 'IDDKK', target: code, type: STRING, required: true, max-length: 5000}
         - {source: 'VERIFY_SOURCE_valid_from', target: valid_from, type: TIMESTAMP, required: true}
-        - {source: 'DKKNAME', target: name, type: STRING, required: true}
+        - {source: 'DKKNAME', target: name, type: STRING, required: true, max-length: 1600}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.5"
       entity-name: foms_clinical_statistical_group
@@ -254,11 +254,11 @@ dictionaries:
       key-columns: [code, care_condition_code, valid_from]
       sorting: K_KSG
       columns:
-        - {source: 'K_KSG', target: code, type: STRING, required: true}
-        - {source: 'IDUMP', target: care_condition_code, type: STRING, required: true}
+        - {source: 'K_KSG', target: code, type: STRING, required: true, max-length: 5000}
+        - {source: 'IDUMP', target: care_condition_code, type: STRING, required: true, max-length: 5000}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
-        - {source: 'N_KSG', target: name, type: STRING, required: true}
-        - {source: 'KOEF_Z', target: cost_coefficient, type: STRING}
+        - {source: 'N_KSG', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'KOEF_Z', target: cost_coefficient, type: STRING, max-length: 5000}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.55"
       entity-name: foms_consilium_purpose
@@ -268,9 +268,9 @@ dictionaries:
       key-columns: [id, valid_from]
       sorting: ID_CONS
       columns:
-        - {source: 'ID_CONS', target: id, type: STRING, required: true}
+        - {source: 'ID_CONS', target: id, type: STRING, required: true, max-length: 5000}
         - {source: 'VERIFY_SOURCE_valid_from', target: valid_from, type: TIMESTAMP, required: true}
-        - {source: 'CONS_NAME', target: name, type: STRING, required: true}
+        - {source: 'CONS_NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.32"
       entity-name: foms_control_type
@@ -282,7 +282,7 @@ dictionaries:
       columns:
         - {source: 'IDVID', target: id, type: LONG, required: true}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
-        - {source: 'VIDNAME', target: name, type: STRING, required: true}
+        - {source: 'VIDNAME', target: name, type: STRING, required: true, max-length: 1300}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.47"
       entity-name: foms_diagnostic_method
@@ -293,7 +293,7 @@ dictionaries:
       sorting: IDMET
       columns:
         - {source: 'IDMET', target: id, type: LONG, required: true}
-        - {source: 'N_MET', target: name, type: STRING, required: true}
+        - {source: 'N_MET', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.3"
@@ -304,10 +304,10 @@ dictionaries:
       key-columns: [id, valid_from]
       sorting: IDDT
       columns:
-        - {source: 'IDDT', target: id, type: STRING, required: true}
+        - {source: 'IDDT', target: id, type: STRING, required: true, max-length: 5000}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
-        - {source: 'DTNAME', target: name, type: STRING, required: true}
-        - {source: 'DTRULE', target: allowed_results, type: STRING}
+        - {source: 'DTNAME', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'DTRULE', target: allowed_results, type: STRING, max-length: 5000}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.56"
       entity-name: foms_drug_therapy_medication
@@ -317,9 +317,9 @@ dictionaries:
       key-columns: [id, valid_from]
       sorting: ID_LEKP
       columns:
-        - {source: 'ID_LEKP', target: id, type: STRING, required: true}
+        - {source: 'ID_LEKP', target: id, type: STRING, required: true, max-length: 5000}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
-        - {source: 'MNN', target: name, type: STRING, required: true}
+        - {source: 'MNN', target: name, type: STRING, required: true, max-length: 700}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.52"
       entity-name: foms_histological_result
@@ -330,8 +330,8 @@ dictionaries:
       sorting: ID_R_M
       columns:
         - {source: 'ID_R_M', target: id, type: LONG, required: true}
-        - {source: 'ID_Mrf', target: histological_sign_code, type: STRING}
-        - {source: 'R_M_NAME', target: name, type: STRING, required: true}
+        - {source: 'ID_Mrf', target: histological_sign_code, type: STRING, max-length: 5000}
+        - {source: 'R_M_NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.51"
@@ -343,7 +343,7 @@ dictionaries:
       sorting: ID_Mrf
       columns:
         - {source: 'ID_Mrf', target: id, type: LONG, required: true}
-        - {source: 'Mrf_NAME', target: name, type: STRING, required: true}
+        - {source: 'Mrf_NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.60"
@@ -356,8 +356,8 @@ dictionaries:
       columns:
         - {source: 'ID_R_I', target: id, type: LONG, required: true}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
-        - {source: 'KOD_R_I', target: code, type: STRING}
-        - {source: 'R_I_NAME', target: name, type: STRING, required: true}
+        - {source: 'KOD_R_I', target: code, type: STRING, max-length: 5000}
+        - {source: 'R_I_NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'ID_Igh', target: marker_id, type: LONG}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.59"
@@ -370,8 +370,8 @@ dictionaries:
       columns:
         - {source: 'ID_Igh', target: id, type: LONG, required: true}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
-        - {source: 'KOD_Igh', target: code, type: STRING}
-        - {source: 'Igh_NAME', target: name, type: STRING, required: true}
+        - {source: 'KOD_Igh', target: code, type: STRING, max-length: 5000}
+        - {source: 'Igh_NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.2"
       entity-name: foms_medical_organization
@@ -381,34 +381,34 @@ dictionaries:
       key-columns: [id]
       sorting: UIDMO
       columns:
-        - {source: 'UIDMO', target: id, type: STRING, required: true}
-        - {source: 'PARENT_UIDMO', target: parent_uidmo, type: STRING}
-        - {source: 'IDMO', target: registry_number, type: STRING}
-        - {source: 'PARENT_IDMO', target: parent_registry_number, type: STRING}
-        - {source: 'MCOD', target: medical_org_code, type: STRING}
-        - {source: 'NAM_MOP', target: name, type: STRING, required: true}
-        - {source: 'NAM_MOK', target: short_name, type: STRING}
-        - {source: 'OSP', target: separate_unit_flag, type: STRING}
-        - {source: 'VID_MO', target: medical_org_type, type: STRING}
-        - {source: 'VEDPRI', target: departmental_affiliation, type: STRING}
-        - {source: 'OKFS', target: ownership_code, type: STRING}
-        - {source: 'INN', target: inn, type: STRING}
-        - {source: 'KPP', target: kpp, type: STRING}
-        - {source: 'OGRN', target: ogrn, type: STRING}
-        - {source: 'OID_MO', target: organization_oid, type: STRING}
-        - {source: 'OID_SPMO', target: subdivision_oid, type: STRING}
-        - {source: 'SUBJ', target: region_name, type: STRING}
-        - {source: 'OKTMO_P', target: region_oktmo_code, type: STRING}
-        - {source: 'GAR_ADDRESS', target: gar_address_id, type: STRING}
-        - {source: 'JURADDRESS_ADDRESS', target: legal_address, type: STRING}
-        - {source: 'JURADDRESS_INDEX', target: legal_postal_code, type: STRING}
-        - {source: 'EMAIL', target: email, type: STRING}
-        - {source: 'PHONE', target: phone, type: STRING}
-        - {source: 'FAX', target: fax, type: STRING}
+        - {source: 'UIDMO', target: id, type: STRING, required: true, max-length: 5000}
+        - {source: 'PARENT_UIDMO', target: parent_uidmo, type: STRING, max-length: 5000}
+        - {source: 'IDMO', target: registry_number, type: STRING, max-length: 5000}
+        - {source: 'PARENT_IDMO', target: parent_registry_number, type: STRING, max-length: 5000}
+        - {source: 'MCOD', target: medical_org_code, type: STRING, max-length: 5000}
+        - {source: 'NAM_MOP', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'NAM_MOK', target: short_name, type: STRING, max-length: 5000}
+        - {source: 'OSP', target: separate_unit_flag, type: STRING, max-length: 5000}
+        - {source: 'VID_MO', target: medical_org_type, type: STRING, max-length: 5000}
+        - {source: 'VEDPRI', target: departmental_affiliation, type: STRING, max-length: 5000}
+        - {source: 'OKFS', target: ownership_code, type: STRING, max-length: 5000}
+        - {source: 'INN', target: inn, type: STRING, max-length: 5000}
+        - {source: 'KPP', target: kpp, type: STRING, max-length: 5000}
+        - {source: 'OGRN', target: ogrn, type: STRING, max-length: 5000}
+        - {source: 'OID_MO', target: organization_oid, type: STRING, max-length: 5000}
+        - {source: 'OID_SPMO', target: subdivision_oid, type: STRING, max-length: 5000}
+        - {source: 'SUBJ', target: region_name, type: STRING, max-length: 5000}
+        - {source: 'OKTMO_P', target: region_oktmo_code, type: STRING, max-length: 5000}
+        - {source: 'GAR_ADDRESS', target: gar_address_id, type: STRING, max-length: 5000}
+        - {source: 'JURADDRESS_ADDRESS', target: legal_address, type: STRING, max-length: 5000}
+        - {source: 'JURADDRESS_INDEX', target: legal_postal_code, type: STRING, max-length: 5000}
+        - {source: 'EMAIL', target: email, type: STRING, max-length: 5000}
+        - {source: 'PHONE', target: phone, type: STRING, max-length: 5000}
+        - {source: 'FAX', target: fax, type: STRING, max-length: 5000}
         - {source: 'D_BEGIN_OMS', target: oms_started_at, type: TIMESTAMP}
         - {source: 'D_BEGIN', target: registry_included_at, type: TIMESTAMP}
         - {source: 'D_END', target: registry_excluded_at, type: TIMESTAMP}
-        - {source: 'NAME_E', target: exclusion_reason, type: STRING}
+        - {source: 'NAME_E', target: exclusion_reason, type: STRING, max-length: 5000}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.41"
@@ -419,17 +419,17 @@ dictionaries:
       key-columns: [id]
       sorting: UIDEKMP
       columns:
-        - {source: 'UIDEKMP', target: id, type: STRING, required: true}
-        - {source: 'IDEKMP', target: registry_number, type: STRING}
-        - {source: 'N_EXPERT', target: legacy_expert_code, type: STRING}
-        - {source: 'OKTMO_P', target: region_oktmo_code, type: STRING}
-        - {source: 'SUBJ', target: region_name, type: STRING}
-        - {source: 'WORKPHONE', target: work_phone, type: STRING}
-        - {source: 'MOBILEPHONE', target: mobile_phone, type: STRING}
-        - {source: 'EMAIL', target: email, type: STRING}
+        - {source: 'UIDEKMP', target: id, type: STRING, required: true, max-length: 5000}
+        - {source: 'IDEKMP', target: registry_number, type: STRING, max-length: 5000}
+        - {source: 'N_EXPERT', target: legacy_expert_code, type: STRING, max-length: 5000}
+        - {source: 'OKTMO_P', target: region_oktmo_code, type: STRING, max-length: 5000}
+        - {source: 'SUBJ', target: region_name, type: STRING, max-length: 5000}
+        - {source: 'WORKPHONE', target: work_phone, type: STRING, max-length: 5000}
+        - {source: 'MOBILEPHONE', target: mobile_phone, type: STRING, max-length: 5000}
+        - {source: 'EMAIL', target: email, type: STRING, max-length: 5000}
         - {source: 'D_BEGIN', target: registry_created_at, type: TIMESTAMP}
         - {source: 'D_END', target: registry_excluded_at, type: TIMESTAMP}
-        - {source: 'NAME_E', target: exclusion_reason, type: STRING}
+        - {source: 'NAME_E', target: exclusion_reason, type: STRING, max-length: 5000}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.17"
@@ -442,7 +442,7 @@ dictionaries:
       columns:
         - {source: 'IDSP', target: id, type: LONG, required: true}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
-        - {source: 'SPNAME', target: name, type: STRING, required: true, max-length: 254}
+        - {source: 'SPNAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.43"
       entity-name: foms_payment_organization_details
@@ -452,28 +452,28 @@ dictionaries:
       key-columns: [bill_type_code, organization_code, region_okato_code]
       sorting: billcod
       columns:
-        - {source: 'billcod', target: bill_type_code, type: STRING, required: true}
+        - {source: 'billcod', target: bill_type_code, type: STRING, required: true, max-length: 5000}
         - {source: 'orgcod', target: organization_code, type: LONG, required: true}
-        - {source: 'tf_okato', target: region_okato_code, type: STRING, required: true}
+        - {source: 'tf_okato', target: region_okato_code, type: STRING, required: true, max-length: 5000}
         - {source: 'idzap', target: source_record_id, type: LONG}
-        - {source: 'inn', target: inn, type: STRING}
-        - {source: 'kpp', target: kpp, type: STRING}
-        - {source: 'accounttype', target: account_type, type: STRING}
-        - {source: 'accountnum', target: account_number, type: STRING}
-        - {source: 'corraccount', target: correspondent_account, type: STRING}
-        - {source: 'bankname', target: bank_name, type: STRING}
-        - {source: 'bankbik', target: bank_bik, type: STRING}
-        - {source: 'tofk_code', target: tofk_code, type: STRING}
-        - {source: 'tofk_name', target: tofk_name, type: STRING}
-        - {source: 'tofk_bik', target: tofk_bik, type: STRING}
-        - {source: 'sta_character', target: treasury_single_account, type: STRING}
-        - {source: 'name_agency', target: financial_agency_name, type: STRING}
-        - {source: 'personal_account', target: personal_account, type: STRING}
-        - {source: 'function_personal_account', target: personal_account_purpose, type: STRING}
-        - {source: 'code_tofk', target: personal_account_tofk_code, type: STRING}
-        - {source: 'name_income_admin', target: income_admin_name, type: STRING}
-        - {source: 'inn_income_admin', target: income_admin_inn, type: STRING}
-        - {source: 'kpp_income_admin', target: income_admin_kpp, type: STRING}
+        - {source: 'inn', target: inn, type: STRING, max-length: 5000}
+        - {source: 'kpp', target: kpp, type: STRING, max-length: 5000}
+        - {source: 'accounttype', target: account_type, type: STRING, max-length: 5000}
+        - {source: 'accountnum', target: account_number, type: STRING, max-length: 5000}
+        - {source: 'corraccount', target: correspondent_account, type: STRING, max-length: 5000}
+        - {source: 'bankname', target: bank_name, type: STRING, max-length: 5000}
+        - {source: 'bankbik', target: bank_bik, type: STRING, max-length: 5000}
+        - {source: 'tofk_code', target: tofk_code, type: STRING, max-length: 5000}
+        - {source: 'tofk_name', target: tofk_name, type: STRING, max-length: 5000}
+        - {source: 'tofk_bik', target: tofk_bik, type: STRING, max-length: 5000}
+        - {source: 'sta_character', target: treasury_single_account, type: STRING, max-length: 5000}
+        - {source: 'name_agency', target: financial_agency_name, type: STRING, max-length: 5000}
+        - {source: 'personal_account', target: personal_account, type: STRING, max-length: 5000}
+        - {source: 'function_personal_account', target: personal_account_purpose, type: STRING, max-length: 5000}
+        - {source: 'code_tofk', target: personal_account_tofk_code, type: STRING, max-length: 5000}
+        - {source: 'name_income_admin', target: income_admin_name, type: STRING, max-length: 5000}
+        - {source: 'inn_income_admin', target: income_admin_inn, type: STRING, max-length: 5000}
+        - {source: 'kpp_income_admin', target: income_admin_kpp, type: STRING, max-length: 5000}
         - {source: 'VERIFY_SOURCE_personal_account_income_admin', target: personal_account_income_admin, type: BOOLEAN}
         - {source: 'datebeg', target: valid_from, type: TIMESTAMP}
         - {source: 'dateend', target: valid_to, type: TIMESTAMP}
@@ -485,13 +485,13 @@ dictionaries:
       key-columns: [id]
       sorting: orgcod
       columns:
-        - {source: 'orgcod', target: id, type: STRING, required: true}
-        - {source: 'nam_orgp', target: name, type: STRING, required: true}
-        - {source: 'nam_orgk', target: short_name, type: STRING}
-        - {source: 'orgtype', target: organization_type, type: STRING}
-        - {source: 'tf_kod', target: territorial_fund_code, type: STRING}
-        - {source: 'smocod', target: smo_code, type: STRING}
-        - {source: 'tf_okato', target: region_okato_code, type: STRING}
+        - {source: 'orgcod', target: id, type: STRING, required: true, max-length: 5000}
+        - {source: 'nam_orgp', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'nam_orgk', target: short_name, type: STRING, max-length: 5000}
+        - {source: 'orgtype', target: organization_type, type: STRING, max-length: 5000}
+        - {source: 'tf_kod', target: territorial_fund_code, type: STRING, max-length: 5000}
+        - {source: 'smocod', target: smo_code, type: STRING, max-length: 5000}
+        - {source: 'tf_okato', target: region_okato_code, type: STRING, max-length: 5000}
         - {source: 'datebeg', target: valid_from, type: TIMESTAMP}
         - {source: 'dateend', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.11"
@@ -503,14 +503,14 @@ dictionaries:
       sorting: Kod
       columns:
         - {source: 'Kod', target: code, type: LONG, required: true}
-        - {source: 'Naim', target: name, type: STRING, required: true}
+        - {source: 'Naim', target: name, type: STRING, required: true, max-length: 1200}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP, required: true}
-        - {source: 'Osn', target: refusal_basis, type: STRING}
-        - {source: 'Komment', target: service_comment, type: STRING}
+        - {source: 'Osn', target: refusal_basis, type: STRING, max-length: 5000}
+        - {source: 'Komment', target: service_comment, type: STRING, max-length: 5000}
         - {source: 'IDVID', target: control_type_code, type: INTEGER}
-        - {source: 'K_SH', target: penalty_coefficient, type: STRING}
-        - {source: 'K_NO', target: nonpayment_coefficient, type: STRING}
-        - {source: 'KodPG', target: form_pg_code, type: STRING}
+        - {source: 'K_SH', target: penalty_coefficient, type: STRING, max-length: 5000}
+        - {source: 'K_NO', target: nonpayment_coefficient, type: STRING, max-length: 5000}
+        - {source: 'KodPG', target: form_pg_code, type: STRING, max-length: 5000}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.48"
       entity-name: foms_surgical_treatment_type
@@ -521,7 +521,7 @@ dictionaries:
       sorting: ID_THir
       columns:
         - {source: 'ID_THir', target: id, type: LONG, required: true}
-        - {source: 'THir_NAME', target: name, type: STRING, required: true}
+        - {source: 'THir_NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.3.54"
@@ -533,7 +533,7 @@ dictionaries:
       sorting: ID_TLech
       columns:
         - {source: 'ID_TLech', target: id, type: LONG, required: true}
-        - {source: 'TLech_NAME', target: name, type: STRING, required: true}
+        - {source: 'TLech_NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'DATEBEG', target: valid_from, type: TIMESTAMP}
         - {source: 'DATEEND', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.11.1493"
@@ -545,20 +545,20 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 700}
         - {source: 'ID_NAME', target: name_id, type: LONG}
         - {source: 'ID_PROFILE', target: profile_id, type: LONG}
-        - {source: 'PROFILE', target: profile_name, type: STRING}
-        - {source: 'ICD_10', target: icd10_code, type: STRING}
+        - {source: 'PROFILE', target: profile_name, type: STRING, max-length: 5000}
+        - {source: 'ICD_10', target: icd10_code, type: STRING, max-length: 5000}
         - {source: 'ID_MODEL', target: patient_model_id, type: LONG}
-        - {source: 'MODEL', target: patient_model, type: STRING}
+        - {source: 'MODEL', target: patient_model, type: STRING, max-length: 5000}
         - {source: 'ID_TREATMENT', target: treatment_type_id, type: LONG}
-        - {source: 'TREATMENT', target: treatment_type, type: STRING}
+        - {source: 'TREATMENT', target: treatment_type, type: STRING, max-length: 5000}
         - {source: 'ID_METHOD', target: treatment_method_id, type: LONG}
-        - {source: 'METHOD', target: treatment_method, type: STRING}
+        - {source: 'METHOD', target: treatment_method, type: STRING, max-length: 5000}
         - {source: 'GROUP', target: vmp_group, type: INTEGER}
         - {source: 'PART', target: part, type: INTEGER}
-        - {source: 'FINANCE', target: finance, type: STRING}
+        - {source: 'FINANCE', target: finance, type: STRING, max-length: 5000}
         - {source: 'DATE_BEGIN', target: valid_from, type: TIMESTAMP}
         - {source: 'DATE_END', target: valid_to, type: TIMESTAMP}
         - {source: 'SORT', target: display_order, type: DECIMAL, precision: 10, scale: 0}
@@ -571,8 +571,8 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'MODEL', target: name, type: STRING, required: true}
-        - {source: 'RAZDEL', target: sections, type: STRING}
+        - {source: 'MODEL', target: name, type: STRING, required: true, max-length: 1600}
+        - {source: 'RAZDEL', target: sections, type: STRING, max-length: 5000}
         - {source: 'DATE_BEGIN', target: valid_from, type: TIMESTAMP}
         - {source: 'DATE_END', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.99.2.621"
@@ -584,8 +584,8 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'METHOD', target: name, type: STRING, required: true}
-        - {source: 'RAZDEL', target: sections, type: STRING}
+        - {source: 'METHOD', target: name, type: STRING, required: true, max-length: 1500}
+        - {source: 'RAZDEL', target: sections, type: STRING, max-length: 5000}
         - {source: 'OBLIGATION', target: implantation_obligation, type: INTEGER}
         - {source: 'DATE_BEGIN', target: valid_from, type: TIMESTAMP}
         - {source: 'DATE_END', target: valid_to, type: TIMESTAMP}
@@ -598,7 +598,7 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'TREATMENT', target: name, type: STRING, required: true}
+        - {source: 'TREATMENT', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'DATE_BEGIN', target: valid_from, type: TIMESTAMP}
         - {source: 'DATE_END', target: valid_to, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.11.1005"
@@ -611,9 +611,9 @@ dictionaries:
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
         - {source: 'ID_PARENT', target: parent_id, type: LONG}
-        - {source: 'MKB_CODE', target: code, type: STRING}
-        - {source: 'MKB_NAME', target: name, type: STRING, required: true}
-        - {source: 'REC_CODE', target: rec_code, type: STRING}
+        - {source: 'MKB_CODE', target: code, type: STRING, max-length: 5000}
+        - {source: 'MKB_NAME', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'REC_CODE', target: rec_code, type: STRING, max-length: 5000}
         - {source: 'ADDL_CODE', target: additional_code, type: INTEGER}
         - {source: 'ACTUAL', target: actual, type: INTEGER}
         - {source: 'DATE', target: actuality_changed_at, type: TIMESTAMP}
@@ -626,10 +626,10 @@ dictionaries:
       sorting: id
       columns:
         - {source: 'id', target: id, type: LONG, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
-        - {source: 'SYNONYMS', target: synonyms, type: STRING}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'SYNONYMS', target: synonyms, type: STRING, max-length: 5000}
         - {source: 'EPMB', target: used_in_elmk, type: BOOLEAN}
-        - {source: 'NAME_EPMB', target: elmk_name, type: STRING}
+        - {source: 'NAME_EPMB', target: elmk_name, type: STRING, max-length: 5000}
     - oid: "1.2.643.5.1.13.13.11.1079"
       entity-name: implantable_assistive_device_type
       staging-table: data.dsa_raw_implantable_assistive_device_type
@@ -640,12 +640,12 @@ dictionaries:
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
         - {source: 'PARENT', target: parent_id, type: LONG}
-        - {source: 'NAME', target: name, type: STRING, required: true}
-        - {source: 'RZN', target: rzn_code, type: STRING}
-        - {source: 'DISEASE', target: disease_code, type: STRING}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'RZN', target: rzn_code, type: STRING, max-length: 5000}
+        - {source: 'DISEASE', target: disease_code, type: STRING, max-length: 5000}
         - {source: 'ACTUAL', target: actual, type: BOOLEAN}
         - {source: 'EXISTENCE_NPA', target: existence_npa, type: BOOLEAN}
-        - {source: 'ORDER', target: source_order, type: STRING}
+        - {source: 'ORDER', target: source_order, type: STRING, max-length: 5000}
     - oid: "1.2.643.5.1.13.13.11.1036"
       entity-name: injury_type
       staging-table: data.dsa_raw_injury_type
@@ -655,11 +655,11 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'F_066u-02', target: form_066u_02_code, type: INTEGER}
-        - {source: 'NAME_F_066u-02', target: form_066u_02_name, type: STRING}
-        - {source: 'F_025u-1', target: form_025u_1_code, type: STRING}
-        - {source: 'NAME_F_025u-1', target: form_025u_1_name, type: STRING}
+        - {source: 'NAME_F_066u-02', target: form_066u_02_name, type: STRING, max-length: 5000}
+        - {source: 'F_025u-1', target: form_025u_1_code, type: STRING, max-length: 5000}
+        - {source: 'NAME_F_025u-1', target: form_025u_1_name, type: STRING, max-length: 5000}
     - oid: "1.2.643.5.1.13.13.11.1081"
       entity-name: laboratory_specimen
       staging-table: data.dsa_raw_laboratory_specimen
@@ -669,10 +669,10 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'GROUP', target: specimen_group, type: STRING}
+        - {source: 'GROUP', target: specimen_group, type: STRING, max-length: 5000}
         - {source: 'ID_MATTER', target: material_id, type: LONG}
-        - {source: 'MATTER', target: material_name, type: STRING}
-        - {source: 'SPECIMEN', target: name, type: STRING}
+        - {source: 'MATTER', target: material_name, type: STRING, max-length: 5000}
+        - {source: 'SPECIMEN', target: name, type: STRING, max-length: 500}
         - {source: 'Sort', target: display_order, type: DECIMAL, precision: 10, scale: 0}
     - oid: "1.2.643.5.1.13.13.11.1080"
       entity-name: laboratory_test
@@ -682,24 +682,24 @@ dictionaries:
       key-columns: [id]
       sorting: ID
       columns:
-        - {source: 'ID', target: id, type: STRING, required: true}
-        - {source: 'FULLNAME', target: name, type: STRING, required: true}
-        - {source: 'SHORTNAME', target: short_name, type: STRING}
-        - {source: 'ENGLISHNAME', target: english_name, type: STRING}
-        - {source: 'SYNONYMS', target: synonyms, type: STRING}
-        - {source: 'LOINC', target: loinc_code, type: STRING}
-        - {source: 'ANALYTE', target: analyte, type: STRING}
-        - {source: 'SPECANALYTE', target: analyte_characteristic, type: STRING}
-        - {source: 'MEASUREMENT', target: measurement, type: STRING}
-        - {source: 'UNIT', target: unit, type: STRING}
-        - {source: 'SPECIMEN', target: specimen, type: STRING}
-        - {source: 'TIMECHAR', target: time_characteristic, type: STRING}
-        - {source: 'METHODTYPE', target: method_type, type: STRING}
-        - {source: 'SCALETYPE', target: scale_type, type: STRING}
-        - {source: 'TESTSTATUS', target: test_status, type: STRING}
-        - {source: 'GROUP', target: test_group, type: STRING}
-        - {source: 'NMU', target: nmu_codes, type: STRING}
-        - {source: 'SORT', target: source_order, type: STRING}
+        - {source: 'ID', target: id, type: STRING, required: true, max-length: 5000}
+        - {source: 'FULLNAME', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'SHORTNAME', target: short_name, type: STRING, max-length: 5000}
+        - {source: 'ENGLISHNAME', target: english_name, type: STRING, max-length: 5000}
+        - {source: 'SYNONYMS', target: synonyms, type: STRING, max-length: 5000}
+        - {source: 'LOINC', target: loinc_code, type: STRING, max-length: 5000}
+        - {source: 'ANALYTE', target: analyte, type: STRING, max-length: 5000}
+        - {source: 'SPECANALYTE', target: analyte_characteristic, type: STRING, max-length: 5000}
+        - {source: 'MEASUREMENT', target: measurement, type: STRING, max-length: 5000}
+        - {source: 'UNIT', target: unit, type: STRING, max-length: 5000}
+        - {source: 'SPECIMEN', target: specimen, type: STRING, max-length: 5000}
+        - {source: 'TIMECHAR', target: time_characteristic, type: STRING, max-length: 5000}
+        - {source: 'METHODTYPE', target: method_type, type: STRING, max-length: 5000}
+        - {source: 'SCALETYPE', target: scale_type, type: STRING, max-length: 5000}
+        - {source: 'TESTSTATUS', target: test_status, type: STRING, max-length: 5000}
+        - {source: 'GROUP', target: test_group, type: STRING, max-length: 5000}
+        - {source: 'NMU', target: nmu_codes, type: STRING, max-length: 5000}
+        - {source: 'SORT', target: source_order, type: STRING, max-length: 5000}
     - oid: "1.2.643.5.1.13.13.99.2.778"
       entity-name: laterality
       staging-table: data.dsa_raw_laterality
@@ -709,7 +709,7 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'laterality', target: name, type: STRING, required: true}
+        - {source: 'laterality', target: name, type: STRING, required: true, max-length: 500}
     - oid: "1.2.643.5.1.13.13.11.1358"
       entity-name: measurement_unit
       staging-table: data.dsa_raw_measurement_unit
@@ -719,18 +719,18 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'FULLNAME', target: name, type: STRING, required: true}
-        - {source: 'SHORTNAME', target: short_name, type: STRING}
-        - {source: 'PRINTNAME', target: print_name, type: STRING}
-        - {source: 'MEASUREMENT', target: measurement, type: STRING}
-        - {source: 'UCUM', target: ucum_code, type: STRING}
-        - {source: 'COEFFICIENT', target: coefficient, type: STRING}
-        - {source: 'FORMULA', target: formula, type: STRING}
+        - {source: 'FULLNAME', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'SHORTNAME', target: short_name, type: STRING, max-length: 5000}
+        - {source: 'PRINTNAME', target: print_name, type: STRING, max-length: 5000}
+        - {source: 'MEASUREMENT', target: measurement, type: STRING, max-length: 5000}
+        - {source: 'UCUM', target: ucum_code, type: STRING, max-length: 5000}
+        - {source: 'COEFFICIENT', target: coefficient, type: STRING, max-length: 5000}
+        - {source: 'FORMULA', target: formula, type: STRING, max-length: 5000}
         - {source: 'CONVERSION_ID', target: conversion_unit_id, type: LONG}
-        - {source: 'CONVERSION_NAME', target: conversion_unit_name, type: STRING}
-        - {source: 'OKEI_CODE', target: okei_code, type: STRING}
-        - {source: 'NSI_CODE_EEC', target: eec_dictionary_code, type: STRING}
-        - {source: 'NSI_ELEMENT_CODE_EEC', target: eec_element_code, type: STRING}
+        - {source: 'CONVERSION_NAME', target: conversion_unit_name, type: STRING, max-length: 5000}
+        - {source: 'OKEI_CODE', target: okei_code, type: STRING, max-length: 5000}
+        - {source: 'NSI_CODE_EEC', target: eec_dictionary_code, type: STRING, max-length: 5000}
+        - {source: 'NSI_ELEMENT_CODE_EEC', target: eec_element_code, type: STRING, max-length: 5000}
     - oid: "1.2.643.5.1.13.13.99.2.322"
       entity-name: medical_care_condition
       staging-table: data.dsa_raw_medical_care_condition
@@ -740,9 +740,9 @@ dictionaries:
       sorting: CODE
       columns:
         - {source: 'CODE', target: id, type: LONG, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'IDUMP', target: oms_condition_code, type: INTEGER}
-        - {source: 'COMMENTS', target: comments, type: STRING}
+        - {source: 'COMMENTS', target: comments, type: STRING, max-length: 5000}
     - oid: "1.2.643.5.1.13.13.11.1551"
       entity-name: medical_care_form
       staging-table: data.dsa_raw_medical_care_form
@@ -752,7 +752,7 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'S_NAME', target: name, type: STRING, required: true}
+        - {source: 'S_NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'IDFRMMP', target: oms_care_form_code, type: INTEGER}
     - oid: "1.2.643.5.1.13.13.11.1008"
       entity-name: medical_care_location
@@ -763,7 +763,7 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'F025-1y', target: form_025_1y_flag, type: INTEGER}
         - {source: 'ID_MOP', target: oms_visit_place_code, type: INTEGER}
         - {source: 'SORT', target: display_order, type: DECIMAL, required: true, precision: 10, scale: 0}
@@ -776,7 +776,7 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'PROFILE', target: name, type: STRING, required: true}
+        - {source: 'PROFILE', target: name, type: STRING, required: true, max-length: 500}
     - oid: "1.2.643.5.1.13.13.11.1034"
       entity-name: medical_care_type
       staging-table: data.dsa_raw_medical_care_type
@@ -787,7 +787,7 @@ dictionaries:
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
         - {source: 'PARENT', target: parent_id, type: LONG}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'IDVMP', target: oms_care_type_code, type: INTEGER}
         - {source: 'SORT', target: display_order, type: DECIMAL, required: true, precision: 10, scale: 0}
     - oid: "1.2.643.5.1.13.13.99.2.253"
@@ -800,7 +800,7 @@ dictionaries:
       columns:
         - {source: 'id', target: id, type: LONG, required: true}
         - {source: 'parent_id', target: parent_id, type: LONG}
-        - {source: 'equipment_type', target: name, type: STRING, required: true}
+        - {source: 'equipment_type', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'available', target: available, type: INTEGER}
         - {source: 'date_end', target: abolished_at, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.11.1002"
@@ -813,15 +813,15 @@ dictionaries:
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
         - {source: 'PID', target: parent_id, type: LONG}
-        - {source: 'NAME', target: name, type: STRING, required: true}
-        - {source: 'EQUIVALENT', target: equivalent, type: STRING}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'EQUIVALENT', target: equivalent, type: STRING, max-length: 5000}
         - {source: 'SORT', target: display_order, type: DECIMAL, required: true, precision: 10, scale: 0}
         - {source: 'NORMATIVE', target: normative_id, type: LONG}
         - {source: 'GROUP', target: group_flag, type: INTEGER}
         - {source: 'FORM_30', target: form_30, type: INTEGER}
         - {source: 'ACTUAL', target: actual, type: INTEGER, required: true}
         - {source: 'DATA_END', target: end_date, type: TIMESTAMP}
-        - {source: 'COMMENT', target: comment, type: STRING}
+        - {source: 'COMMENT', target: comment, type: STRING, max-length: 5000}
         - {source: 'NEED_QUAL', target: need_qual, type: INTEGER}
         - {source: 'ZS', target: zs, type: INTEGER}
         - {source: 'NEED_CERT', target: need_cert, type: INTEGER}
@@ -834,8 +834,8 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'S_CODE', target: code, type: STRING, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'S_CODE', target: code, type: STRING, required: true, max-length: 5000}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 600}
         - {source: 'REL', target: relevance, type: INTEGER}
         - {source: 'DATEOUT', target: abolished_at, type: TIMESTAMP}
     - oid: "1.2.643.5.1.13.13.11.1066"
@@ -848,7 +848,7 @@ dictionaries:
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
         - {source: 'PARENT', target: parent_id, type: LONG}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'REL', target: relevance, type: INTEGER}
         - {source: 'DATEOUT', target: abolished_at, type: TIMESTAMP}
         - {source: 'IDSPEC', target: ffoms_code, type: INTEGER}
@@ -861,7 +861,7 @@ dictionaries:
       sorting: CODE
       columns:
         - {source: 'CODE', target: id, type: LONG, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
     - oid: "1.2.643.5.1.13.13.11.1046"
       entity-name: medical_visit_result
       staging-table: data.dsa_raw_medical_visit_result
@@ -871,12 +871,12 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
-        - {source: 'FORM_025', target: form_025_code, type: STRING}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
+        - {source: 'FORM_025', target: form_025_code, type: STRING, max-length: 5000}
         - {source: 'FORM_066', target: form_066_02_code, type: INTEGER}
-        - {source: 'NAME_SYNONYM', target: form_066_02_name, type: STRING}
+        - {source: 'NAME_SYNONYM', target: form_066_02_name, type: STRING, max-length: 5000}
         - {source: 'FORM_066_u', target: form_066_u_code, type: INTEGER}
-        - {source: 'NAME_066_u', target: form_066_u_name, type: STRING}
+        - {source: 'NAME_066_u', target: form_066_u_name, type: STRING, max-length: 5000}
     - oid: "1.2.643.5.1.13.2.1.1.581"
       entity-name: outpatient_visit_purpose
       staging-table: data.dsa_raw_outpatient_visit_purpose
@@ -886,7 +886,7 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'S_NAME', target: name, type: STRING, required: true}
+        - {source: 'S_NAME', target: name, type: STRING, required: true, max-length: 500}
         - {source: 'INVISIBLE', target: invisible, type: INTEGER}
     - oid: "1.2.643.5.1.13.13.11.1040"
       entity-name: patient_sex
@@ -897,7 +897,7 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}
     - oid: "1.2.643.5.1.13.13.99.2.546"
       entity-name: tnm_staging
       staging-table: data.dsa_raw_tnm_staging
@@ -907,17 +907,17 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'ShortNameOfTopography', target: topography_name, type: STRING, required: true}
-        - {source: 'ICDOTopography', target: icdo_topography, type: STRING}
-        - {source: 'Morphology', target: morphology, type: STRING, required: true}
-        - {source: 'Stage', target: stage, type: STRING, required: true}
-        - {source: 'Tumor', target: tumor, type: STRING, required: true}
+        - {source: 'ShortNameOfTopography', target: topography_name, type: STRING, required: true, max-length: 5000}
+        - {source: 'ICDOTopography', target: icdo_topography, type: STRING, max-length: 5000}
+        - {source: 'Morphology', target: morphology, type: STRING, required: true, max-length: 5000}
+        - {source: 'Stage', target: stage, type: STRING, required: true, max-length: 5000}
+        - {source: 'Tumor', target: tumor, type: STRING, required: true, max-length: 5000}
         - {source: 'ID_Tumor', target: tumor_category_id, type: LONG}
-        - {source: 'Nodus', target: nodus, type: STRING}
+        - {source: 'Nodus', target: nodus, type: STRING, max-length: 5000}
         - {source: 'ID_Nodus', target: nodus_category_id, type: LONG}
-        - {source: 'Metastasis', target: metastasis, type: STRING, required: true}
+        - {source: 'Metastasis', target: metastasis, type: STRING, required: true, max-length: 5000}
         - {source: 'ID_Metastasis', target: metastasis_category_id, type: LONG}
-        - {source: 'Addition', target: addition, type: STRING}
+        - {source: 'Addition', target: addition, type: STRING, max-length: 5000}
         - {source: 'ID_Addition', target: addition_category_id, type: LONG}
         - {source: 'Classification', target: classification, type: INTEGER, required: true}
         - {source: 'Version', target: tnm_version, type: INTEGER, required: true}
@@ -930,4 +930,4 @@ dictionaries:
       sorting: ID
       columns:
         - {source: 'ID', target: id, type: LONG, required: true}
-        - {source: 'NAME', target: name, type: STRING, required: true}
+        - {source: 'NAME', target: name, type: STRING, required: true, max-length: 500}

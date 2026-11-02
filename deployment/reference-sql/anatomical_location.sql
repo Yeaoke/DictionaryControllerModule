@@ -2,17 +2,17 @@
 create table if not exists data.anatomical_location (
     id                  bigint primary key,    -- ID: идентификатор Минздрава
     parent_id           bigint,                -- ID_PARENT: родительская запись
-    name                text not null,         -- NAME: наименование
-    english_name        text,                  -- NAME_ENG: английское наименование
-    snomed_code         text,                  -- SNOMED_CT: код SNOMED CT
-    anatomical_region   text,                  -- ANATOMIC_FIELD: анатомическая область
-    laterality          text,                  -- LATERALITY: возможность уточнения стороны
-    synonyms            text,                  -- SYNONYMS: синонимы из источника
+    name                varchar(200) not null,         -- NAME: наименование
+    english_name        varchar(200),                  -- NAME_ENG: английское наименование
+    snomed_code         varchar(100),                  -- SNOMED_CT: код SNOMED CT
+    anatomical_region   varchar(500),                  -- ANATOMIC_FIELD: анатомическая область
+    laterality          varchar(100),                  -- LATERALITY: возможность уточнения стороны
+    synonyms            varchar(2000),                  -- SYNONYMS: синонимы из источника
 
     is_deleted          char(1) default 'N' not null
                         check (is_deleted in ('Y', 'N')),
     display_order       numeric(10),           -- Локальный порядок отображения
-    search_synonym      text                   -- Локальные поисковые синонимы
+    search_synonym      varchar(100)                   -- Локальные поисковые синонимы
 );
 
 create index if not exists idx_anatomical_location_parent_id

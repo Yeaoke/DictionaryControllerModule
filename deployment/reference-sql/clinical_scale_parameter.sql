@@ -2,9 +2,9 @@
 create table if not exists data.clinical_scale_parameter (
     id                  bigint primary key,    -- ID: идентификатор Минздрава
     parent_id           bigint,                -- PARENT_ID: родительская запись
-    name                text not null,         -- NAME: название раздела или фактора
+    name                varchar(200) not null,         -- NAME: название раздела или фактора
     vital_parameter_id  bigint,                -- VITAL_PARAMETER: ID витального параметра
-    point               text,                  -- POINT: балльная оценка
+    point               varchar(100),                  -- POINT: балльная оценка
     interpretation_group_code bigint,         -- ID_INTERPRETATION: группировочный код
     
     grouping_scale      integer,               -- GROUPING_SCALE: группировка по шкалам
@@ -12,7 +12,7 @@ create table if not exists data.clinical_scale_parameter (
     is_deleted          char(1) default 'N' not null
                         check (is_deleted in ('Y', 'N')),
     display_order       numeric(10),           -- Локальный порядок отображения
-    search_synonym      text                   -- Локальные поисковые синонимы
+    search_synonym      varchar(100)                   -- Локальные поисковые синонимы
 );
 
 create index if not exists idx_clinical_scale_parameter_parent_id
