@@ -2,9 +2,9 @@
 create table if not exists data.icd10 (
     id                  bigint primary key,          -- ID: идентификатор Минздрава
     parent_id           bigint,                      -- ID_PARENT: родительская запись
-    code                text,                        -- MKB_CODE: код МКБ-10
-    name                text not null,               -- MKB_NAME: название
-    rec_code            text,                        -- REC_CODE: строковый код сортировки
+    code                varchar(100),                        -- MKB_CODE: код МКБ-10
+    name                varchar(200) not null,               -- MKB_NAME: название
+    rec_code            varchar(100),                        -- REC_CODE: строковый код сортировки
 
     additional_code     integer
                         check (additional_code in (1, 2)), -- ADDL_CODE: 1 — †, 2 — *
@@ -15,7 +15,7 @@ create table if not exists data.icd10 (
     is_deleted          char(1) default 'N' not null
                         check (is_deleted in ('Y', 'N')),
     display_order       numeric(10),                 -- Локальный порядок отображения
-    search_synonym      text                         -- Локальные поисковые синонимы
+    search_synonym      varchar(100)                         -- Локальные поисковые синонимы
 );
 
 create index if not exists idx_icd10_parent_id
