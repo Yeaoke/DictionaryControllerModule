@@ -1,7 +1,5 @@
 package com.example.app.loading.services;
 
-import java.io.IOException;
-import java.nio.file.*;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.json.JsonMapper;
-import tools.jackson.databind.DeserializationFeature;
 import com.example.app.integration.nsi.client.NsiMizdravClient;
 import com.example.app.loading.config.DictionaryRegistry;
 import com.example.app.loading.dto.*;
@@ -29,8 +25,6 @@ public class DictionaryImportService {
     private final String baseUrl;
     private final DictionaryLoadProperties properties;
     private final DictionaryImportCoordinator coordinator;
-
-    private final JsonMapper json = JsonMapper.builder().enable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS).build();
     
     public DictionaryImportService(
         DictionaryRegistry registry,
@@ -134,31 +128,6 @@ public class DictionaryImportService {
             }
     
             return apply.apply(new DictionarySnapshot(oid, passport.version(), passport.rowsCount(), rows), userId, baseUrl + "/rest/data?identifier=" + oid, expected);
-        }
-    }
-    public Optional<DictionaryLoadResultDTO> loadFile(String oid, Path file, Long userId) throws IOException {
-        if (userId == null) {
-            throw new IllegalArgumentException("userId required");
-        }
-        
-        var d = registry.require(oid);
-        try (var lease = coordinator.acquire(oid)) {
-            schema.validate(d);
-            
-            String expected = versions.findVersionByEntityName(d.entityName()).orElse(null);
-            
-            if (Files.size(file) > 20 * 1024 * 1024) {
-                throw new IllegalArgumentException("File exceeds 20 MiB");
-            }
-            DictionarySnapshot snapshot;
-            try (var in = new LimitedInputStream(Files.newInputStream(file), 20 * 1024 * 1024)) {
-                snapshot = json.readValue(in, DictionarySnapshot.class);
-            }
-            if (snapshot == null || !oid.equals(snapshot.oid())) {
-                throw new IllegalArgumentException("File OID differs from requested OID");
-            }
-            
-            return apply.apply(snapshot, userId, file.toAbsolutePath().normalize().toUri().toString(), expected);
         }
     }
 }

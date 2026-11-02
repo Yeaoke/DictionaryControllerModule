@@ -89,40 +89,7 @@ class DictionaryModuleIT {
     DictionarySnapshot snapshot(String name) throws Exception {
         return JsonMapper.builder().build().readValue(fixture(name).toFile(),DictionarySnapshot.class);
     }
-    @Test void routesTwoFilesThroughOneServiceAndKeepsDictionariesIsolated() throws Exception {
-        jdbc.execute("insert into data.patient_sex(id,name,display_order,search_synonym) values (1,'Old',99,'Local'),(3,'Absent',null,null)");
-        var direction = imports.loadFile(DIRECTION,fixture("direction-type"),7L).orElseThrow();
-        var sex = imports.loadFile(SEX,fixture("patient-sex"),7L).orElseThrow();
-        assertThat(direction.status()).isEqualTo("success");
-        assertThat(sex.status()).isEqualTo("success");
-        assertThat(direction.batchId()).isNotEqualTo(sex.batchId());
-        assertThat(sex.entityName()).isEqualTo("patient_sex");
-        assertThat(sex.rowsDeleted()).isEqualTo(1);
-        assertThat(jdbc.queryForObject("select display_order from data.patient_sex where id=1",Integer.class)).isEqualTo(99);
-        assertThat(jdbc.queryForObject("select search_synonym from data.patient_sex where id=1",String.class)).isEqualTo("Local");
-        assertThat(jdbc.queryForObject("select count(*) from data.dsa_raw_patient_sex where new_id=id",Integer.class)).isEqualTo(2);
-        assertThat(imports.loadFile(SEX,fixture("patient-sex"),7L)).isEmpty();
-        assertThat(jdbc.queryForObject("select count(*) from data.dsa_load_batch",Integer.class)).isEqualTo(2);
-    }
-    @Test void rejectsWrongFileOidAndStaleSnapshotWithoutChangingRaw() throws Exception {
-        assertThatThrownBy(() -> imports.loadFile(SEX,fixture("direction-type"),7L)).isInstanceOf(IllegalArgumentException.class);
-        jdbc.execute("insert into data.dsa_loaded_version(entity_name,version) values ('patient_sex','3')");
-        var s = snapshot("patient-sex");
-        assertThatThrownBy(() -> apply.apply(s,7L,"https://example.test","1")).isInstanceOf(IllegalStateException.class);
-        assertThat(jdbc.queryForObject("select count(*) from data.dsa_raw_patient_sex",Integer.class)).isZero();
-    }
-    @Test void partialKeepsVersionAndAbsentRows() throws Exception {
-        jdbc.execute("insert into data.patient_sex(id,name) values (3,'Absent')");
-        jdbc.execute("insert into data.dsa_loaded_version(entity_name,version) values ('patient_sex','old')");
-        jdbc.execute("CREATE FUNCTION data.reject_test_row() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF new.id=1 THEN RAISE EXCEPTION 'Rejected test row'; END IF; RETURN new; END $$");
-        jdbc.execute("CREATE TRIGGER reject_row BEFORE INSERT ON data.patient_sex FOR EACH ROW EXECUTE FUNCTION data.reject_test_row()");
-        var result = imports.loadFile(SEX,fixture("patient-sex"),7L).orElseThrow();
-        assertThat(result.status()).isEqualTo("partial");
-        assertThat(result.rowsRejected()).isEqualTo(1);
-        assertThat(jdbc.queryForObject("select version from data.dsa_loaded_version where entity_name='patient_sex'",String.class)).isEqualTo("old");
-        assertThat(jdbc.queryForObject("select is_deleted from data.patient_sex where id=3",String.class)).isEqualTo("N");
-        assertThat(jdbc.queryForObject("select reject_reason from data.dsa_raw_patient_sex where id=1",String.class)).contains("Rejected");
-    }
+    
     @Test void lateSqlFailureRollsBackRawAcceptedVersionAndJournal() throws Exception {
         jdbc.execute("insert into data.dsa_raw_patient_sex(id,name) values (99,'Previous raw')");
         jdbc.execute("alter table data.system_log add constraint force_failure check (false)");
