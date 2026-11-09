@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.*;
 @SpringBootTest
 @TestPropertySource(properties = {
     "spring.datasource.url=${TEST_POSTGRES_URL}", "spring.datasource.username=${TEST_POSTGRES_USERNAME}",
-    "spring.datasource.password=${TEST_POSTGRES_PASSWORD}", "nsi.minzdrav.user-key=test-key"
+    "spring.datasource.password=${TEST_POSTGRES_PASSWORD}"
 })
 class DictionaryModuleIT {
     static com.sun.net.httpserver.HttpServer nsiServer;
@@ -49,10 +49,10 @@ class DictionaryModuleIT {
 
     @Test void importsThroughHttpAndSkipsSecondDownloadOfSameVersion() {
         int before = dataRequests.get();
-        var result = imports.load(SEX, 7L).orElseThrow();
+        var result = imports.load(SEX, 7L, "test-key").orElseThrow();
         assertThat(result.status()).isEqualTo("success");
         assertThat(result.rowsInserted()).isEqualTo(2);
-        assertThat(imports.load(SEX, 7L)).isEmpty();
+        assertThat(imports.load(SEX, 7L, "test-key")).isEmpty();
         assertThat(dataRequests.get() - before).isEqualTo(1);
         assertThat(jdbc.queryForObject("select count(*) from data.dsa_load_batch", Integer.class)).isEqualTo(1);
         assertThat(jdbc.queryForObject("select version from data.dsa_loaded_version where entity_name='patient_sex'", String.class)).isEqualTo("test-http");

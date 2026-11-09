@@ -34,31 +34,31 @@ class DictionaryImportTest {
         return json.readValue("{\"total\":" + total + ",\"result\":\"OK\",\"list\":[[{\"column\":\"ID\",\"value\":" + id
             + "},{\"column\":\"NAME\",\"value\":\"Test\"}]]}", NsiDataPageResponse.class);
     }
-    void prepare() { when(client.getPassport(OID)).thenReturn(passport("2",2)); }
+    void prepare() { when(client.getPassport(OID, "test-key")).thenReturn(passport("2",2)); }
     @Test void dispatchesCompleteSnapshotByOid() {
         prepare();
-        when(client.getData(OID,"2",1,500,"ID","ASC")).thenReturn(page(1,2));
-        when(client.getData(OID,"2",2,500,"ID","ASC")).thenReturn(page(2,2));
-        service.load(OID,7L);
+        when(client.getData(OID,"2",1,500,"ID","ASC", "test-key")).thenReturn(page(1,2));
+        when(client.getData(OID,"2",2,500,"ID","ASC", "test-key")).thenReturn(page(2,2));
+        service.load(OID,7L, "test-key");
         verify(apply).apply(argThat(s -> s.oid().equals(OID) && s.rows().size()==2), eq(7L), anyString(), isNull());
     }
     @Test void duplicatePageAndMissingPageDoNotApply() {
         prepare();
-        when(client.getData(OID,"2",1,500,"ID","ASC")).thenReturn(page(1,2));
-        when(client.getData(OID,"2",2,500,"ID","ASC")).thenReturn(page(1,2));
-        assertThatThrownBy(() -> service.load(OID,7L)).isInstanceOf(IllegalStateException.class);
-        when(client.getData(OID,"2",2,500,"ID","ASC")).thenReturn(null);
-        assertThatThrownBy(() -> service.load(OID,7L)).isInstanceOf(IllegalStateException.class);
+        when(client.getData(OID,"2",1,500,"ID","ASC", "test-key")).thenReturn(page(1,2));
+        when(client.getData(OID,"2",2,500,"ID","ASC", "test-key")).thenReturn(page(1,2));
+        assertThatThrownBy(() -> service.load(OID,7L, "test-key")).isInstanceOf(IllegalStateException.class);
+        when(client.getData(OID,"2",2,500,"ID","ASC", "test-key")).thenReturn(null);
+        assertThatThrownBy(() -> service.load(OID,7L, "test-key")).isInstanceOf(IllegalStateException.class);
         verifyNoInteractions(apply);
     }
     @Test void changedPassportDoesNotApply() {
-        when(client.getPassport(OID)).thenReturn(passport("2",1),passport("3",1));
-        when(client.getData(OID,"2",1,500,"ID","ASC")).thenReturn(page(1,1));
-        assertThatThrownBy(() -> service.load(OID,7L)).isInstanceOf(IllegalStateException.class);
+        when(client.getPassport(OID, "test-key")).thenReturn(passport("2",1),passport("3",1));
+        when(client.getData(OID,"2",1,500,"ID","ASC", "test-key")).thenReturn(page(1,1));
+        assertThatThrownBy(() -> service.load(OID,7L, "test-key")).isInstanceOf(IllegalStateException.class);
         verifyNoInteractions(apply);
     }
     @Test void unknownOidNeverCallsNetwork() {
-        assertThatThrownBy(() -> service.load("unknown",7L)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> service.load("unknown",7L, "test-key")).isInstanceOf(IllegalArgumentException.class);
         verifyNoInteractions(client,apply);
     }
     @Test void rejectsDuplicateDefinitionsAndSqlIdentifiers() {

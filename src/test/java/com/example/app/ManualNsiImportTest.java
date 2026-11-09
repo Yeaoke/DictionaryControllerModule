@@ -22,7 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
         "spring.datasource.password=${POSTGRES_PASSWORD}",
         "spring.flyway.enabled=false",
         "nsi.minzdrav.base-url=https://nsi.rosminzdrav.ru/port",
-        "nsi.minzdrav.user-key=${NSI_USER_KEY}",
         "nsi.minzdrav.trust-store=${NSI_TRUST_STORE}",
         "nsi.minzdrav.trust-store-password=${NSI_TRUST_STORE_PASSWORD}"
     }
@@ -36,8 +35,9 @@ class ManualNsiImportIT {
     void loadSelectedDictionary() {
         String oid = System.getenv("DICTIONARY_OID");
         Long userId = Long.valueOf(System.getenv("DICTIONARY_USER_ID"));
+        String nsiUserKey = System.getenv("NSI_USER_KEY");
 
-        var result = importService.load(oid, userId);
+        var result = importService.load(oid, userId, nsiUserKey);
 
         if (result.isEmpty()) {
             System.out.println("Эта версия уже загружена");

@@ -23,7 +23,7 @@ class NsiMizdravClientTest {
     @Test
     void pinsVersionAndPreservesBasePath() {
         var api = client(200, "{\"result\":\"OK\",\"list\":[],\"total\":0}");
-        api.getData("1.2.3", "2.5", 1, 500, "ID", "ASC");
+        api.getData("1.2.3", "2.5", 1, 500, "ID", "ASC", "test-key");
         assertThat(captured.get().url().getQuery()).contains("version=2.5", "page=1");
     }
     private final AtomicInteger calls = new AtomicInteger();
@@ -41,14 +41,14 @@ class NsiMizdravClientTest {
                     return Mono.just(response.build());
                 });
             }).build();
-        return new NsiMizdravClient(webClient, "test-key");
+        return new NsiMizdravClient(webClient);
     }
 
     private Object invoke(NsiMizdravClient client, String operation) {
         return switch (operation) {
-            case "passport" -> client.getPassport("1.2.3");
-            case "data" -> client.getData("1.2.3", 0, 10, "ID", "asc");
-            case "versions" -> client.getVersions("1.2.3", 0, 10);
+            case "passport" -> client.getPassport("1.2.3", "test-key");
+            case "data" -> client.getData("1.2.3", 0, 10, "ID", "asc", "test-key");
+            case "versions" -> client.getVersions("1.2.3", 0, 10, "test-key");
             default -> throw new IllegalArgumentException(operation);
         };
     }
@@ -90,7 +90,7 @@ class NsiMizdravClientTest {
             {"result":"OK","oid":"1.2.3","fullName":"Dictionary","version":"2.0",
              "publishDate":"19.10.2026 12:00","createDate":"18.12.2016 00:00",
              "approveDate":"31.03.2029","lastUpdate":"19.10.2026 12:00"}
-            """).getPassport("1.2.3");
+            """).getPassport("1.2.3", "test-key");
         assertThat(response.version()).isEqualTo("2.0");
         assertThat(response.publishDate()).isEqualTo(java.time.LocalDateTime.of(2026, 10, 19, 12, 0));
         assertThat(response.createDate()).isEqualTo(java.time.LocalDateTime.of(2016, 12, 18, 0, 0));
@@ -104,7 +104,7 @@ class NsiMizdravClientTest {
     void readsDataValuesAndPaginationParameters() {
         var response = client(200, """
             {"result":"OK","total":1,"list":[[{"column":"ID","value":42},{"column":"NAME","value":"Test"}]]}
-            """).getData("1.2.3", 0, 10, "ID", "asc");
+            """).getData("1.2.3", 0, 10, "ID", "asc", "test-key");
         assertThat(response.list().getFirst().getFirst().value().asLong()).isEqualTo(42);
         assertThat(captured.get().url().getQuery()).contains("page=0", "size=10", "sorting=ID", "sortingDirection=ASC");
     }
@@ -113,14 +113,14 @@ class NsiMizdravClientTest {
     void acceptsEmptySuccessfulVersionList() {
         var response = client(200, """
             {"result":"OK","total":0,"list":[]}
-            """).getVersions("1.2.3", 0, 10);
+            """).getVersions("1.2.3", 0, 10, "test-key");
         assertThat(response.list()).isEmpty();
     }
 
     @Test
     void doesNotRetryBadRequest() {
         var client = client(400, "{}");
-        assertThatThrownBy(() -> client.getPassport("1.2.3"))
+        assertThatThrownBy(() -> client.getPassport("1.2.3", "test-key"))
             .isInstanceOf(WebClientResponseException.BadRequest.class);
         assertThat(calls.get()).isEqualTo(1);
     }
@@ -128,7 +128,7 @@ class NsiMizdravClientTest {
     @Test
     void doesNotRetryMalformedJson() {
         var client = client(200, "{invalid");
-        assertThatThrownBy(() -> client.getPassport("1.2.3"))
+        assertThatThrownBy(() -> client.getPassport("1.2.3", "test-key"))
             .isInstanceOf(org.springframework.core.codec.DecodingException.class);
         assertThat(calls.get()).isEqualTo(1);
     }
@@ -137,7 +137,7 @@ class NsiMizdravClientTest {
     @ValueSource(ints = {429, 503})
     void retriesTransientHttpErrorsTwice(int status) {
         var client = client(status, "{}");
-        assertThatThrownBy(() -> client.getPassport("1.2.3"))
+        assertThatThrownBy(() -> client.getPassport("1.2.3", "test-key"))
             .isInstanceOf(WebClientResponseException.class);
         assertThat(calls.get()).isEqualTo(3);
     }

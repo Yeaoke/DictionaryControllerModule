@@ -71,10 +71,15 @@ public class DictionaryImportService {
 
     public Optional<DictionaryLoadResultDTO> load(
         String oid,
-        Long userId
+        Long userId,
+        String nsiUserKey
     ) {
         if (userId == null) {
             throw new IllegalArgumentException("userId required");
+        }
+
+        if (nsiUserKey == null || nsiUserKey.isBlank()) {
+            throw new IllegalArgumentException("nsi_user_key required");
         }
         
         var d = registry.require(oid);
@@ -82,7 +87,7 @@ public class DictionaryImportService {
         try (var lease = coordinator.acquire(oid)) {
             schema.validate(d);
             String expected = versions.findVersionByEntityName(d.entityName()).orElse(null);
-            var passport = client.getPassport(oid);
+            var passport = client.getPassport(oid, nsiUserKey);
             
             if (passport == null || !oid.equals(passport.oid()) || passport.version() == null || passport.version().isBlank() || passport.rowsCount() == null || passport.rowsCount() < 1 || passport.rowsCount() > 100000) {
                 throw new IllegalStateException("Invalid passport OID/version/count");
@@ -98,7 +103,7 @@ public class DictionaryImportService {
             var keySources = d.columns().stream().filter(c -> d.keyColumns().contains(c.target())).map(c -> c.source()).toList();
             
             for (int page = 1; rows.size() < passport.rowsCount(); page++) {
-                var response = client.getData(oid, passport.version(), page, properties.pageSize(), d.sorting(), "ASC");
+                var response = client.getData(oid, passport.version(), page, properties.pageSize(), d.sorting(), "ASC", nsiUserKey);
                 if (response == null || response.total() == null || response.total().longValue() != passport.rowsCount() || response.list() == null || response.list().isEmpty() || response.list().size() > properties.pageSize()) {
                     throw new IllegalStateException("Incomplete NSI page " + page);
                 }
@@ -122,7 +127,7 @@ public class DictionaryImportService {
                     throw new IllegalStateException("NSI count changed");
                 }
             }
-            var after = client.getPassport(oid);
+            var after = client.getPassport(oid, nsiUserKey);
             if (after == null || !oid.equals(after.oid()) || !passport.version().equals(after.version()) || !passport.rowsCount().equals(after.rowsCount())) {
                 throw new IllegalStateException("NSI passport changed; retry");
             }
@@ -131,3 +136,4 @@ public class DictionaryImportService {
         }
     }
 }
+

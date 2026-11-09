@@ -10,7 +10,6 @@ import java.util.concurrent.TimeoutException;
 import javax.net.ssl.SSLException;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -40,32 +39,31 @@ public class NsiMizdravClient {
     private static final String GET_DICTIONARY_PASSPORT_STRUCTURE = "/rest/passport";
 
     private final WebClient webClient;
-    private final String userKey;
 
     public NsiMizdravClient(
-        @Qualifier("minzdravWebClient") WebClient webClient,
-        @Value("${nsi.minzdrav.user-key}") String userKey
+        @Qualifier("minzdravWebClient") WebClient webClient
     ) {
         this.webClient = webClient;
-        this.userKey = userKey;
     }
 
     public NsiPassportResponse getPassport(
-        String oid
+        String oid,
+        String nsiUserKey
     ) {
         return executeRequest(
                 webClient.get()
                     .uri(uriBuilder -> uriBuilder
                         .path(GET_DICTIONARY_PASSPORT_STRUCTURE)
                         .queryParam("identifier", oid)
-                        .queryParam("userKey", userKey)
+                        .queryParam("userKey", nsiUserKey)
                         .build()
                     )
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
                     .bodyToMono(NsiPassportResponse.class),
                     oid,
-                    "passport"
+                    "passport",
+                    nsiUserKey
                 );
     }
 
@@ -74,13 +72,21 @@ public class NsiMizdravClient {
         Integer page,
         Integer size,
         String sorting,
-        String sortingDirection
+        String sortingDirection,
+        String nsiUserKey
     ) {
-        return getData(oid, null, page, size, sorting, sortingDirection);
+        return getData(oid, null, page, size, sorting, sortingDirection, nsiUserKey);
     }
 
-    public NsiDataPageResponse getData(String oid, String version, Integer page,
-            Integer size, String sorting, String sortingDirection) {
+    public NsiDataPageResponse getData(
+        String oid,
+        String version,
+        Integer page,
+        Integer size,
+        String sorting,
+        String sortingDirection,
+        String nsiUserKey
+    ) {
         if (page != null && page < 0) {
             throw new IllegalArgumentException(
                 "Номер страницы не должен быть отрицательным"
@@ -113,7 +119,7 @@ public class NsiMizdravClient {
                             var builder = uriBuilder
                                 .path(GET_DICTIONARY_DATA)
                                 .queryParam("identifier", oid)
-                                .queryParam("userKey", userKey);
+                                .queryParam("userKey", nsiUserKey);
 
                             if (page != null) {
                                 builder.queryParam("page", page);
@@ -142,14 +148,16 @@ public class NsiMizdravClient {
                     .retrieve()
                     .bodyToMono(NsiDataPageResponse.class),
                     oid,
-                    "data"
+                    "data",
+                    nsiUserKey
                 );
     }
 
     public NsiVersionsResponse getVersions(
         String oid,
         Integer page,
-        Integer size
+        Integer size,
+        String nsiUserKey
     ) {
         if (page != null && page < 0) {
             throw new IllegalArgumentException(
@@ -169,7 +177,7 @@ public class NsiMizdravClient {
                         var builder = uriBuilder
                             .path(GET_DICTIONARIES_VERSIONS)
                             .queryParam("identifier", oid)
-                            .queryParam("userKey", userKey);
+                            .queryParam("userKey", nsiUserKey);
 
                         if (page != null) {
                             builder.queryParam("page", page);
@@ -186,12 +194,13 @@ public class NsiMizdravClient {
                     .retrieve()
                     .bodyToMono(NsiVersionsResponse.class),
                     oid,
-                    "versions"
+                    "versions",
+                    nsiUserKey
                 );
     }
 
-    private <T extends NsiResponse> T executeRequest(Mono<T> request, String oid, String operation) {
-        if (userKey == null || userKey.isBlank()) {
+    private <T extends NsiResponse> T executeRequest(Mono<T> request, String oid, String operation, String nsiUserKey) {
+        if (nsiUserKey == null || nsiUserKey.isBlank()) {
             throw new IllegalStateException("NSI_USER_KEY is required for API import");
         }
         return request
@@ -264,3 +273,4 @@ public class NsiMizdravClient {
         return transientNetworkFailure;
     }
 }
+
