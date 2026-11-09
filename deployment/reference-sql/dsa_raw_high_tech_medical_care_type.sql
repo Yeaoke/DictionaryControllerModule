@@ -1,0 +1,23 @@
+CREATE TABLE data.dsa_raw_high_tech_medical_care_type (
+    raw_row_id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id bigint,
+    name varchar(700),
+    name_id bigint,
+    profile_id bigint,
+    profile_name varchar(5000),
+    icd10_code varchar(5000),
+    patient_model_id bigint,
+    patient_model varchar(5000),
+    treatment_type_id bigint,
+    treatment_type varchar(5000),
+    treatment_method_id bigint,
+    treatment_method varchar(5000),
+    vmp_group integer,
+    part integer,
+    finance varchar(5000),
+    valid_from timestamp without time zone,
+    valid_to timestamp without time zone,
+    display_order numeric(10),
+    reject_reason varchar(5000),
+    new_id bigint
+);

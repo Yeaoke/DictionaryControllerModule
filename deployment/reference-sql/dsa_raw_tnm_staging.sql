@@ -1,0 +1,21 @@
+CREATE TABLE data.dsa_raw_tnm_staging (
+    raw_row_id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id bigint,
+    topography_name varchar(5000),
+    icdo_topography varchar(5000),
+    morphology varchar(5000),
+    stage varchar(5000),
+    tumor varchar(5000),
+    tumor_category_id bigint,
+    nodus varchar(5000),
+    nodus_category_id bigint,
+    metastasis varchar(5000),
+    metastasis_category_id bigint,
+    addition varchar(5000),
+    addition_category_id bigint,
+    classification integer,
+    tnm_version integer,
+    display_order numeric(10),
+    reject_reason varchar(5000),
+    new_id bigint
+);

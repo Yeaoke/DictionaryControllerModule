@@ -1,10 +1,9 @@
------------- icd10 ------------ 1.2.643.5.1.13.13.11.1005
 create table if not exists data.icd10 (
     id                  bigint primary key,          -- ID: идентификатор Минздрава
     parent_id           bigint,                      -- ID_PARENT: родительская запись
-    code                varchar(100),                        -- MKB_CODE: код МКБ-10
-    name                varchar(200) not null,               -- MKB_NAME: название
-    rec_code            varchar(100),                        -- REC_CODE: строковый код сортировки
+    code                varchar(5000),                        -- MKB_CODE: код МКБ-10
+    name                varchar(500) not null,               -- MKB_NAME: название
+    rec_code            varchar(5000),                        -- REC_CODE: строковый код сортировки
 
     additional_code     integer
                         check (additional_code in (1, 2)), -- ADDL_CODE: 1 — †, 2 — *
@@ -15,11 +14,5 @@ create table if not exists data.icd10 (
     is_deleted          char(1) default 'N' not null
                         check (is_deleted in ('Y', 'N')),
     display_order       numeric(10),                 -- Локальный порядок отображения
-    search_synonym      varchar(100)                         -- Локальные поисковые синонимы
+    search_synonym      varchar(5000)                         -- Локальные поисковые синонимы
 );
-
-create index if not exists idx_icd10_parent_id
-    on data.icd10 (parent_id);
-
-create index if not exists idx_icd10_code
-    on data.icd10 (code);
