@@ -56,33 +56,6 @@ public class DictionariesConfiguration {
 
 Принимающее приложение предоставляет `DataSource`, JDBC-менеджер транзакций и `WebClient.Builder` через Spring Boot auto-configuration. Глобальное сканирование всех пакетов библиотеки не требуется.
 
-Пример конфигурации приложения:
-
-```yaml
-spring:
-  config:
-    import: classpath:nsi-dictionaries.yaml
-  datasource:
-    url: ${POSTGRES_URL}
-    username: ${POSTGRES_USERNAME}
-    password: ${POSTGRES_PASSWORD}
-  flyway:
-    enabled: false # БД подготовлена отдельно; вариант применения миграций ниже.
-
-nsi:
-  minzdrav:
-    base-url: https://nsi.rosminzdrav.ru/port
-    user-key: ${NSI_USER_KEY}
-    trust-store: ${NSI_TRUST_STORE}
-    trust-store-password: ${NSI_TRUST_STORE_PASSWORD}
-
-dictionary:
-  loading:
-    page-size: 500
-    jdbc-batch-size: 500
-    max-concurrent-imports: 2
-```
-
 Файл truststore читается как путь файловой системы, а не `classpath:`-ресурс. `.env` сам по себе не загружается библиотекой: переменные должны быть переданы процессу IDE, оболочкой или средствами развёртывания.
 
 Принимающее приложение может предоставить собственный bean `WebClient` с именем `minzdravWebClient`; тогда штатный TLS-клиент библиотеки не создаётся.
